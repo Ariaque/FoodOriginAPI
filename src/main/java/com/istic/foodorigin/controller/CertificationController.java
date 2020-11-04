@@ -16,13 +16,13 @@ public class CertificationController {
     private CertificationService certificationService;
 
     @GetMapping(value = "/certifs", produces = "application/json")
-    public List<Certification> getAllCerifications () {
+    public List<Certification> getAllCertifications () {
         List<Certification> certifications = certificationService.getAllCertifications();
         return certifications;
     }
 
     @GetMapping (value = "/certif/{id}", produces = "application/json")
-    public Certification getLabelById(@PathVariable Long id) {
+    public Certification getCertifById(@PathVariable Long id) {
         Certification certif = certificationService.getCertificationById(id);
         return certif;
     }

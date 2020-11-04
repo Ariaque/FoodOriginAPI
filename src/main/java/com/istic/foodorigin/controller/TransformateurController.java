@@ -26,8 +26,8 @@ public class TransformateurController {
     }
 
     @PostMapping (value = "/transformateur", consumes = "application/json", produces = "application/json")
-    public Transformateur_FR saveTransformateur_FR (@RequestBody Transformateur_FR transformateur) {
-        Transformateur_FR transformateur_fr = transformateurService.saveTransformateur(transformateur);
+    public Transformateur_FR saveTransformateur (@RequestBody Transformateur_FR transformateur) {
+        Transformateur_FR transformateur_fr = transformateurService.saveTransformateur_FR(transformateur);
         return transformateur_fr;
     }
 }

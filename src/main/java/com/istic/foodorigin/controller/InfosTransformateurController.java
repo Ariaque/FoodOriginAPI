@@ -13,13 +13,13 @@ public class InfosTransformateurController {
 
     @GetMapping(value = "/infosTransformateur/{id}", produces = "application/json")
     public Infos_Transformateur getTransformateurById (@PathVariable Long id){
-        Infos_Transformateur infos = infosTransService.getInfosTransformateurById(id);
+        Infos_Transformateur infos = infosTransService.getTransformateurById(id);
         return infos;
     }
 
     @PostMapping(value = "/infosTransformateur", consumes = "application/json", produces = "application/json")
     public Infos_Transformateur saveTransformateur_FR (@RequestBody Infos_Transformateur infosTransformateur) {
-        Infos_Transformateur infosTrans = infosTransService.saveInfosTransformateur(infosTransformateur);
+        Infos_Transformateur infosTrans = infosTransService.saveTransformateur_FR(infosTransformateur);
         return infosTrans;
     }
 }
