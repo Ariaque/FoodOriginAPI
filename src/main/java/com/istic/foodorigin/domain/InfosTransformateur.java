@@ -1,12 +1,10 @@
-package com.istic.foodorigin.model;
+package com.istic.foodorigin.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Infos_Transformateur {
+@Table (name = "Infos_Transformateur")
+public class InfosTransformateur {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)

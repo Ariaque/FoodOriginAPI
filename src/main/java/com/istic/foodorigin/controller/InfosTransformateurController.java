@@ -1,7 +1,7 @@
 package com.istic.foodorigin.controller;
 
-import com.istic.foodorigin.model.Infos_Transformateur;
-import com.istic.foodorigin.service.Infos_TransformateurService;
+import com.istic.foodorigin.domain.InfosTransformateur;
+import com.istic.foodorigin.service.InfosTransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.*;
 public class InfosTransformateurController {
 
     @Autowired
-    private Infos_TransformateurService infosTransService;
+    private InfosTransformateurService infosTransService;
 
     @GetMapping(value = "/infosTransformateur/{id}", produces = "application/json")
-    public Infos_Transformateur getTransformateurById (@PathVariable Long id){
-        Infos_Transformateur infos = infosTransService.getTransformateurById(id);
+    public InfosTransformateur getTransformateurById (@PathVariable Long id){
+        InfosTransformateur infos = infosTransService.getTransformateurById(id);
         return infos;
     }
 
     @PostMapping(value = "/infosTransformateur", consumes = "application/json", produces = "application/json")
-    public Infos_Transformateur saveTransformateur_FR (@RequestBody Infos_Transformateur infosTransformateur) {
-        Infos_Transformateur infosTrans = infosTransService.saveTransformateur_FR(infosTransformateur);
+    public InfosTransformateur saveTransformateur_FR (@RequestBody InfosTransformateur infosTransformateur) {
+        InfosTransformateur infosTrans = infosTransService.saveTransformateur_FR(infosTransformateur);
         return infosTrans;
     }
 }

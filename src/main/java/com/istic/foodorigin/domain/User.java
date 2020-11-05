@@ -1,6 +1,5 @@
-package com.istic.foodorigin.model;
+package com.istic.foodorigin.domain;
 
-import com.istic.foodorigin.entity.UserRole;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +14,8 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private UserRole userRole = UserRole.USER;
-    private boolean locked = false;
-    private boolean enabled = false;
+  /*  private UserRole userRole = UserRole.USER;
+    private boolean enabled = false;*/
 
     public User () {}
 
@@ -37,15 +35,15 @@ public class User {
         return password;
     }
 
-    public UserRole getUserRole() {
+ /*   public UserRole getUserRole() {
         return userRole;
-    }
-
-    public boolean isLocked() {
-        return locked;
     }
 
     public boolean isEnabled() {
         return enabled;
+    }*/
+
+    public void setPassword (String password) {
+        this.password = password;
     }
 }

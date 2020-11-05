@@ -1,4 +1,4 @@
-package com.istic.foodorigin.model;
+package com.istic.foodorigin.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,16 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Label {
+public class Certification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String libelle;
 
-    public Label () {}
+    public Certification() {}
 
-    public Label (String libelle) {
+    public Certification(String libelle) {
         this.libelle = libelle;
     }
 
@@ -37,7 +37,7 @@ public class Label {
 
     @Override
     public String toString() {
-        return "Label{" +
+        return "Certification{" +
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
                 '}';

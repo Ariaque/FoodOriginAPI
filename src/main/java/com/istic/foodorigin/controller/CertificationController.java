@@ -1,6 +1,6 @@
 package com.istic.foodorigin.controller;
 
-import com.istic.foodorigin.model.Certification;
+import com.istic.foodorigin.domain.Certification;
 import com.istic.foodorigin.service.CertificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

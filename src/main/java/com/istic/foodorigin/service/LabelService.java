@@ -1,6 +1,6 @@
 package com.istic.foodorigin.service;
 
-import com.istic.foodorigin.model.Label;
+import com.istic.foodorigin.domain.Label;
 import com.istic.foodorigin.repository.LabelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

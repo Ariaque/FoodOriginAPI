@@ -1,14 +1,16 @@
-package com.istic.foodorigin.model;
+package com.istic.foodorigin.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Transformateur_FR {
+@Table (name = "Transformateur_FR")
+public class TransformateurFR {
 
     @Id
     private Long id;
-    private int department;
+    private int departement;
     private long num_agrement;
     private String nom;
     private String adresse;
@@ -18,11 +20,11 @@ public class Transformateur_FR {
     private String espece;
     private boolean est_premium;
 
-    public Transformateur_FR () {}
+    public TransformateurFR() {}
 
-    public Transformateur_FR(Long id, int department, long num_agrement, String nom, String adresse, int code_postal, String ville, String activite, String espece, boolean est_premium) {
+    public TransformateurFR(Long id, int department, long num_agrement, String nom, String adresse, int code_postal, String ville, String activite, String espece, boolean est_premium) {
         this.id = id;
-        this.department = department;
+        this.departement = department;
         this.num_agrement = num_agrement;
         this.nom = nom;
         this.adresse = adresse;
@@ -42,11 +44,11 @@ public class Transformateur_FR {
     }
 
     public int getDepartment() {
-        return department;
+        return departement;
     }
 
     public void setDepartment(int department) {
-        this.department = department;
+        this.departement = department;
     }
 
     public long getNum_agrement() {
@@ -117,7 +119,7 @@ public class Transformateur_FR {
     public String toString() {
         return "Transformateur_FR{" +
                 "id='" + id + '\'' +
-                ", department=" + department +
+                ", department=" + departement +
                 ", num_agrement=" + num_agrement +
                 ", nom='" + nom + '\'' +
                 ", adresse='" + adresse + '\'' +

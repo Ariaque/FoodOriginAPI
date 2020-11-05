@@ -1,6 +1,6 @@
 package com.istic.foodorigin.controller;
 
-import com.istic.foodorigin.model.Label;
+import com.istic.foodorigin.domain.Label;
 import com.istic.foodorigin.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
