@@ -5,22 +5,22 @@ import com.istic.foodorigin.repository.LabelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LabelService {
 
     @Autowired
-    private LabelRepository repository;
+    private LabelRepository labelRepository;
 
-    public List<Label> getAllLabels () {
-        List<Label> labels = repository.getAllLabels();
+    public Iterable<Label> getAllLabels () {
+        Iterable<Label> labels = labelRepository.findAll();
         return labels;
     }
 
-    public Label getLabelById(Long id) {
-        Label label = repository.getLabelById(id);
-        return label;
+    public Label getLabelById(Integer id) {
+        Optional<Label> label = labelRepository.findById(id);
+        return label.get();
     }
 
 }

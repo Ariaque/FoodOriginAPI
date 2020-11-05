@@ -1,29 +1,25 @@
 package com.istic.foodorigin.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table (name = "label")
 public class Label {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column (name = "id")
+    private Integer id;
+    @Column (name = "libelle")
     private String libelle;
 
     public Label () {}
 
-    public Label (String libelle) {
-        this.libelle = libelle;
-    }
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
