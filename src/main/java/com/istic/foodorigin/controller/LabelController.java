@@ -3,11 +3,7 @@ package com.istic.foodorigin.controller;
 import com.istic.foodorigin.domain.Label;
 import com.istic.foodorigin.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,8 +23,13 @@ public class LabelController {
     }
 
     @GetMapping (path = "/label/{id}", produces = "application/json")
-    public Label getLabelById(@PathVariable Integer id) {
+    public Label getLabelById(@PathVariable Long id) {
         Label label = labelService.getLabelById(id);
         return label;
+    }
+
+    @PostMapping (path = "/label", consumes = "application/json")
+    public void postLabel (@RequestBody Label label) {
+        labelService.saveLabel(label);
     }
 }
