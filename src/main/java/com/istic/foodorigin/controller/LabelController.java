@@ -10,25 +10,26 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
+@RequestMapping("/label")
 public class LabelController {
 
     @Autowired
     private LabelService labelService;
 
-    @GetMapping(path = "/labels", produces = "application/json")
+    @GetMapping(path = "/all", produces = "application/json")
     public List<Label> getAllLabel () {
         Iterable<Label> itLab = labelService.getAllLabels();
         List <Label> labels = StreamSupport.stream(itLab.spliterator(), false).collect(Collectors.toList());
         return labels;
     }
 
-    @GetMapping (path = "/label/{id}", produces = "application/json")
+    @GetMapping (path = "/{id}", produces = "application/json")
     public Label getLabelById(@PathVariable Long id) {
         Label label = labelService.getLabelById(id);
         return label;
     }
 
-    @PostMapping (path = "/label", consumes = "application/json")
+    @PostMapping (consumes = "application/json")
     public void postLabel (@RequestBody Label label) {
         labelService.saveLabel(label);
     }
