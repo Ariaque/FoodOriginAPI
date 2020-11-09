@@ -13,7 +13,7 @@ public class InfosTransformateurController {
     private InfosTransformateurService infosService;
 
     @GetMapping (path = "/{id}", produces = "application/json")
-    public InfosTransformateur getInfosById (Long id) {
+    public InfosTransformateur getInfosById (@PathVariable Long id) {
         InfosTransformateur infosTransformateur = infosService.getInfosById(id);
         return infosTransformateur;
     }
