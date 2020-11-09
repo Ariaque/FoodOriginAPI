@@ -26,9 +26,4 @@ public class LabelService {
         }
         return ret;
     }
-
-    public void saveLabel (Label label) {
-        labelRepository.save(label);
-    }
-
 }

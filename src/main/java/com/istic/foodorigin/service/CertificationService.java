@@ -27,7 +27,4 @@ public class CertificationService {
         return ret;
     }
 
-    public void saveCertification (Certification certification) {
-        certificationRepository.save(certification);
-    }
 }

@@ -26,9 +26,4 @@ public class CertificationController {
     public Certification getCertifById (@PathVariable Long id) {
         return certificationService.getCertificationById(id);
     }
-
-    @PostMapping (path = "/certification", consumes = "application/json")
-    public void postCertification (@RequestBody Certification certification) {
-        certificationService.saveCertification(certification);
-    }
 }
