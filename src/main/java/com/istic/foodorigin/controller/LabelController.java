@@ -19,8 +19,6 @@ public class LabelController {
     private LabelService labelService;
 
     @GetMapping(path = "/all", produces = "application/json")
-    public List<Label> getAllLabel () {
-    @GetMapping(path = "/labels", produces = "application/json")
     public Set<Label> getAllLabel () {
         Iterable<Label> itLab = labelService.getAllLabels();
         List <Label> labels = StreamSupport.stream(itLab.spliterator(), false).collect(Collectors.toList());
