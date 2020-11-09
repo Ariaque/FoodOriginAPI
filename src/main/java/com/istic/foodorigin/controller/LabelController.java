@@ -12,11 +12,14 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
+@RequestMapping("/label")
 public class LabelController {
 
     @Autowired
     private LabelService labelService;
 
+    @GetMapping(path = "/all", produces = "application/json")
+    public List<Label> getAllLabel () {
     @GetMapping(path = "/labels", produces = "application/json")
     public Set<Label> getAllLabel () {
         Iterable<Label> itLab = labelService.getAllLabels();
@@ -25,7 +28,7 @@ public class LabelController {
         return ret;
     }
 
-    @GetMapping (path = "/label/{id}", produces = "application/json")
+    @GetMapping (path = "/{id}", produces = "application/json")
     public Label getLabelById(@PathVariable Long id) {
         Label label = labelService.getLabelById(id);
         return label;

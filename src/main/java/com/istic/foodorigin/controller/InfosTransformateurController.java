@@ -5,20 +5,20 @@ import com.istic.foodorigin.service.InfosTransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
+@RequestMapping("/infoTransformateur")
 public class InfosTransformateurController {
 
     @Autowired
     private InfosTransformateurService infosService;
 
-    @GetMapping (path = "/infoTransformateur/{id}", produces = "application/json")
-    public InfosTransformateur getInfosById (@PathVariable Long id) {
+    @GetMapping (path = "/{id}", produces = "application/json")
+    public InfosTransformateur getInfosById (Long id) {
         InfosTransformateur infosTransformateur = infosService.getInfosById(id);
         return infosTransformateur;
     }
 
-    @PostMapping (path = "/infosTransformateur", consumes = "application/json")
+    @PostMapping (consumes = "application/json")
     public void saveInfosTrans (@RequestBody InfosTransformateur infos) {
         infosService.saveInfos(infos);
     }

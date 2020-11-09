@@ -10,19 +10,20 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
+@RequestMapping(path="/certification")
 public class CertificationController {
 
     @Autowired
     private CertificationService certificationService;
 
-    @GetMapping (path = "/certifications", produces = "application/json")
+    @GetMapping (path = "/all", produces = "application/json")
     public List<Certification> getAll () {
         Iterable <Certification> itCertif = certificationService.getAllCertifications();
         List <Certification> ret = StreamSupport.stream(itCertif.spliterator(), false).collect(Collectors.toList());
         return ret;
     }
 
-    @GetMapping (path = "/certification/{id}", produces = "application/json")
+    @GetMapping (path = "/{id}", produces = "application/json")
     public Certification getCertifById (@PathVariable Long id) {
         return certificationService.getCertificationById(id);
     }
