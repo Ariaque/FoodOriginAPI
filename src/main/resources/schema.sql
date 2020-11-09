@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS label (
     id SERIAL NOT NULL,
-    libelle VARCHAR (255) NOT NULL UNIQUE,
+    libelle VARCHAR (255) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS type_transformateur (
 
 CREATE TABLE IF NOT EXISTS infos_transformateur (
     id SERIAL NOT NULL,
-  --  fk_compte BIGINT UNSIGNED,
+  --  fk_compte BIGINT UNSIGNED, Compte ou transformateur ?
     description VARCHAR (255),
     nombre_employes VARCHAR (255),
     url_site VARCHAR (255),
@@ -33,6 +33,15 @@ CREATE TABLE IF NOT EXISTS infos_transformateur (
    -- CONSTRAINT fkGroupe FOREIGN KEY (fk_groupe) REFERENCES transformateur (id)
    -- ON DELETE CASCADE ON UPDATE RESTRICT
 );
+
+CREATE TABLE IF NOT EXISTS infos_transformateur_label (
+    fk_infos BIGINT UNSIGNED,
+    fk_label  BIGINT UNSIGNED,
+    PRIMARY KEY (fk_infos, fk_label)
+);
+
+ALTER TABLE infos_transformateur_label ADD FOREIGN KEY (fk_infos) REFERENCES infos_transformateur (id);
+ALTER TABLE infos_transformateur_label ADD FOREIGN KEY (fk_label) REFERENCES label (id);
 
 --CREATE TABLE IF NOT EXISTS compte (
   --  id SERIAL NOT NULL,

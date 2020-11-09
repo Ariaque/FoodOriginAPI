@@ -1,12 +1,15 @@
 package com.istic.foodorigin.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Label {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String libelle;
 
@@ -34,5 +37,18 @@ public class Label {
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Label label = (Label) o;
+        return Objects.equals(libelle, label.libelle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(libelle);
     }
 }

@@ -18,8 +18,8 @@ public class Transformateur {
     private String espece;
     private String latitude;
     private String longitude;
-    @OneToOne
-    private InfosTransformateur infosT;
+    @Transient
+    private InfosTransformateur infosTransformateur;
 
     public Transformateur () {
     }
@@ -118,13 +118,5 @@ public class Transformateur {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
-
-    public InfosTransformateur getInfosT() {
-        return infosT;
-    }
-
-    public void setInfosT(InfosTransformateur infosT) {
-        this.infosT = infosT;
     }
 }

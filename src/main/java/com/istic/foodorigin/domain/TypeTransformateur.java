@@ -1,12 +1,13 @@
 package com.istic.foodorigin.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.lang.reflect.Type;
 
 @Entity
+@Table (name = TypeTransformateur.TABLE_NAME)
 public class TypeTransformateur {
+
+    public static final String TABLE_NAME = "typeTransformateur";
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
