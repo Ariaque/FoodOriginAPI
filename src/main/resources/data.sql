@@ -11,3 +11,9 @@ INSERT INTO certification (libelle) VALUES ('Certification ISO 22000') ON DUPLIC
 INSERT INTO certification (libelle) VALUES ('Certification ISO 14001') ON DUPLICATE KEY UPDATE libelle = 'Certification ISO 14001';
 INSERT INTO certification (libelle) VALUES ('Certification ISO 18001') ON DUPLICATE KEY UPDATE libelle = 'Certification ISO 18001';
 INSERT INTO certification (libelle) VALUES ('Certification ISO 50001') ON DUPLICATE KEY UPDATE libelle = 'Certification ISO 50001';
+
+
+--Fill type_transformateur table
+INSERT INTO type_transformateur (libelle) VALUES ('Industriel') ON DUPLICATE KEY UPDATE libelle = 'Industriel';
+INSERT INTO type_transformateur (libelle) VALUES ('Artisan') ON DUPLICATE KEY UPDATE libelle = 'Artisan';
+INSERT INTO type_transformateur (libelle) VALUES ('Transformateur') ON DUPLICATE KEY UPDATE libelle = 'Transformateur';

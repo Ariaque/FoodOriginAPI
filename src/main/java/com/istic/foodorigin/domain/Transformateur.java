@@ -1,9 +1,6 @@
 package com.istic.foodorigin.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Transformateur {
@@ -21,6 +18,8 @@ public class Transformateur {
     private String espece;
     private String latitude;
     private String longitude;
+    @OneToOne
+    private InfosTransformateur infosT;
 
     public Transformateur () {
     }
@@ -119,5 +118,13 @@ public class Transformateur {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public InfosTransformateur getInfosT() {
+        return infosT;
+    }
+
+    public void setInfosT(InfosTransformateur infosT) {
+        this.infosT = infosT;
     }
 }

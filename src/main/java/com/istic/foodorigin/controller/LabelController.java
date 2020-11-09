@@ -28,9 +28,4 @@ public class LabelController {
         Label label = labelService.getLabelById(id);
         return label;
     }
-
-    @PostMapping (consumes = "application/json")
-    public void postLabel (@RequestBody Label label) {
-        labelService.saveLabel(label);
-    }
 }

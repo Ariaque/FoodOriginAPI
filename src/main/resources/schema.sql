@@ -1,14 +1,53 @@
 CREATE TABLE IF NOT EXISTS label (
     id SERIAL NOT NULL,
-    libelle CHAR (255) NOT NULL UNIQUE,
+    libelle VARCHAR (255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS certification (
     id SERIAL NOT NULL,
-    libelle CHAR (255) NOT NULL UNIQUE,
+    libelle VARCHAR (255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS type_transformateur (
+    id SERIAL NOT NULL,
+    libelle VARCHAR (255) NOT NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS infos_transformateur (
+    id SERIAL NOT NULL,
+  --  fk_compte BIGINT UNSIGNED,
+    description VARCHAR (255),
+    nombre_employes VARCHAR (255),
+    url_site VARCHAR (255),
+    url_facebook VARCHAR (255),
+    url_twitter VARCHAR (255),
+    url_instagram VARCHAR (255),
+    appartient_groupe TINYINT (1),
+    fk_groupe BIGINT UNSIGNED,
+    PRIMARY KEY (id)
+   -- CONSTRAINT constraintFkCompte FOREIGN KEY (fk_compte) REFERENCES compte (id)
+    --ON DELETE CASCADE ON UPDATE RESTRICT
+   -- CONSTRAINT fkGroupe FOREIGN KEY (fk_groupe) REFERENCES transformateur (id)
+   -- ON DELETE CASCADE ON UPDATE RESTRICT
+);
+
+--CREATE TABLE IF NOT EXISTS compte (
+  --  id SERIAL NOT NULL,
+    --username VARCHAR (255) NOT NULL UNIQUE,
+    --password VARCHAR (255) NOT NULL,
+    --fk_transformateur INT UNSIGNED,
+    --fk_typeT BIGINT UNSIGNED,
+    --estAdmin TINYINT (1),
+    --estActif TINYINT (1),
+  --  CONSTRAINT fkTrans FOREIGN KEY (fk_transformateur) REFERENCES transformateur (id)
+ --   ON DELETE CASCADE ON UPDATE RESTRICT,
+   -- CONSTRAINT fkType FOREIGN KEY (fk_typeT) REFERENCES type_transformateur (id)
+   -- ON DELETE CASCADE ON UPDATE RESTRICT,
+   -- PRIMARY KEY (id)
+--);
 
 
 --CREATE TABLE IF NOT EXISTS transformateur (
