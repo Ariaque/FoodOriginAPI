@@ -15,7 +15,7 @@ public class TransformateurController {
     @Autowired
     private TransformateurService transformateurService;
 
-    @GetMapping (path = "/transformateur/{id}", produces = "application/json")
+    @GetMapping (path = "/{id}", produces = "application/json")
     public Transformateur getTransformateurById (@PathVariable Integer id) {
         return transformateurService.getTransformateur(id);
     }
