@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
+import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,6 +51,9 @@ public class AuthController {
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    TransformateurService transformateurService;
 
     @PostMapping(value = "/signin", consumes = "application/json")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -108,6 +112,9 @@ public class AuthController {
         }
 
         user.setRoles(roles);
+        user.setUserActivation(false);
+        user.setTypeTransformateur(signUpRequest.getTypeTransformateur());
+        user.setSiret(signUpRequest.getSiret());
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

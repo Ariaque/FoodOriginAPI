@@ -1,5 +1,10 @@
 package com.istic.foodorigin.payload.response;
 
+import com.istic.foodorigin.models.Transformateur;
+
+import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class JwtResponse {
@@ -8,6 +13,10 @@ public class JwtResponse {
     private Long id;
     private String username;
     private List<String> roles;
+    private Transformateur transformateur;
+    private Boolean isActivated;
+    private Long siret;
+    private String typeTransformateur;
 
     public JwtResponse(String accessToken, Long id, String username, List<String> roles) {
         this.token = accessToken;
@@ -46,9 +55,5 @@ public class JwtResponse {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public List<String> getRoles() {
-        return roles;
     }
 }

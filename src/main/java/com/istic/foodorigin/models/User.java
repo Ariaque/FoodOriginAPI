@@ -17,6 +17,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
+    @Size(max = 20)
     private Long id;
 
     @Email
@@ -33,6 +34,22 @@ public class User {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(name = "id_transformateur")
+    private Transformateur transformateur;
+
+    @Column(columnDefinition="tinyint(1) default 0", name="is_activated")
+    @NotBlank
+    private Boolean isActivated;
+
+    @NotBlank
+    @Size(min = 14, max = 14)
+    private Long siret;
+
+    @NotBlank
+    @Size(max = 250)
+    private String typeTransformateur;
 
     public User() {
     }
@@ -72,5 +89,37 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Transformateur getTransformateur() {
+        return transformateur;
+    }
+
+    public void setTransformateur(Transformateur transformateur) {
+        this.transformateur = transformateur;
+    }
+
+    public Boolean isActivated() {
+        return isActivated;
+    }
+
+    public void setUserActivation(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
+
+    public Long getSiret() {
+        return siret;
+    }
+
+    public void setSiret(Long siret) {
+        this.siret = siret;
+    }
+
+    public String getTypeTransformateur() {
+        return typeTransformateur;
+    }
+
+    public void setTypeTransformateur(String typeTransformateur) {
+        this.typeTransformateur = typeTransformateur;
     }
 }
