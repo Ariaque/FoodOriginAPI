@@ -27,13 +27,17 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur (
     url_instagram VARCHAR (255),
     appartient_groupe TINYINT (1),
     fk_groupe BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id),
+    FOREIGN KEY (fk_groupe) REFERENCES foodOrigin_transformateur (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_label (
     fk_infos BIGINT UNSIGNED NOT NULL,
     fk_label BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (fk_infos, fk_label)
+    PRIMARY KEY (fk_infos, fk_label),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_label) REFERENCES foodOrigin_label (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
@@ -50,12 +54,6 @@ CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
    latitude VARCHAR (255),
    longitude VARCHAR (255)
 ) ENGINE=InnoDB;
-
-ALTER TABLE foodOrigin_infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id);
-ALTER TABLE foodOrigin_infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_label) REFERENCES foodOrigin_label (id);
-
-ALTER TABLE foodOrigin_infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id);
-ALTER TABLE foodOrigin_infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_groupe) REFERENCES foodOrigin_transformateur (id);
 
 --CREATE TABLE IF NOT EXISTS users (
     -- user_id SERIAL NOT NULL,
