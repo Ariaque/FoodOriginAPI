@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
+import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,6 +52,9 @@ public class AuthController {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    TransformateurService transformateurService;
+
     @PostMapping(value = "/signin", consumes = "application/json")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -71,8 +75,8 @@ public class AuthController {
                 roles));
     }
 
-    @PostMapping(value = "/signup", consumes = "application/json")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    @PostMapping(value = "/signup/{siret}", consumes = "application/json")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, @PathVariable String siret) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -108,6 +112,9 @@ public class AuthController {
         }
 
         user.setRoles(roles);
+        user.setUserActivation(false);
+        user.setTypeTransformateur(signUpRequest.getTypeTransformateur());
+        user.setTransformateur(transformateurService.getTransformateurBySiret(siret));
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
