@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.istic.foodorigin.models.Transformateur;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,14 @@ public class UserDetailsImpl implements UserDetails {
 
     @JsonIgnore
     private String password;
+
+    private Transformateur transformateur;
+
+    private Boolean isActivated;
+
+    private Long siret;
+
+    private String typeTransformateur;
 
     private Collection<? extends GrantedAuthority> authorities;
 

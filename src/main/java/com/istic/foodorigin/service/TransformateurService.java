@@ -25,9 +25,9 @@ public class TransformateurService {
         return ret;
     }
 
-    public Long getIdBySiret (String siret) {
+    public Transformateur getTransformateurBySiret(String siret) {
         List <Transformateur> transformateurs = transformateurRepository.findBySiret(siret);
-        Long ret = transformateurs.get(0).getId();
+        Transformateur ret = transformateurs.get(0);
         return ret;
     }
 }
