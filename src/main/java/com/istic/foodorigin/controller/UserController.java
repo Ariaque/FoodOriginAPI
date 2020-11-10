@@ -17,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(path = "/all", produces = "application/json")
-    public Set<User> getAllLabel() {
+    public Set<User> getAllUsers() {
         Iterable<User> itLab = userService.getAllUsers();
         return StreamSupport.stream(itLab.spliterator(), false).collect(Collectors.toSet());
     }
