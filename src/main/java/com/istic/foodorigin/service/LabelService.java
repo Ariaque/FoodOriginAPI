@@ -18,9 +18,12 @@ public class LabelService {
         return labels;
     }
 
-    public Label getLabelById(Integer id) {
+    public Label getLabelById(Long id) {
+        Label ret = null;
         Optional<Label> label = labelRepository.findById(id);
-        return label.get();
+        if (label.isPresent()) {
+            ret = label.get();
+        }
+        return ret;
     }
-
 }

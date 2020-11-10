@@ -1,19 +1,20 @@
 package com.istic.foodorigin.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.lang.reflect.Type;
 
 @Entity
-public class Label {
+@Table (name = TypeTransformateur.TABLE_NAME)
+public class TypeTransformateur {
+
+    public static final String TABLE_NAME = "typeTransformateur";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
     private String libelle;
 
-    public Label () {}
+    public TypeTransformateur() {}
 
     public Long getId() {
         return id;
@@ -33,22 +34,9 @@ public class Label {
 
     @Override
     public String toString() {
-        return "Label{" +
+        return "Type_Transformateur{" +
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Label label = (Label) o;
-        return Objects.equals(libelle, label.libelle);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(libelle);
     }
 }
