@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table (name = "infosTransformateur")
+@Table (name = "foodOrigin_infosTransformateur")
 public class InfosTransformateur {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -23,7 +23,7 @@ public class InfosTransformateur {
     @JoinColumn (name = "fk_groupe")
     private Transformateur groupe;
     @ManyToMany
-    @JoinTable (name = "infosTransformateur_label",
+    @JoinTable (name = "foodOrigin_infosTransformateur_label",
                 joinColumns = @JoinColumn (name = "fk_infos"),
                 inverseJoinColumns = @JoinColumn (name = "fk_label"))
     private Set<Label> labels;
