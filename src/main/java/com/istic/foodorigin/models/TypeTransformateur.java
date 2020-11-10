@@ -1,19 +1,19 @@
-package com.istic.foodorigin.domain;
+package com.istic.foodorigin.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Certification {
+@Table (name = TypeTransformateur.TABLE_NAME)
+public class TypeTransformateur {
+
+    public static final String TABLE_NAME = "typeTransformateur";
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
     private String libelle;
 
-    public Certification () {}
+    public TypeTransformateur() {}
 
     public Long getId() {
         return id;
@@ -33,7 +33,7 @@ public class Certification {
 
     @Override
     public String toString() {
-        return "Certification{" +
+        return "Type_Transformateur{" +
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
                 '}';

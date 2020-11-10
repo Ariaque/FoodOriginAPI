@@ -1,6 +1,6 @@
 package com.istic.foodorigin.service;
 
-import com.istic.foodorigin.domain.Transformateur;
+import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.repository.TransformateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

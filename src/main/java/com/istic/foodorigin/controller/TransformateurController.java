@@ -1,6 +1,6 @@
 package com.istic.foodorigin.controller;
 
-import com.istic.foodorigin.domain.Transformateur;
+import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
