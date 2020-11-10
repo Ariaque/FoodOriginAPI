@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table (name = "label")
+@Table (name = "foodOrigin_label")
 public class Label {
 
     @Id

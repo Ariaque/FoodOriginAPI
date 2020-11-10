@@ -3,7 +3,7 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "typeTransformateur")
+@Table (name = "foodOrigin_typeTransformateur")
 public class TypeTransformateur {
 
     @Id

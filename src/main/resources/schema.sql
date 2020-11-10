@@ -1,22 +1,22 @@
-CREATE TABLE IF NOT EXISTS label (
+CREATE TABLE IF NOT EXISTS foodOrigin_label (
     id SERIAL NOT NULL,
     libelle VARCHAR (255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS certification (
+CREATE TABLE IF NOT EXISTS foodOrigin_certification (
     id SERIAL NOT NULL,
     libelle VARCHAR (255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS typeTransformateur (
+CREATE TABLE IF NOT EXISTS foodOrigin_typeTransformateur (
     id SERIAL NOT NULL,
     libelle VARCHAR (255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS infosTransformateur (
+CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur (
     id SERIAL NOT NULL,
     fk_transformateur BIGINT UNSIGNED NOT NULL,
     description VARCHAR (255),
@@ -30,17 +30,32 @@ CREATE TABLE IF NOT EXISTS infosTransformateur (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS infosTransformateur_label (
+CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_label (
     fk_infos BIGINT UNSIGNED NOT NULL,
     fk_label BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (fk_infos, fk_label)
 ) ENGINE=InnoDB;
 
-ALTER TABLE infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_infos) REFERENCES infosTransformateur (id);
-ALTER TABLE infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_label) REFERENCES label (id);
+CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
+   id SERIAL NOT NULL,
+   num_agrement VARCHAR(255) NOT NULL,
+   siret VARCHAR (255) NOT NULL,
+   raison_sociale VARCHAR (255) NOT NULL,
+   adresse VARCHAR (255) NOT NULL,
+   code_postal VARCHAR (255) NOT NULL,
+   commune VARCHAR (255) NOT NULL,
+   categorie VARCHAR (255),
+   act_associees VARCHAR (255),
+   espece VARCHAR (255),
+   latitude VARCHAR (255),
+   longitude VARCHAR (255)
+) ENGINE=InnoDB;
 
---ALTER TABLE infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_transformateur) REFERENCES transformateur (id);
---ALTER TABLE infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_groupe) REFERENCES transformateur (id);
+ALTER TABLE foodOrigin_infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id);
+ALTER TABLE foodOrigin_infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_label) REFERENCES foodOrigin_label (id);
+
+ALTER TABLE foodOrigin_infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id);
+ALTER TABLE foodOrigin_infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_groupe) REFERENCES foodOrigin_transformateur (id);
 
 --CREATE TABLE IF NOT EXISTS users (
     -- user_id SERIAL NOT NULL,
@@ -53,17 +68,3 @@ ALTER TABLE infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_label) REFE
 --);
 
 
---CREATE TABLE IF NOT EXISTS transformateur (
-   -- id SERIAL NOT NULL,
-   -- num_agrement VARCHAR(255) NOT NULL,
-    --siret VARCHAR (255) NOT NULL,
-   -- raison_sociale VARCHAR (255) NOT NULL,
-   -- adresse VARCHAR (255) NOT NULL,
-   -- code_postal VARCHAR (255) NOT NULL,
-  --  commune VARCHAR (255) NOT NULL,
-   -- categorie VARCHAR (255),
-   -- act_associees VARCHAR (255),
-   -- espece VARCHAR (255),
-   -- latitude VARCHAR (255),
-  --  longitude VARCHAR (255)
---);

@@ -3,7 +3,7 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "certification")
+@Table (name = "foodOrigin_certification")
 public class Certification {
 
     @Id

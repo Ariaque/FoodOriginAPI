@@ -3,7 +3,7 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "transformateur")
+@Table (name = "foodOrigin_transformateur")
 public class Transformateur {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
