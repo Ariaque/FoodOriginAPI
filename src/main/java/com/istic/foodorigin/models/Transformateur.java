@@ -3,10 +3,11 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 
 @Entity
+@Table (name = "foodOrigin_transformateur")
 public class Transformateur {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String num_agrement;
     private String siret;
     private String raison_sociale;
@@ -24,11 +25,11 @@ public class Transformateur {
     public Transformateur () {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

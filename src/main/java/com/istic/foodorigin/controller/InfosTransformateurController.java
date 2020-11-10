@@ -19,7 +19,14 @@ public class InfosTransformateurController {
     }
 
     @PostMapping (consumes = "application/json")
-    public void saveInfosTrans (@RequestBody InfosTransformateur infos) {
+    public String saveInfosTrans (@RequestBody InfosTransformateur infos) {
         infosService.saveInfos(infos);
+        return "Informations ajoutées";
+    }
+
+    @GetMapping (path = "transformateur/{id}", produces = "application/json")
+    public InfosTransformateur getInfosByTransformateur (@PathVariable Long id) {
+        InfosTransformateur infosTransformateur = infosService.getInfosByTransformateur (id);
+        return infosTransformateur;
     }
 }
