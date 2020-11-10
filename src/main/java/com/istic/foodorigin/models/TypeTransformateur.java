@@ -1,7 +1,6 @@
-package com.istic.foodorigin.domain;
+package com.istic.foodorigin.models;
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 
 @Entity
 @Table (name = "typeTransformateur")

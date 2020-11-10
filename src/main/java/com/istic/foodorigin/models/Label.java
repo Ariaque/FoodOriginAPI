@@ -1,8 +1,7 @@
-package com.istic.foodorigin.domain;
+package com.istic.foodorigin.models;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table (name = "label")

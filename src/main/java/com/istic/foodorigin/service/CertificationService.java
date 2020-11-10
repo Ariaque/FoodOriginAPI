@@ -1,6 +1,6 @@
 package com.istic.foodorigin.service;
 
-import com.istic.foodorigin.domain.Certification;
+import com.istic.foodorigin.models.Certification;
 import com.istic.foodorigin.repository.CertificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

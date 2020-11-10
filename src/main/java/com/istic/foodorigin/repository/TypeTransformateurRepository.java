@@ -1,6 +1,6 @@
 package com.istic.foodorigin.repository;
 
-import com.istic.foodorigin.domain.TypeTransformateur;
+import com.istic.foodorigin.models.TypeTransformateur;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
