@@ -1,8 +1,7 @@
 package com.istic.foodorigin.service;
 
-import com.istic.foodorigin.domain.InfosTransformateur;
-import com.istic.foodorigin.domain.Transformateur;
 import com.istic.foodorigin.models.InfosTransformateur;
+import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.repository.InfosTransformateurRepository;
 import com.istic.foodorigin.repository.TransformateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class InfosTransformateurService {
 
     public InfosTransformateur getInfosById (Long id) {
         InfosTransformateur ret = null;
-        Optional <InfosTransformateur> infos = infosRepository.findById(id);
+        Optional<InfosTransformateur> infos = infosRepository.findById(id);
         if (infos.isPresent()) {
             ret = infos.get();
         }
@@ -34,8 +33,11 @@ public class InfosTransformateurService {
 
     public InfosTransformateur getInfosByTransformateur (Long id) {
         InfosTransformateur ret = null;
-        Transformateur transformateur = transformateurRepository.findById(id).get();
-        ret = infosRepository.findByTransformateur(transformateur);
+        Optional<Transformateur> transformateur = transformateurRepository.findById(id);
+        if (transformateur.isPresent()) {
+            ret = infosRepository.findByTransformateur(transformateur.get());
+        }
+
         return ret;
     }
 }
