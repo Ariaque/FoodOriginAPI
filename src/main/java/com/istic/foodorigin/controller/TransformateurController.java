@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Set;
-
 @RestController
 @RequestMapping("/transformateur")
 public class TransformateurController {
@@ -24,7 +21,7 @@ public class TransformateurController {
     }
 
     @GetMapping (path = "/siret/{siret}", produces = "application/json")
-    public Long getIdBySiret (@PathVariable String siret) {
-        return transformateurService.getIdBySiret(siret);
+    public Transformateur getTransformateurBySiret(@PathVariable String siret) {
+        return transformateurService.getTransformateurBySiret(siret);
     }
 }

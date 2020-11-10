@@ -1,11 +1,14 @@
 package com.istic.foodorigin.models;
 
+import org.hibernate.validator.constraints.Range;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -17,7 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    @Size(max = 20)
+    @Range(max = 20)
     private Long id;
 
     @Email
@@ -40,15 +43,12 @@ public class User {
     private Transformateur transformateur;
 
     @Column(columnDefinition="tinyint(1) default 0", name="is_activated")
-    @NotBlank
+    @NotNull
     private Boolean isActivated;
 
     @NotBlank
-    @Size(min = 14, max = 14)
-    private Long siret;
-
-    @NotBlank
     @Size(max = 250)
+    @Column(name = "type_transformateur")
     private String typeTransformateur;
 
     public User() {
@@ -105,14 +105,6 @@ public class User {
 
     public void setUserActivation(boolean isActivated) {
         this.isActivated = isActivated;
-    }
-
-    public Long getSiret() {
-        return siret;
-    }
-
-    public void setSiret(Long siret) {
-        this.siret = siret;
     }
 
     public String getTypeTransformateur() {

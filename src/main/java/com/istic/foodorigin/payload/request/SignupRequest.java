@@ -12,24 +12,15 @@ public class SignupRequest {
     @Size(min = 3, max = 250)
     private String username;
 
-    private Set<String> role;
-
-    private Transformateur transformateur;
+    private Set<String> roles;
 
     @NotBlank
     @Size(min = 4, max = 250)
     private String password;
 
-    @Column(columnDefinition="tinyint(1) default 0", name="is_activated")
-    @NotBlank
-    private Boolean isActivated;
-
-    @NotBlank
-    @Size(min = 14, max = 14)
-    private Long siret;
-
     @NotBlank
     @Size(max = 250)
+    @Column(name = "type_transformateur")
     private String typeTransformateur;
 
 
@@ -50,35 +41,11 @@ public class SignupRequest {
     }
 
     public Set<String> getRole() {
-        return this.role;
+        return this.roles;
     }
 
     public void setRole(Set<String> role) {
-        this.role = role;
-    }
-
-    private Transformateur getTransformateur() {
-        return transformateur;
-    }
-
-    private void setTransformateur(Transformateur transformateur) {
-        this.transformateur = transformateur;
-    }
-
-    public Boolean isActivated() {
-        return isActivated;
-    }
-
-    public void setUserActivation(boolean isActivated) {
-        this.isActivated = isActivated;
-    }
-
-    public Long getSiret() {
-        return siret;
-    }
-
-    public void setSiret(Long siret) {
-        this.siret = siret;
+        this.roles = role;
     }
 
     public String getTypeTransformateur() {

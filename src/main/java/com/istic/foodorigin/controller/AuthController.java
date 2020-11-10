@@ -75,8 +75,8 @@ public class AuthController {
                 roles));
     }
 
-    @PostMapping(value = "/signup", consumes = "application/json")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    @PostMapping(value = "/signup/{siret}", consumes = "application/json")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, @PathVariable String siret) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -114,7 +114,7 @@ public class AuthController {
         user.setRoles(roles);
         user.setUserActivation(false);
         user.setTypeTransformateur(signUpRequest.getTypeTransformateur());
-        user.setSiret(signUpRequest.getSiret());
+        user.setTransformateur(transformateurService.getTransformateurBySiret(siret));
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
