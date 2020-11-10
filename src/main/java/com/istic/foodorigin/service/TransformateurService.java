@@ -13,7 +13,7 @@ public class TransformateurService {
     @Autowired
     private TransformateurRepository transformateurRepository;
 
-    public Transformateur getTransformateur (Integer id) {
+    public Transformateur getTransformateur (Long id) {
         Transformateur ret = null;
         Optional <Transformateur> transformateur = transformateurRepository.findById(id);
         if (transformateur.isPresent()) {

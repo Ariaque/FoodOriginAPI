@@ -1,24 +1,24 @@
 CREATE TABLE IF NOT EXISTS label (
     id SERIAL NOT NULL,
-    libelle VARCHAR (255) NOT NULL,
+    libelle VARCHAR (255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS certification (
     id SERIAL NOT NULL,
     libelle VARCHAR (255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
-);
+) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS type_transformateur (
+CREATE TABLE IF NOT EXISTS typeTransformateur (
     id SERIAL NOT NULL,
     libelle VARCHAR (255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
-);
+) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS infos_transformateur (
+CREATE TABLE IF NOT EXISTS infosTransformateur (
     id SERIAL NOT NULL,
-  --  fk_compte BIGINT UNSIGNED, Compte ou transformateur ?
+    fk_transformateur BIGINT UNSIGNED NOT NULL,
     description VARCHAR (255),
     nombre_employes VARCHAR (255),
     url_site VARCHAR (255),
@@ -26,36 +26,30 @@ CREATE TABLE IF NOT EXISTS infos_transformateur (
     url_twitter VARCHAR (255),
     url_instagram VARCHAR (255),
     appartient_groupe TINYINT (1),
-    fk_groupe BIGINT UNSIGNED,
+    fk_groupe BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (id)
-   -- CONSTRAINT constraintFkCompte FOREIGN KEY (fk_compte) REFERENCES compte (id)
-    --ON DELETE CASCADE ON UPDATE RESTRICT
-   -- CONSTRAINT fkGroupe FOREIGN KEY (fk_groupe) REFERENCES transformateur (id)
-   -- ON DELETE CASCADE ON UPDATE RESTRICT
-);
+) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS infos_transformateur_label (
-    fk_infos BIGINT UNSIGNED,
-    fk_label  BIGINT UNSIGNED,
+CREATE TABLE IF NOT EXISTS infosTransformateur_label (
+    fk_infos BIGINT UNSIGNED NOT NULL,
+    fk_label BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (fk_infos, fk_label)
-);
+) ENGINE=InnoDB;
 
-ALTER TABLE infos_transformateur_label ADD FOREIGN KEY (fk_infos) REFERENCES infos_transformateur (id);
-ALTER TABLE infos_transformateur_label ADD FOREIGN KEY (fk_label) REFERENCES label (id);
+ALTER TABLE infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_infos) REFERENCES infosTransformateur (id);
+ALTER TABLE infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_label) REFERENCES label (id);
 
---CREATE TABLE IF NOT EXISTS compte (
-  --  id SERIAL NOT NULL,
-    --username VARCHAR (255) NOT NULL UNIQUE,
-    --password VARCHAR (255) NOT NULL,
+--ALTER TABLE infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_transformateur) REFERENCES transformateur (id);
+--ALTER TABLE infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_groupe) REFERENCES transformateur (id);
+
+--CREATE TABLE IF NOT EXISTS users (
+    -- user_id SERIAL NOT NULL,
+    --username VARCHAR (250) NOT NULL UNIQUE,
+    --password VARCHAR (250) NOT NULL,
     --fk_transformateur INT UNSIGNED,
     --fk_typeT BIGINT UNSIGNED,
-    --estAdmin TINYINT (1),
     --estActif TINYINT (1),
-  --  CONSTRAINT fkTrans FOREIGN KEY (fk_transformateur) REFERENCES transformateur (id)
- --   ON DELETE CASCADE ON UPDATE RESTRICT,
-   -- CONSTRAINT fkType FOREIGN KEY (fk_typeT) REFERENCES type_transformateur (id)
-   -- ON DELETE CASCADE ON UPDATE RESTRICT,
-   -- PRIMARY KEY (id)
+   -- PRIMARY KEY (user_id)
 --);
 
 

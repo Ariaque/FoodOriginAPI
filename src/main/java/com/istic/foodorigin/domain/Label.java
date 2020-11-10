@@ -1,15 +1,15 @@
 package com.istic.foodorigin.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table (name = "label")
 public class Label {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String libelle;
 

@@ -16,7 +16,7 @@ public class TransformateurController {
     private TransformateurService transformateurService;
 
     @GetMapping (path = "/{id}", produces = "application/json")
-    public Transformateur getTransformateurById (@PathVariable Integer id) {
+    public Transformateur getTransformateurById (@PathVariable Long id) {
         return transformateurService.getTransformateur(id);
     }
 }

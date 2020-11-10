@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TransformateurRepository extends CrudRepository <Transformateur, Integer> {
+public interface TransformateurRepository extends CrudRepository <Transformateur, Long> {
 }

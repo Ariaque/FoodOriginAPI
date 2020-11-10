@@ -4,10 +4,8 @@ import javax.persistence.*;
 import java.lang.reflect.Type;
 
 @Entity
-@Table (name = TypeTransformateur.TABLE_NAME)
+@Table (name = "typeTransformateur")
 public class TypeTransformateur {
-
-    public static final String TABLE_NAME = "typeTransformateur";
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)

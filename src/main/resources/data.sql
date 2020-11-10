@@ -14,6 +14,6 @@ INSERT INTO certification (libelle) VALUES ('Certification ISO 50001') ON DUPLIC
 
 
 --Fill type_transformateur table
-INSERT INTO type_transformateur (libelle) VALUES ('Industriel') ON DUPLICATE KEY UPDATE libelle = 'Industriel';
-INSERT INTO type_transformateur (libelle) VALUES ('Artisan') ON DUPLICATE KEY UPDATE libelle = 'Artisan';
-INSERT INTO type_transformateur (libelle) VALUES ('Transformateur') ON DUPLICATE KEY UPDATE libelle = 'Transformateur';
+INSERT INTO typeTransformateur (libelle) VALUES ('Industriel') ON DUPLICATE KEY UPDATE libelle = 'Industriel';
+INSERT INTO typeTransformateur (libelle) VALUES ('Artisan') ON DUPLICATE KEY UPDATE libelle = 'Artisan';
+INSERT INTO typeTransformateur (libelle) VALUES ('Transformateur') ON DUPLICATE KEY UPDATE libelle = 'Transformateur';

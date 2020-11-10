@@ -4,10 +4,14 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table (name = "infosTransformateur")
 public class InfosTransformateur {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
+    @OneToOne
+    @JoinColumn (name = "fk_transformateur")
+    private Transformateur transformateur;
     private String description;
     private String nombre_employes;
     private String url_site;
@@ -17,9 +21,9 @@ public class InfosTransformateur {
     private boolean appartient_groupe;
     @OneToOne
     @JoinColumn (name = "fk_groupe")
-    private Transformateur fk_groupe;
-    @ManyToMany (cascade = CascadeType.PERSIST)
-    @JoinTable (name = "infos_transformateur_label",
+    private Transformateur groupe;
+    @ManyToMany
+    @JoinTable (name = "infosTransformateur_label",
                 joinColumns = @JoinColumn (name = "fk_infos"),
                 inverseJoinColumns = @JoinColumn (name = "fk_label"))
     private Set<Label> labels;
@@ -32,6 +36,14 @@ public class InfosTransformateur {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Transformateur getFk_transformateur() {
+        return transformateur;
+    }
+
+    public void setTransformateur(Transformateur transformateur) {
+        this.transformateur = transformateur;
     }
 
     public String getDescription() {
@@ -90,12 +102,12 @@ public class InfosTransformateur {
         this.appartient_groupe = appartient_groupe;
     }
 
-    public Transformateur getFk_groupe() {
-        return fk_groupe;
+    public Transformateur getGroupe() {
+        return groupe;
     }
 
-    public void setFk_groupe(Transformateur fk_groupe) {
-        this.fk_groupe = fk_groupe;
+    public void setGroupe(Transformateur groupe) {
+        this.groupe = groupe;
     }
 
     public Set<Label> getLabels() {
@@ -117,7 +129,7 @@ public class InfosTransformateur {
                 ", url_twitter='" + url_twitter + '\'' +
                 ", url_instagram='" + url_instagram + '\'' +
                 ", appartient_groupe=" + appartient_groupe +
-                ", fk_groupe=" + fk_groupe +
+                ", fk_groupe=" + groupe +
                 ", labels=" + labels.toString() +
                 '}';
     }
