@@ -1,5 +1,6 @@
 package com.istic.foodorigin.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +8,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.istic.foodorigin.models.TypeTransformateur;
+import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
 import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,9 @@ public class AuthController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    TypeTransformateurRepository typeTransformateurRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -88,7 +94,7 @@ public class AuthController {
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
 
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -111,9 +117,10 @@ public class AuthController {
             });
         }
 
-        user.setRoles(roles);
+        user.setRole(roles.get(0));
         user.setUserActivation(false);
-        user.setTypeTransformateur(signUpRequest.getTypeTransformateur());
+        TypeTransformateur type = typeTransformateurRepository.findByLibelle(signUpRequest.getTypeTransformateur());
+        user.setTypeTransformateur(type);
         user.setTransformateur(transformateurService.getTransformateurBySiret(siret));
         userRepository.save(user);
 

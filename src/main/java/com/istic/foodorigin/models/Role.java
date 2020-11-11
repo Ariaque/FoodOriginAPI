@@ -3,7 +3,7 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "foodOrigin_role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TypeTransformateurRepository extends CrudRepository <TypeTransformateur, Long> {
+    TypeTransformateur findByLibelle (String libelle);
 }

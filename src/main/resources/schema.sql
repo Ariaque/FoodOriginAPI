@@ -27,13 +27,17 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur (
     url_instagram VARCHAR (255),
     appartient_groupe TINYINT (1),
     fk_groupe BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id),
+    FOREIGN KEY (fk_groupe) REFERENCES foodOrigin_transformateur (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_label (
     fk_infos BIGINT UNSIGNED NOT NULL,
     fk_label BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (fk_infos, fk_label)
+    PRIMARY KEY (fk_infos, fk_label),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_label) REFERENCES foodOrigin_label (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
@@ -51,20 +55,25 @@ CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
    longitude VARCHAR (255)
 ) ENGINE=InnoDB;
 
-ALTER TABLE foodOrigin_infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id);
-ALTER TABLE foodOrigin_infosTransformateur_label ADD CONSTRAINT FOREIGN KEY (fk_label) REFERENCES foodOrigin_label (id);
+CREATE TABLE IF NOT EXISTS foodOrigin_role (
+    role_id SERIAL NOT NULL,
+    name VARCHAR (255) NOT NULL,
+    PRIMARY KEY (role_id)
+) ENGINE=InnoDB;
 
-ALTER TABLE foodOrigin_infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id);
-ALTER TABLE foodOrigin_infosTransformateur ADD CONSTRAINT FOREIGN KEY (fk_groupe) REFERENCES foodOrigin_transformateur (id);
+CREATE TABLE IF NOT EXISTS foodOrigin_user (
+    user_id SERIAL NOT NULL,
+    username VARCHAR (250) NOT NULL UNIQUE,
+    password VARCHAR (250) NOT NULL,
+    fk_transformateur BIGINT UNSIGNED,
+    fk_typeT BIGINT UNSIGNED,
+    fk_role BIGINT UNSIGNED NOT NULL,
+    is_activated TINYINT (1) NOT NULL,
+    PRIMARY KEY (user_id),
+    FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id),
+    FOREIGN KEY (fk_typeT) REFERENCES foodOrigin_typeTransformateur (id),
+    FOREIGN KEY (fk_role) REFERENCES foodOrigin_role (role_id)
+) ENGINE=InnoDB;
 
---CREATE TABLE IF NOT EXISTS users (
-    -- user_id SERIAL NOT NULL,
-    --username VARCHAR (250) NOT NULL UNIQUE,
-    --password VARCHAR (250) NOT NULL,
-    --fk_transformateur INT UNSIGNED,
-    --fk_typeT BIGINT UNSIGNED,
-    --estActif TINYINT (1),
-   -- PRIMARY KEY (user_id)
---);
 
 
