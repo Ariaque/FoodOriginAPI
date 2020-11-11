@@ -1,5 +1,6 @@
 package com.istic.foodorigin.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -88,7 +89,7 @@ public class AuthController {
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
 
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -111,7 +112,7 @@ public class AuthController {
             });
         }
 
-        user.setRoles(roles);
+        user.setRole(roles.get(0));
         user.setUserActivation(false);
         user.setTypeTransformateur(signUpRequest.getTypeTransformateur());
         user.setTransformateur(transformateurService.getTransformateurBySiret(siret));

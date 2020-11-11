@@ -55,14 +55,25 @@ CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
    longitude VARCHAR (255)
 ) ENGINE=InnoDB;
 
---CREATE TABLE IF NOT EXISTS users (
-    -- user_id SERIAL NOT NULL,
-    --username VARCHAR (250) NOT NULL UNIQUE,
-    --password VARCHAR (250) NOT NULL,
-    --fk_transformateur INT UNSIGNED,
-    --fk_typeT BIGINT UNSIGNED,
-    --estActif TINYINT (1),
-   -- PRIMARY KEY (user_id)
---);
+CREATE TABLE IF NOT EXISTS foodOrigin_role (
+    role_id SERIAL NOT NULL,
+    name VARCHAR (255) NOT NULL,
+    PRIMARY KEY (role_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS foodOrigin_user (
+    user_id SERIAL NOT NULL,
+    username VARCHAR (250) NOT NULL UNIQUE,
+    password VARCHAR (250) NOT NULL,
+    fk_transformateur BIGINT UNSIGNED,
+    fk_typeT BIGINT UNSIGNED,
+    fk_role BIGINT UNSIGNED NOT NULL,
+    is_activated TINYINT (1) NOT NULL,
+    PRIMARY KEY (user_id),
+    FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id),
+    FOREIGN KEY (fk_typeT) REFERENCES foodOrigin_typeTransformateur (id),
+    FOREIGN KEY (fk_role) REFERENCES foodOrigin_role (role_id)
+) ENGINE=InnoDB;
+
 
 

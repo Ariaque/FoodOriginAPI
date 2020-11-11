@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(	name = "users",
+@Table(name = "foodOrigin_user",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
         })
@@ -32,14 +32,12 @@ public class User {
     @Size(max = 250)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "users_roles",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_role"))
-    private Set<Role> roles = new HashSet<>();
+    @ManyToOne
+    @JoinColumn (name = "fk_role")
+    private Role role;
 
     @OneToOne
-    @JoinColumn(name = "id_transformateur")
+    @JoinColumn(name = "fk_transformateur")
     private Transformateur transformateur;
 
     @Column(columnDefinition="tinyint(1) default 0", name="is_activated")
@@ -48,7 +46,7 @@ public class User {
 
     @NotBlank
     @Size(max = 250)
-    @Column(name = "type_transformateur")
+    @Column(name = "fk_typeT")
     private String typeTransformateur;
 
     public User() {
@@ -83,12 +81,12 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Transformateur getTransformateur() {
