@@ -44,10 +44,9 @@ public class User {
     @NotNull
     private Boolean isActivated;
 
-    @NotBlank
-    @Size(max = 250)
-    @Column(name = "fk_typeT")
-    private String typeTransformateur;
+    @OneToOne
+    @JoinColumn(name = "fk_typeT")
+    private TypeTransformateur typeTransformateur;
 
     public User() {
     }
@@ -105,11 +104,11 @@ public class User {
         this.isActivated = isActivated;
     }
 
-    public String getTypeTransformateur() {
+    public TypeTransformateur getTypeTransformateur() {
         return typeTransformateur;
     }
 
-    public void setTypeTransformateur(String typeTransformateur) {
+    public void setTypeTransformateur(TypeTransformateur typeTransformateur) {
         this.typeTransformateur = typeTransformateur;
     }
 }

@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.istic.foodorigin.models.TypeTransformateur;
+import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
 import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,9 @@ public class AuthController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    TypeTransformateurRepository typeTransformateurRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -114,7 +119,8 @@ public class AuthController {
 
         user.setRole(roles.get(0));
         user.setUserActivation(false);
-        user.setTypeTransformateur(signUpRequest.getTypeTransformateur());
+        TypeTransformateur type = typeTransformateurRepository.findByLibelle(signUpRequest.getTypeTransformateur());
+        user.setTypeTransformateur(type);
         user.setTransformateur(transformateurService.getTransformateurBySiret(siret));
         userRepository.save(user);
 
