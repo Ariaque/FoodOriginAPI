@@ -1,6 +1,5 @@
 package com.istic.foodorigin.service;
 
-import com.istic.foodorigin.models.InfosTransformateur;
 import com.istic.foodorigin.models.User;
 import com.istic.foodorigin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class UserService {
         return users;
     }
 
-    public void saveUser (User user) {
-        userRepositoy.save(user);
+    public User saveUser (User user) {
+        return userRepositoy.save(user);
     }
 }

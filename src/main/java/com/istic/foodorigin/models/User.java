@@ -20,7 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    @Range(max = 20)
+//    @Range(max = 20)
     private Long id;
 
     @Email
@@ -99,7 +99,7 @@ public class User {
         this.transformateur = transformateur;
     }
 
-    public Boolean isActivated() {
+    public Boolean getIsActivated() {
         return isActivated;
     }
 

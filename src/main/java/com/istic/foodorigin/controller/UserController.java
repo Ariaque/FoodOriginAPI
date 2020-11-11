@@ -22,10 +22,10 @@ public class UserController {
         return StreamSupport.stream(itLab.spliterator(), false).collect(Collectors.toSet());
     }
 
-    @PostMapping(path = "/save", consumes = "application/json")
-    public String saveUser(@RequestBody User user) {
-        userService.saveUser(user);
-        return "Utilisateur ajouté";
+    @PostMapping(path = "/save", consumes = "application/json", produces = "application/json")
+    public User saveUser(@RequestBody User user) {
+        return userService.saveUser(user);
+//        return "Utilisateur ajouté";
     }
 
 }
