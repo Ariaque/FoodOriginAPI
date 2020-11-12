@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur (
     url_twitter VARCHAR (255),
     url_instagram VARCHAR (255),
     appartient_groupe TINYINT (1),
-    fk_groupe BIGINT UNSIGNED NOT NULL,
+    fk_groupe BIGINT UNSIGNED,
     PRIMARY KEY (id),
     FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id),
     FOREIGN KEY (fk_groupe) REFERENCES foodOrigin_transformateur (id)
@@ -38,6 +38,14 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_label (
     PRIMARY KEY (fk_infos, fk_label),
     FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
     FOREIGN KEY (fk_label) REFERENCES foodOrigin_label (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_certification (
+    fk_infos BIGINT UNSIGNED NOT NULL,
+    fk_certification BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (fk_infos, fk_certification),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_certification) REFERENCES foodOrigin_certification (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
