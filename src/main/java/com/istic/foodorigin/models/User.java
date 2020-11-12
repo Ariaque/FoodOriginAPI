@@ -1,10 +1,5 @@
 package com.istic.foodorigin.models;
 
-import org.hibernate.validator.constraints.Range;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -20,7 +15,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-//    @Range(max = 20)
     private Long id;
 
     @Email
@@ -42,7 +36,7 @@ public class User {
 
     @Column(columnDefinition="tinyint(1) default 0", name="is_activated")
     @NotNull
-    private Boolean isActivated;
+    private Boolean isEnabled;
 
     @OneToOne
     @JoinColumn(name = "fk_typeT")
@@ -96,12 +90,12 @@ public class User {
         this.transformateur = transformateur;
     }
 
-    public Boolean getIsActivated() {
-        return isActivated;
+    public Boolean getIsEnabled() {
+        return isEnabled;
     }
 
     public void setUserActivation(boolean isActivated) {
-        this.isActivated = isActivated;
+        this.isEnabled = isActivated;
     }
 
     public TypeTransformateur getTypeTransformateur() {

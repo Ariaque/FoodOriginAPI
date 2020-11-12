@@ -27,7 +27,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private Transformateur transformateur;
 
-    private Boolean isActivated;
+    private Boolean isEnabled;
 
     private Long siret;
 
@@ -35,12 +35,13 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String password,
+    public UserDetailsImpl(Long id, String username, String password, Boolean isEnabled,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
+        this.isEnabled = isEnabled;
     }
 
     public static UserDetailsImpl build(User user) {
@@ -54,6 +55,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getId(),
                 user.getUsername(),
                 user.getPassword(),
+                user.getIsEnabled(),
                 authorities);
     }
 
@@ -93,7 +95,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
     }
 
     @Override
