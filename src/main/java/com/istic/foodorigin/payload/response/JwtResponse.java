@@ -13,10 +13,6 @@ public class JwtResponse {
     private Long id;
     private String username;
     private List<String> roles;
-    private Transformateur transformateur;
-    private Boolean isActivated;
-    private Long siret;
-    private String typeTransformateur;
 
     public JwtResponse(String accessToken, Long id, String username, List<String> roles) {
         this.token = accessToken;
@@ -55,5 +51,13 @@ public class JwtResponse {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }
