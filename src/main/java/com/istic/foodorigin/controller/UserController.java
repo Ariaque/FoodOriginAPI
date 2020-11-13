@@ -28,4 +28,10 @@ public class UserController {
 //        return "Utilisateur ajouté";
     }
 
+    @GetMapping(path = "/{name}", produces = "application/json")
+    public User getUserByName (@PathVariable String name) {
+        return userService.getUserByName(name);
+    }
+
+
 }

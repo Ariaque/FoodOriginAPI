@@ -5,6 +5,8 @@ import com.istic.foodorigin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -18,5 +20,14 @@ public class UserService {
 
     public User saveUser (User user) {
         return userRepositoy.save(user);
+    }
+
+    public User getUserByName (String username) {
+        User user = null;
+        Optional<User> ret = userRepositoy.findByUsername(username);
+        if (ret.isPresent()) {
+            user = ret.get();
+        }
+        return user;
     }
 }

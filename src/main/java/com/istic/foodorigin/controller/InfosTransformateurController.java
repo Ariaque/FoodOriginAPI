@@ -18,10 +18,9 @@ public class InfosTransformateurController {
         return infosTransformateur;
     }
 
-    @PostMapping (consumes = "application/json")
-    public String saveInfosTrans (@RequestBody InfosTransformateur infos) {
-        infosService.saveInfos(infos);
-        return "Informations ajoutées";
+    @PostMapping (consumes = "application/json", produces = "application/json")
+    public InfosTransformateur saveInfosTrans (@RequestBody InfosTransformateur infos) {
+        return infosService.saveInfos(infos);
     }
 
     @GetMapping (path = "transformateur/{id}", produces = "application/json")

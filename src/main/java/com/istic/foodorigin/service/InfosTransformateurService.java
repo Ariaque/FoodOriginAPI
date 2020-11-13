@@ -27,8 +27,8 @@ public class InfosTransformateurService {
         return ret;
     }
 
-    public void saveInfos (InfosTransformateur infos) {
-        infosRepository.save(infos);
+    public InfosTransformateur saveInfos (InfosTransformateur infos) {
+        return infosRepository.save(infos);
     }
 
     public InfosTransformateur getInfosByTransformateur (Long id) {
