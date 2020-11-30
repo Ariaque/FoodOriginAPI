@@ -75,5 +75,14 @@ CREATE TABLE IF NOT EXISTS foodOrigin_user (
     FOREIGN KEY (fk_role) REFERENCES foodOrigin_role (role_id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS  foodOrigin_reset_token (
+    reset_token_id SERIAL NOT NULL,
+    token VARCHAR (250) NOT NULL,
+    expiry_date DATE,
+    fk_user BIGINT UNSIGNED,
+    PRIMARY  KEY(reset_token_id),
+    FOREIGN KEY (fk_user) REFERENCES  foodOrigin_user (user_id)
+) ENGINE=InnoDB;
+
 
 
