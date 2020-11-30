@@ -1,6 +1,7 @@
 package com.istic.foodorigin.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table (name = "foodOrigin_certification")
@@ -35,5 +36,18 @@ public class Certification {
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Certification that = (Certification) o;
+        return Objects.equals(libelle, that.libelle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(libelle);
     }
 }

@@ -28,6 +28,13 @@ public class InfosTransformateur {
                 inverseJoinColumns = @JoinColumn (name = "fk_label"))
     private Set<Label> labels;
 
+    @ManyToMany
+    @JoinTable (name = "foodOrigin_infosTransformateur_certification",
+                joinColumns = @JoinColumn(name = "fk_infos"),
+                inverseJoinColumns = @JoinColumn (name = "fk_certification"))
+    private Set <Certification> certifications;
+
+
     public InfosTransformateur () {}
 
     public Long getId() {
@@ -36,14 +43,6 @@ public class InfosTransformateur {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Transformateur getFk_transformateur() {
-        return transformateur;
-    }
-
-    public void setTransformateur(Transformateur transformateur) {
-        this.transformateur = transformateur;
     }
 
     public String getDescription() {
@@ -118,6 +117,18 @@ public class InfosTransformateur {
         this.labels = labels;
     }
 
+    public Transformateur getTransformateur() {
+        return transformateur;
+    }
+
+    public Set<Certification> getCertifications() {
+        return certifications;
+    }
+
+    public void setCertifications(Set<Certification> certifications) {
+        this.certifications = certifications;
+    }
+
     @Override
     public String toString() {
         return "InfosTransformateur{" +
@@ -130,7 +141,8 @@ public class InfosTransformateur {
                 ", url_instagram='" + url_instagram + '\'' +
                 ", appartient_groupe=" + appartient_groupe +
                 ", fk_groupe=" + groupe +
-                ", labels=" + labels.toString() +
+                ", fk_transfomateur=" + transformateur +
+                ", labels=" + labels +
                 '}';
     }
 }

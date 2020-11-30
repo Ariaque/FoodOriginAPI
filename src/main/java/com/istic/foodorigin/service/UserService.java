@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -35,5 +37,14 @@ public class UserService {
 
     public User saveUser (User user) {
         return userRepository.save(user);
+    }
+
+    public User getUserByName (String username) {
+        User user = null;
+        Optional<User> ret = userRepository.findByUsername(username);
+        if (ret.isPresent()) {
+            user = ret.get();
+        }
+        return user;
     }
 }

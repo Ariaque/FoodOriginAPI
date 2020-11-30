@@ -19,8 +19,6 @@ public class Transformateur {
     private String espece;
     private String latitude;
     private String longitude;
-    @Transient
-    private InfosTransformateur infosTransformateur;
 
     public Transformateur () {
     }
