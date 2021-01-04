@@ -4,6 +4,7 @@ import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.repository.TransformateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +14,9 @@ public class TransformateurService {
     @Autowired
     private TransformateurRepository transformateurRepository;
 
-    public Transformateur getTransformateur (Long id) {
+    public Transformateur getTransformateur(Long id) {
         Transformateur ret = null;
-        Optional <Transformateur> transformateur = transformateurRepository.findById(id);
+        Optional<Transformateur> transformateur = transformateurRepository.findById(id);
         if (transformateur.isPresent()) {
             ret = transformateur.get();
         }
@@ -23,8 +24,14 @@ public class TransformateurService {
     }
 
     public Transformateur getTransformateurBySiret(String siret) {
-        List <Transformateur> transformateurs = transformateurRepository.findBySiret(siret);
+        List<Transformateur> transformateurs = transformateurRepository.findBySiret(siret);
         Transformateur ret = transformateurs.get(0);
         return ret;
+    }
+
+    public Transformateur getTransformateurByEstampille(String estampille) {
+        List<Transformateur> transformateur = transformateurRepository.findByNumAgrement(estampille);
+        // sometimes, several lines for one stamp
+        return transformateur.get(0);
     }
 }
