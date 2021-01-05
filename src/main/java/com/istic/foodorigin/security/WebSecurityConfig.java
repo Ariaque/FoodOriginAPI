@@ -60,9 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/auth/**", "/reset/resetPassword/sendEmail", "/reset/resetPassword/writePassword").permitAll()
+                .authorizeRequests().antMatchers("/auth/**", "/reset/resetPassword/sendEmail", "/reset/resetPassword/changePassword", "/reset/resetPassword/savePassword").permitAll()
                 .antMatchers("/test/**", "/label/**", "/transformateur/**", "/typeTransformateur/**", "/infoTransformateur/**", "/certification/**","/user/**").permitAll()
-                .antMatchers("/reset/resetPassword/savePassword").hasRole("CHANGE_PASSWORD_PRIVILEGE")
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

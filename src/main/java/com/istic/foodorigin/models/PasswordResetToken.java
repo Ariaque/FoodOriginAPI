@@ -2,6 +2,7 @@ package com.istic.foodorigin.models;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -34,6 +35,10 @@ public class PasswordResetToken {
         this.token = token;
         this.user = user;
         expiryDate = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(expiryDate);
+        c.add(Calendar.DATE, 1);
+        expiryDate = c.getTime();
         formatter.format(expiryDate);
     }
 
