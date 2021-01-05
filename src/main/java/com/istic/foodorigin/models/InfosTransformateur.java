@@ -34,6 +34,12 @@ public class InfosTransformateur {
                 inverseJoinColumns = @JoinColumn (name = "fk_certification"))
     private Set <Certification> certifications;
 
+    @ManyToMany (cascade = CascadeType.ALL)
+    @JoinTable (name = "foodOrigin_infosTransformateur_urlVideo",
+            joinColumns = @JoinColumn(name = "fk_infos"),
+            inverseJoinColumns = @JoinColumn (name = "fk_urls"))
+    private Set <UrlVideo> urls;
+
 
     public InfosTransformateur () {}
 
@@ -121,6 +127,10 @@ public class InfosTransformateur {
         return transformateur;
     }
 
+    public void setTransformateur(Transformateur transformateur) {
+        this.transformateur = transformateur;
+    }
+
     public Set<Certification> getCertifications() {
         return certifications;
     }
@@ -129,10 +139,19 @@ public class InfosTransformateur {
         this.certifications = certifications;
     }
 
+    public Set<UrlVideo> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(Set<UrlVideo> urls) {
+        this.urls = urls;
+    }
+
     @Override
     public String toString() {
         return "InfosTransformateur{" +
                 "id=" + id +
+                ", transformateur=" + transformateur +
                 ", description='" + description + '\'' +
                 ", nombre_employes='" + nombre_employes + '\'' +
                 ", url_site='" + url_site + '\'' +
@@ -140,9 +159,10 @@ public class InfosTransformateur {
                 ", url_twitter='" + url_twitter + '\'' +
                 ", url_instagram='" + url_instagram + '\'' +
                 ", appartient_groupe=" + appartient_groupe +
-                ", fk_groupe=" + groupe +
-                ", fk_transfomateur=" + transformateur +
+                ", groupe=" + groupe +
                 ", labels=" + labels +
+                ", certifications=" + certifications +
+                ", urls=" + urls +
                 '}';
     }
 }
