@@ -25,9 +25,10 @@ public class PasswordResetService {
         passwordResetTokenRepository.save(myToken);
     }
 
-    public void validatePasswordResetToken(long id, String token) {
+    public String validatePasswordResetToken(long id, String token) {
         Calendar cal = Calendar.getInstance();
         PasswordResetToken passToken = passwordResetTokenRepository.findByToken(token);
+        String ret = "";
         if ((passToken == null) || (passToken.getUser()
                 .getId() != id)) {
         }
@@ -37,12 +38,8 @@ public class PasswordResetService {
             passwordResetTokenRepository.delete(passToken);
         }
         else {
-            User user = passToken.getUser();
-            Authentication auth = new UsernamePasswordAuthenticationToken(
-                    user, null, Arrays.asList(
-                    new SimpleGrantedAuthority("CHANGE__PASSWORD__PRIVILEGE")));
-            SecurityContextHolder.getContext().setAuthentication(auth);
-            passwordResetTokenRepository.delete(passToken);
+            ret = passToken.getToken();
         }
+        return ret;
     }
 }
