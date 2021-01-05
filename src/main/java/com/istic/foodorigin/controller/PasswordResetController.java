@@ -59,7 +59,7 @@ public class PasswordResetController {
         }
         String token = UUID.randomUUID().toString();
         passwordResetService.createPasswordResetTokenForUser(user, token);
-        javaMailSender.send(resetEmailService.constructResetTokenEmail("http://localhost:4200/api/reset",
+        javaMailSender.send(resetEmailService.constructResetTokenEmail("http://localhost:4200/api/reset/resetPassword/writePassword",
                 request.getLocale(), token, user));
         return ResponseEntity.ok(new MessageResponse("Email sent to user!"));
     }
