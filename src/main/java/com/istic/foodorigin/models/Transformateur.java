@@ -8,7 +8,8 @@ public class Transformateur {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
-    private String num_agrement;
+    @Column(name = "num_agrement")
+    private String numAgrement;
     private String siret;
     private String raison_sociale;
     private String adresse;
@@ -32,11 +33,11 @@ public class Transformateur {
     }
 
     public String getNum_agrement() {
-        return num_agrement;
+        return numAgrement;
     }
 
     public void setNum_agrement(String num_agrement) {
-        this.num_agrement = num_agrement;
+        this.numAgrement = num_agrement;
     }
 
     public String getSiret() {
