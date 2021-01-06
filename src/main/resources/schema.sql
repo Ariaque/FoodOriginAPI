@@ -16,6 +16,12 @@ CREATE TABLE IF NOT EXISTS foodOrigin_typeTransformateur (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS foodOrigin_urlVideo (
+    id SERIAL NOT NULL,
+    libelle VARCHAR (255) NOT NULL UNIQUE,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur (
     id SERIAL NOT NULL,
     fk_transformateur BIGINT UNSIGNED NOT NULL,
@@ -46,6 +52,14 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_certification (
     PRIMARY KEY (fk_infos, fk_certification),
     FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
     FOREIGN KEY (fk_certification) REFERENCES foodOrigin_certification (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_urlVideo (
+    fk_infos BIGINT UNSIGNED NOT NULL,
+    fk_urls BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (fk_infos, fk_urls),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_urls) REFERENCES foodOrigin_urlVideo (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
