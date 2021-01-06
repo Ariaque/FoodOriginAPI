@@ -10,15 +10,12 @@ import com.istic.foodorigin.repository.PasswordResetTokenRepository;
 import com.istic.foodorigin.repository.UserRepository;
 import com.istic.foodorigin.security.services.PasswordResetService;
 import com.istic.foodorigin.security.services.ResetEmailService;
-import com.istic.foodorigin.security.services.UserDetailsImpl;
 import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
 import com.istic.foodorigin.service.UserService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,26 +65,28 @@ public class PasswordResetController {
         }
         String token = UUID.randomUUID().toString();
         passwordResetService.createPasswordResetTokenForUser(user, token);
-        javaMailSender.send(resetEmailService.constructResetTokenEmail("http://localhost:4200/api/reset/resetPassword/changePassword",
+        javaMailSender.send(resetEmailService.constructResetTokenEmail("http://localhost:4200/resetPassword",
                 request.getLocale(), token, user));
         return ResponseEntity.ok(new MessageResponse("Email sent to user!"));
     }
 
-    @RequestMapping(value = "/resetPassword/changePassword", method = RequestMethod.GET)
-    public ResponseEntity<?> resetPassword(@RequestParam("id") long id, @RequestParam("token") String token) {
-
+    @RequestMapping(value = "/resetPassword/validateToken", method = RequestMethod.GET)
+    public ResponseEntity<String> resetPassword(@RequestParam("id") long id, @RequestParam("token") String token) {
+        Gson gson = new Gson();
+        ResponseEntity<String> ret = ResponseEntity.ok(gson.toJson(false));
         this.token = passwordResetService.validatePasswordResetToken(id, token);
-
-        return ResponseEntity.ok(new MessageResponse("New password offer has been sent!"));
+        if(!this.token.isEmpty()) {
+            ret = ResponseEntity.ok(gson.toJson(true));
+        }
+        return ret;
 
     }
 
     @RequestMapping(value = "/resetPassword/savePassword", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public ResponseEntity<?> savePassword(@Valid @RequestBody SavePasswordRequest savePasswordRequest) {
-        if(!token.isEmpty()) {
-            System.out.println(token);
-            PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
+        if (!savePasswordRequest.getToken().isEmpty()) {
+            PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(savePasswordRequest.getToken());
             Optional<User> user = userService.getUserByPasswordResetToken(savePasswordRequest.getToken());
             user.ifPresent(value -> userService.changeUserPassword(value, savePasswordRequest.getNewPassword()));
             passwordResetTokenRepository.delete(passwordResetToken);
