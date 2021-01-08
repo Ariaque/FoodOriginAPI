@@ -36,7 +36,7 @@ public class InfosTransformateur {
             joinColumns = @JoinColumn(name = "fk_infos"),
             inverseJoinColumns = @JoinColumn (name = "fk_urls"))
     private Set <UrlVideo> urls;
-    @ManyToMany (cascade = CascadeType.PERSIST)
+    @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable (name = "foodOrigin_infosTransformateur_fermePartenaire",
             joinColumns = @JoinColumn(name = "fk_infos"),
             inverseJoinColumns = @JoinColumn (name = "fk_fermesP"))

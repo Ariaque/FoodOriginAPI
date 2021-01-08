@@ -1,6 +1,7 @@
 package com.istic.foodorigin.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table (name = "foodOrigin_urlVideo")
@@ -32,5 +33,18 @@ public class UrlVideo {
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UrlVideo urlVideo = (UrlVideo) o;
+        return Objects.equals(libelle, urlVideo.libelle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(libelle);
     }
 }

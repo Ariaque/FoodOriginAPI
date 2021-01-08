@@ -1,6 +1,7 @@
 package com.istic.foodorigin.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "foodOrigin_fermePartenaire")
@@ -46,5 +47,19 @@ public class FermePartenaire {
                 ", nom='" + nom + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FermePartenaire that = (FermePartenaire) o;
+        return Objects.equals(nom, that.nom) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nom, description);
     }
 }
