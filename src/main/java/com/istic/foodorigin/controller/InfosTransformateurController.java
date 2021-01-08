@@ -28,7 +28,7 @@ public class InfosTransformateurController {
         return infosService.saveInfos(infos);
     }
 
-    @GetMapping (path = "transformateur/{id}", produces = "application/json")
+    @GetMapping (path = "/transformateur/{id}", produces = "application/json")
     public InfosTransformateur getInfosByTransformateur (@PathVariable Long id) {
         InfosTransformateur infosTransformateur = infosService.getInfosByTransformateur (id);
         return infosTransformateur;
