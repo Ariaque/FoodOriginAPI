@@ -3,6 +3,7 @@ package com.istic.foodorigin.controller;
 import com.istic.foodorigin.exception.UserNotFoundException;
 import com.istic.foodorigin.models.PasswordResetToken;
 import com.istic.foodorigin.models.User;
+import com.istic.foodorigin.payload.request.ChangePasswordRequest;
 import com.istic.foodorigin.payload.request.SavePasswordRequest;
 import com.istic.foodorigin.payload.request.SendEmailRequest;
 import com.istic.foodorigin.payload.response.MessageResponse;
@@ -99,6 +100,16 @@ public class PasswordResetController {
         user.setPassword(savePasswordRequest.getNewPassword());
         userRepository.save(user);*/
 
+        return ResponseEntity.ok(new MessageResponse("Password has been reset!"));
+    }
+
+    @RequestMapping(value = "/resetPassword/changePassword", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
+        User user = userService.getUserByName(changePasswordRequest.getUserName());
+        if(user != null && user.getPassword().equals(changePasswordRequest.getOldPassword())) {
+            userService.changeUserPassword(user, changePasswordRequest.getNewPassword());
+        }
         return ResponseEntity.ok(new MessageResponse("Password has been changed!"));
     }
 }
