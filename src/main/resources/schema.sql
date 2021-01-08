@@ -22,6 +22,13 @@ CREATE TABLE IF NOT EXISTS foodOrigin_urlVideo (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS foodOrigin_fermePartenaire (
+    id SERIAL NOT NULL,
+    nom VARCHAR (255) NOT NULL,
+    description VARCHAR (255),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur (
     id SERIAL NOT NULL,
     fk_transformateur BIGINT UNSIGNED NOT NULL,
@@ -32,7 +39,7 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur (
     url_twitter VARCHAR (255),
     url_instagram VARCHAR (255),
     appartient_groupe TINYINT (1),
-    fk_groupe BIGINT UNSIGNED,
+    siret_groupe VARCHAR (255),
     PRIMARY KEY (id),
     FOREIGN KEY (fk_transformateur) REFERENCES foodOrigin_transformateur (id),
     FOREIGN KEY (fk_groupe) REFERENCES foodOrigin_transformateur (id)
@@ -60,6 +67,14 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_urlVideo (
     PRIMARY KEY (fk_infos, fk_urls),
     FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
     FOREIGN KEY (fk_urls) REFERENCES foodOrigin_urlVideo (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_fermePartenaire (
+    fk_infos BIGINT UNSIGNED NOT NULL,
+    fk_fermesP BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (fk_infos, fk_fermesP),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_fermesP) REFERENCES foodOrigin_fermePartenaire (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
