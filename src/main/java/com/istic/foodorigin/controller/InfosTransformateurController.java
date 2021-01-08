@@ -6,6 +6,7 @@ import com.istic.foodorigin.service.InfosTransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/infoTransformateur")
@@ -37,5 +38,17 @@ public class InfosTransformateurController {
     @PostMapping (path = "/images/{id}")
     public boolean saveImage(@RequestParam("myFile") MultipartFile file, @PathVariable Long id) {
         return imageService.saveImageOnServer(file, id);
+    }
+
+    @GetMapping (path = "/images/{id}")
+    public Set<String> getImagesLink (@PathVariable Long id) {
+        return imageService.getFolderFiles(id);
+    }
+
+    @PostMapping (path = "/images/delete/{id}")
+    public boolean deleteImage (@RequestBody String fileName, @PathVariable Long id) {
+        int separator = fileName.lastIndexOf('/')+1;
+        fileName = fileName.substring(separator);
+        return imageService.removeFile(id, fileName);
     }
 }

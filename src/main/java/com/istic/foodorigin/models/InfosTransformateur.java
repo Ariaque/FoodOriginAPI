@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table (name = "foodOrigin_infosTransformateur")
+@Table (name = "foodOrigin_infoTransformateur")
 public class InfosTransformateur {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -19,26 +19,28 @@ public class InfosTransformateur {
     private String url_twitter;
     private String url_instagram;
     private boolean appartient_groupe;
-    @OneToOne
-    @JoinColumn (name = "fk_groupe")
-    private Transformateur groupe;
+    private String siret_groupe;
     @ManyToMany
-    @JoinTable (name = "foodOrigin_infosTransformateur_label",
+    @JoinTable (name = "foodOrigin_infoTransformateur_label",
                 joinColumns = @JoinColumn (name = "fk_infos"),
                 inverseJoinColumns = @JoinColumn (name = "fk_label"))
     private Set<Label> labels;
-
     @ManyToMany
-    @JoinTable (name = "foodOrigin_infosTransformateur_certification",
+    @JoinTable (name = "foodOrigin_infoTransformateur_certification",
                 joinColumns = @JoinColumn(name = "fk_infos"),
                 inverseJoinColumns = @JoinColumn (name = "fk_certification"))
     private Set <Certification> certifications;
 
     @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable (name = "foodOrigin_infosTransformateur_urlVideo",
+    @JoinTable (name = "foodOrigin_infoTransformateur_urlVideo",
             joinColumns = @JoinColumn(name = "fk_infos"),
             inverseJoinColumns = @JoinColumn (name = "fk_urls"))
     private Set <UrlVideo> urls;
+    @ManyToMany (cascade = CascadeType.ALL)
+    @JoinTable (name = "foodOrigin_infoTransformateur_fermePartenaire",
+            joinColumns = @JoinColumn(name = "fk_infos"),
+            inverseJoinColumns = @JoinColumn (name = "fk_fermesP"))
+    private Set <FermePartenaire> fermesP;
 
 
     public InfosTransformateur () {}
@@ -99,20 +101,20 @@ public class InfosTransformateur {
         this.url_instagram = url_instagram;
     }
 
+    public String getSiret_groupe() {
+        return siret_groupe;
+    }
+
+    public void setSiret_groupe(String siret_groupe) {
+        this.siret_groupe = siret_groupe;
+    }
+
     public boolean isAppartient_groupe() {
         return appartient_groupe;
     }
 
     public void setAppartient_groupe(boolean appartient_groupe) {
         this.appartient_groupe = appartient_groupe;
-    }
-
-    public Transformateur getGroupe() {
-        return groupe;
-    }
-
-    public void setGroupe(Transformateur groupe) {
-        this.groupe = groupe;
     }
 
     public Set<Label> getLabels() {
@@ -147,6 +149,14 @@ public class InfosTransformateur {
         this.urls = urls;
     }
 
+    public Set<FermePartenaire> getFermesP() {
+        return fermesP;
+    }
+
+    public void setFermesP(Set<FermePartenaire> fermesP) {
+        this.fermesP = fermesP;
+    }
+
     @Override
     public String toString() {
         return "InfosTransformateur{" +
@@ -159,10 +169,11 @@ public class InfosTransformateur {
                 ", url_twitter='" + url_twitter + '\'' +
                 ", url_instagram='" + url_instagram + '\'' +
                 ", appartient_groupe=" + appartient_groupe +
-                ", groupe=" + groupe +
+                ", siret_groupe='" + siret_groupe + '\'' +
                 ", labels=" + labels +
                 ", certifications=" + certifications +
                 ", urls=" + urls +
+                ", fermesP=" + fermesP +
                 '}';
     }
 }
