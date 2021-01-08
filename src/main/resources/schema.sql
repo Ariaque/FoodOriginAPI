@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS foodOrigin_fermePartenaire (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-
 CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
    id SERIAL NOT NULL,
    num_agrement VARCHAR(255) NOT NULL,
@@ -45,7 +44,7 @@ CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
    longitude VARCHAR (255)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur (
+CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur (
     id SERIAL NOT NULL,
     fk_transformateur BIGINT UNSIGNED NOT NULL,
     description TEXT,
@@ -89,35 +88,36 @@ CREATE TABLE IF NOT EXISTS  foodOrigin_reset_token (
     FOREIGN KEY (fk_user) REFERENCES  foodOrigin_user (user_id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_label (
+CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur_label (
     fk_infos BIGINT UNSIGNED NOT NULL,
     fk_label BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (fk_infos, fk_label),
-    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
     FOREIGN KEY (fk_label) REFERENCES foodOrigin_label (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_certification (
+CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur_certification (
     fk_infos BIGINT UNSIGNED NOT NULL,
     fk_certification BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (fk_infos, fk_certification),
-    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
     FOREIGN KEY (fk_certification) REFERENCES foodOrigin_certification (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_urlVideo (
+CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur_urlVideo (
     fk_infos BIGINT UNSIGNED NOT NULL,
     fk_urls BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (fk_infos, fk_urls),
-    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
     FOREIGN KEY (fk_urls) REFERENCES foodOrigin_urlVideo (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS foodOrigin_infosTransformateur_fermePartenaire (
+CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur_fermePartenaire (
     fk_infos BIGINT UNSIGNED NOT NULL,
     fk_fermesP BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (fk_infos, fk_fermesP),
-    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infosTransformateur (id),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
     FOREIGN KEY (fk_fermesP) REFERENCES foodOrigin_fermePartenaire (id)
 ) ENGINE=InnoDB;
 

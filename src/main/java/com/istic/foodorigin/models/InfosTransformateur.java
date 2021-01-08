@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table (name = "foodOrigin_infosTransformateur")
+@Table (name = "foodOrigin_infoTransformateur")
 public class InfosTransformateur {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -21,23 +21,23 @@ public class InfosTransformateur {
     private boolean appartient_groupe;
     private String siret_groupe;
     @ManyToMany
-    @JoinTable (name = "foodOrigin_infosTransformateur_label",
+    @JoinTable (name = "foodOrigin_infoTransformateur_label",
                 joinColumns = @JoinColumn (name = "fk_infos"),
                 inverseJoinColumns = @JoinColumn (name = "fk_label"))
     private Set<Label> labels;
     @ManyToMany
-    @JoinTable (name = "foodOrigin_infosTransformateur_certification",
+    @JoinTable (name = "foodOrigin_infoTransformateur_certification",
                 joinColumns = @JoinColumn(name = "fk_infos"),
                 inverseJoinColumns = @JoinColumn (name = "fk_certification"))
     private Set <Certification> certifications;
 
     @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable (name = "foodOrigin_infosTransformateur_urlVideo",
+    @JoinTable (name = "foodOrigin_infoTransformateur_urlVideo",
             joinColumns = @JoinColumn(name = "fk_infos"),
             inverseJoinColumns = @JoinColumn (name = "fk_urls"))
     private Set <UrlVideo> urls;
     @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable (name = "foodOrigin_infosTransformateur_fermePartenaire",
+    @JoinTable (name = "foodOrigin_infoTransformateur_fermePartenaire",
             joinColumns = @JoinColumn(name = "fk_infos"),
             inverseJoinColumns = @JoinColumn (name = "fk_fermesP"))
     private Set <FermePartenaire> fermesP;
