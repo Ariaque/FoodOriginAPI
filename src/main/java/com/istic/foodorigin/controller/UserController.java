@@ -45,4 +45,8 @@ public class UserController {
     public User getUserByName (@PathVariable String name) {
         return userService.getUserByName(name);
     }
+    @GetMapping(path = "/transfo/{siret}", produces = "application/json")
+    public User getUserBySiretTransfo (@PathVariable String siret) {
+        return userService.getUserBySiretTransfo(siret);
+    }
 }

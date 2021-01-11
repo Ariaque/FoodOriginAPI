@@ -1,17 +1,21 @@
 package com.istic.foodorigin.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-
+import com.istic.foodorigin.models.ERole;
+import com.istic.foodorigin.models.Role;
 import com.istic.foodorigin.models.TypeTransformateur;
+import com.istic.foodorigin.models.User;
+import com.istic.foodorigin.payload.request.LoginRequest;
+import com.istic.foodorigin.payload.request.SignupRequest;
+import com.istic.foodorigin.payload.response.JwtResponse;
+import com.istic.foodorigin.payload.response.MessageResponse;
+import com.istic.foodorigin.repository.RoleRepository;
 import com.istic.foodorigin.repository.TypeTransformateurRepository;
+import com.istic.foodorigin.repository.UserRepository;
+import com.istic.foodorigin.security.jwt.JwtUtils;
+import com.istic.foodorigin.security.services.UserDetailsImpl;
 import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
 import com.istic.foodorigin.service.TransformateurService;
+import com.istic.foodorigin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,17 +25,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.istic.foodorigin.models.ERole;
-import com.istic.foodorigin.models.Role;
-import com.istic.foodorigin.models.User;
-import com.istic.foodorigin.payload.request.LoginRequest;
-import com.istic.foodorigin.payload.request.SignupRequest;
-import com.istic.foodorigin.payload.response.JwtResponse;
-import com.istic.foodorigin.payload.response.MessageResponse;
-import com.istic.foodorigin.repository.RoleRepository;
-import com.istic.foodorigin.repository.UserRepository;
-import com.istic.foodorigin.security.jwt.JwtUtils;
-import com.istic.foodorigin.security.services.UserDetailsImpl;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -54,6 +52,9 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -86,7 +87,17 @@ public class AuthController {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new MessageResponse("Erreur: Ce non d'utilisateur est déjà pris !"));
+        }
+        if (userService.getUserBySiretTransfo(siret) != null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Erreur: Un compte existe déjà pour ce Siret!"));
+        }
+        if (transformateurService.getTransformateurBySiret(siret) == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Erreur: Ce Siret n'est pas enregistré dans notre base de données !"));
         }
 
         // Create new user's account
