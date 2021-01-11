@@ -29,6 +29,13 @@ CREATE TABLE IF NOT EXISTS foodOrigin_fermePartenaire (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS foodOrigin_denreeAnimale (
+    id SERIAL NOT NULL,
+    nom VARCHAR (255) NOT NULL,
+    origine VARCHAR (255),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
    id SERIAL NOT NULL,
    num_agrement VARCHAR(255) NOT NULL,
@@ -117,7 +124,14 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur_fermePartenaire (
     fk_fermesP BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (fk_infos, fk_fermesP),
     FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
-    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
     FOREIGN KEY (fk_fermesP) REFERENCES foodOrigin_fermePartenaire (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur_denreeAnimale (
+    fk_infos BIGINT UNSIGNED NOT NULL,
+    fk_denreesA BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (fk_infos, fk_denreesA),
+    FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
+    FOREIGN KEY (fk_denreesA) REFERENCES foodOrigin_denreeAnimale (id)
 ) ENGINE=InnoDB;
 

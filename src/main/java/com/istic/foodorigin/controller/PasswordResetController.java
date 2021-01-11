@@ -15,8 +15,10 @@ import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
 import com.istic.foodorigin.service.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -107,9 +109,12 @@ public class PasswordResetController {
     @ResponseBody
     public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
         User user = userService.getUserByName(changePasswordRequest.getUserName());
-        if(user != null && user.getPassword().equals(encoder.encode(changePasswordRequest.getOldPassword()))) {
+        if(user != null && encoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
             userService.changeUserPassword(user, changePasswordRequest.getNewPassword());
+            return ResponseEntity.ok(new MessageResponse("Password has been changed!"));
         }
-        return ResponseEntity.ok(new MessageResponse("Password has been changed!"));
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Bad old password");
+        }
     }
 }
