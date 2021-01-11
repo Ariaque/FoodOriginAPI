@@ -107,7 +107,7 @@ public class PasswordResetController {
     @ResponseBody
     public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
         User user = userService.getUserByName(changePasswordRequest.getUserName());
-        if(user != null && user.getPassword().equals(changePasswordRequest.getOldPassword())) {
+        if(user != null && user.getPassword().equals(encoder.encode(changePasswordRequest.getOldPassword()))) {
             userService.changeUserPassword(user, changePasswordRequest.getNewPassword());
         }
         return ResponseEntity.ok(new MessageResponse("Password has been changed!"));
