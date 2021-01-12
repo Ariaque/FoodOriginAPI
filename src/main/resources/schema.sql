@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS foodOrigin_typeTransformateur (
 
 CREATE TABLE IF NOT EXISTS foodOrigin_urlVideo (
     id SERIAL NOT NULL,
-    libelle VARCHAR (255) COLLATE utf8_unicode_ci NOT NULL UNIQUE,
+    libelle VARCHAR (255) COLLATE utf8_unicode_ci NOT NULL,
+    titre VARCHAR (255) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
@@ -26,6 +27,7 @@ CREATE TABLE IF NOT EXISTS foodOrigin_fermePartenaire (
     id SERIAL NOT NULL,
     nom VARCHAR (255) NOT NULL,
     description TEXT,
+    url VARCHAR (255),
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
