@@ -41,8 +41,18 @@ public class UserController {
 //        return "Utilisateur ajouté";
     }
 
+    @PostMapping(path = "/delete", consumes = "application/json")
+    public ResponseEntity<?> deleteUser(@RequestBody User user) {
+        userService.deleteUser(user);
+        return ResponseEntity.ok(new MessageResponse("User deleted !"));
+    }
+
     @GetMapping(path = "/{name}", produces = "application/json")
     public User getUserByName (@PathVariable String name) {
         return userService.getUserByName(name);
+    }
+    @GetMapping(path = "/transfo/{siret}", produces = "application/json")
+    public User getUserBySiretTransfo (@PathVariable String siret) {
+        return userService.getUserBySiretTransfo(siret);
     }
 }

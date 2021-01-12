@@ -24,8 +24,11 @@ public class TransformateurService {
     }
 
     public Transformateur getTransformateurBySiret(String siret) {
+        Transformateur ret = null;
         List<Transformateur> transformateurs = transformateurRepository.findBySiret(siret);
-        Transformateur ret = transformateurs.get(0);
+        if(transformateurs.size() > 0){
+            ret = transformateurs.get(0);
+        }
         return ret;
     }
 

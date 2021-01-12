@@ -56,6 +56,15 @@ public class UserService {
         return user;
     }
 
+    public User getUserBySiretTransfo (String siret) {
+        User user = null;
+        Optional<User> ret = userRepository.findUserBySiret(siret);
+        if (ret.isPresent()) {
+            user = ret.get();
+        }
+        return user;
+    }
+
     public Optional<User> getUserByPasswordResetToken(final String token) {
         return Optional.ofNullable(passwordResetTokenRepository.findByToken(token).getUser());
     }
@@ -63,5 +72,9 @@ public class UserService {
     public void changeUserPassword(final User user, final String password) {
         user.setPassword(encoder.encode(password));
         userRepository.save(user);
+    }
+
+    public void deleteUser (User user) {
+        userRepository.delete(user);
     }
 }
