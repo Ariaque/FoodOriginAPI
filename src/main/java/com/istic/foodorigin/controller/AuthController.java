@@ -87,7 +87,7 @@ public class AuthController {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Erreur: Ce non d'utilisateur est déjà pris !"));
+                    .body(new MessageResponse("Erreur: Ce nom d'utilisateur est déjà pris !"));
         }
         if (userService.getUserBySiretTransfo(siret) != null) {
             return ResponseEntity

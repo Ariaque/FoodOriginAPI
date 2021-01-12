@@ -1,6 +1,9 @@
 package com.istic.foodorigin.repository;
 
+import java.util.List;
 import java.util.Optional;
+
+import com.istic.foodorigin.models.ERole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +16,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByUsername(String username);
     @Query("SELECT u FROM User u, Transformateur t WHERE u.transformateur.id = t.id AND t.siret =(:siret) ")
     Optional<User> findUserBySiret(@Param("siret")String siret);
+    @Query("SELECT u FROM User u WHERE u.role.name = (:role) ")
+    List<User> findByRole (ERole role);
 }

@@ -1,5 +1,6 @@
 package com.istic.foodorigin.service;
 
+import com.istic.foodorigin.models.ERole;
 import com.istic.foodorigin.models.User;
 import com.istic.foodorigin.repository.PasswordResetTokenRepository;
 import com.istic.foodorigin.repository.UserRepository;
@@ -25,6 +26,11 @@ public class UserService {
 
     public Iterable<User> getAllUsers() {
         Iterable<User> users = userRepository.findAll();
+        return users;
+    }
+
+    public Iterable<User> getAllRoleUser () {
+        Iterable<User> users = userRepository.findByRole(ERole.ROLE_USER);
         return users;
     }
 

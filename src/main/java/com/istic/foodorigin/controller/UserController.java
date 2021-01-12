@@ -35,6 +35,12 @@ public class UserController {
         return StreamSupport.stream(itLab.spliterator(), false).collect(Collectors.toSet());
     }
 
+    @GetMapping(path = "/users", produces = "application/json")
+    public Set<User> getAllRoleUser() {
+        Iterable<User> itLab = userService.getAllRoleUser();
+        return StreamSupport.stream(itLab.spliterator(), false).collect(Collectors.toSet());
+    }
+
     @PostMapping(path = "/save", consumes = "application/json", produces = "application/json")
     public User saveUser(@RequestBody User user) {
         return userService.saveUser(user);
