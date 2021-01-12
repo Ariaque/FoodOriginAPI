@@ -1,11 +1,11 @@
 --Fill foodOrigin_label table
 INSERT INTO foodOrigin_label (libelle) VALUES ('Label Rouge') ON DUPLICATE KEY UPDATE libelle = 'Label Rouge';
-INSERT INTO foodOrigin_label (libelle) VALUES ('Appellation d\'Origine Contrôlée AOC') ON DUPLICATE KEY UPDATE libelle = 'Appellation d\'Origine Contrôlée AOC';
-INSERT INTO foodOrigin_label (libelle) VALUES ('Appellation d\'Origine Protégée AOP') ON DUPLICATE KEY UPDATE libelle = 'Appellation d\'Origine Protégée AOP';
-INSERT INTO foodOrigin_label (libelle) VALUES ('Indication Géographique Protégée IGP') ON DUPLICATE KEY UPDATE libelle = 'Indication Géographique Protégée IGP';
-INSERT INTO foodOrigin_label (libelle) VALUES ('Spécialité Traditionnelle Garantie STG') ON DUPLICATE KEY UPDATE libelle = 'Spécialité Traditionnelle Garantie STG';
+INSERT INTO foodOrigin_label (libelle) VALUES ('Appellation d\'Origine Controlee AOC') ON DUPLICATE KEY UPDATE libelle = 'Appellation d\'Origine Controlee AOC';
+INSERT INTO foodOrigin_label (libelle) VALUES ('Appellation d\'Origine Protegee AOP') ON DUPLICATE KEY UPDATE libelle = 'Appellation d\'Origine Protegee AOP';
+INSERT INTO foodOrigin_label (libelle) VALUES ('Indication Geographique Protegee IGP') ON DUPLICATE KEY UPDATE libelle = 'Indication Geographique Protegee IGP';
+INSERT INTO foodOrigin_label (libelle) VALUES ('Specialite Traditionnelle Garantie STG') ON DUPLICATE KEY UPDATE libelle = 'Specialite Traditionnelle Garantie STG';
 INSERT INTO foodOrigin_label (libelle) VALUES ('Agriculture Biologique AB') ON DUPLICATE KEY UPDATE libelle = 'Agriculture Biologique AB';
-INSERT INTO foodOrigin_label (libelle) VALUES ('Bio Cohérence') ON DUPLICATE KEY UPDATE libelle = 'Bio Cohérence';
+INSERT INTO foodOrigin_label (libelle) VALUES ('Bio Coherence') ON DUPLICATE KEY UPDATE libelle = 'Bio Coherence';
 INSERT INTO foodOrigin_label (libelle) VALUES ('Origine France Garantie') ON DUPLICATE KEY UPDATE libelle = 'Origine France Garantie';
 INSERT INTO foodOrigin_label (libelle) VALUES ('Viandes de France') ON DUPLICATE KEY UPDATE libelle = 'Viandes de France';
 
