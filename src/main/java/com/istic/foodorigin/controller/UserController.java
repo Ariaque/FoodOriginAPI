@@ -55,4 +55,9 @@ public class UserController {
     public User getUserBySiretTransfo (@PathVariable String siret) {
         return userService.getUserBySiretTransfo(siret);
     }
+    @GetMapping(path="isActive/{siret}", produces = "application/json")
+    public Boolean getUserState(@PathVariable String siret){
+        User user = userService.getUserBySiretTransfo(siret);
+        return user.getIsEnabled();
+    }
 }
