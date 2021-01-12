@@ -10,6 +10,7 @@ public class UrlVideo {
     @GeneratedValue (strategy= GenerationType.AUTO)
     private Long id;
     private String libelle;
+    private String titre;
 
     public Long getId() {
         return id;
@@ -27,11 +28,20 @@ public class UrlVideo {
         this.libelle = libelle;
     }
 
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
     @Override
     public String toString() {
         return "UrlVideo{" +
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
+                ", titre='" + titre + '\'' +
                 '}';
     }
 
@@ -40,11 +50,12 @@ public class UrlVideo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UrlVideo urlVideo = (UrlVideo) o;
-        return Objects.equals(libelle, urlVideo.libelle);
+        return Objects.equals(libelle, urlVideo.libelle) &&
+                Objects.equals(titre, urlVideo.titre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(libelle);
+        return Objects.hash(libelle, titre);
     }
 }
