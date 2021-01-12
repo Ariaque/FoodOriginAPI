@@ -63,7 +63,11 @@ public class UserController {
     }
     @GetMapping(path="isActive/{siret}", produces = "application/json")
     public Boolean getUserState(@PathVariable String siret){
+        Boolean result = false;
         User user = userService.getUserBySiretTransfo(siret);
-        return user.getIsEnabled();
+        if(user != null && user.getIsEnabled() != null){
+            result = user.getIsEnabled();
+        }
+        return result;
     }
 }
