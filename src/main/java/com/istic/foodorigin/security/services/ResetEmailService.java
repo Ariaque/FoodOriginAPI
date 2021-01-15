@@ -13,7 +13,7 @@ public class ResetEmailService {
             String contextPath, Locale locale, String token, User user) {
         String url = contextPath + "?id=" +
                 user.getId() + "&token=" + token;
-        String message = "Veuillez réinitialiser votre mot de passe en cliquant sur le lien ci-dessous.";
+        String message = "Veuillez réinitialiser votre mot de passe en cliquant sur le lien ci-dessous. Ce lien est valable 24 heures.";
         return constructEmail("Reset Password", message + " \r\n" + url, user);
     }
 
