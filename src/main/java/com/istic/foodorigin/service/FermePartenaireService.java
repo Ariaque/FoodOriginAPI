@@ -19,9 +19,11 @@ public class FermePartenaireService {
 
     public FermePartenaire getFermeById(Long id) {
         FermePartenaire ret = null;
-        Optional<FermePartenaire> fermePartenaire = fermePartenaireRepository.findById(id);
-        if (fermePartenaire.isPresent()) {
-            ret = fermePartenaire.get();
+        if (id != null) {
+            Optional<FermePartenaire> fermePartenaire = fermePartenaireRepository.findById(id);
+            if (fermePartenaire.isPresent()) {
+                ret = fermePartenaire.get();
+            }
         }
         return ret;
     }

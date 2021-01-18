@@ -62,7 +62,7 @@ public class PasswordResetController {
             method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public ResponseEntity<?> sendEmail(HttpServletRequest request, @RequestBody SendEmailRequest sendEmailRequest) throws UserNotFoundException {
-        User user = userService.findUserByEmail(sendEmailRequest.getEmail());
+        User user = userService.getUserByName(sendEmailRequest.getEmail());
         if (user == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with this email does not exist");
         }

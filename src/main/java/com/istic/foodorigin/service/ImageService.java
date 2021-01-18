@@ -26,7 +26,7 @@ public class ImageService {
         try {
             con = new FTPClient();
             con.connect(this.ftp_address);
-            if (con.login(this.user,this.mdp)) {
+            if (con.login(this.user,this.mdp) && !file.isEmpty()) {
                 con.enterLocalPassiveMode();
                 con.setFileType(FTP.BINARY_FILE_TYPE);
                 con.changeWorkingDirectory("/images");

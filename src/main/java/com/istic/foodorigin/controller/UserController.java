@@ -7,6 +7,7 @@ import com.istic.foodorigin.payload.response.MessageResponse;
 import com.istic.foodorigin.security.services.UserDetailsImpl;
 import com.istic.foodorigin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,25 +45,31 @@ public class UserController {
     @PostMapping(path = "/save", consumes = "application/json", produces = "application/json")
     public User saveUser(@RequestBody User user) {
         return userService.saveUser(user);
-//        return "Utilisateur ajouté";
     }
 
     @PostMapping(path = "/delete", consumes = "application/json")
     public ResponseEntity<?> deleteUser(@RequestBody User user) {
-        userService.deleteUser(user);
-        return ResponseEntity.ok(new MessageResponse("User deleted !"));
+        boolean ret = userService.deleteUser(user);
+        if (ret) {
+            return ResponseEntity.ok(new MessageResponse("User deleted !"));
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new MessageResponse("User not deleted !"));
+        }
     }
 
     @GetMapping(path = "/{name}", produces = "application/json")
     public User getUserByName (@PathVariable String name) {
         return userService.getUserByName(name);
     }
+
     @GetMapping(path = "/transfo/{siret}", produces = "application/json")
     public User getUserBySiretTransfo (@PathVariable String siret) {
         return userService.getUserBySiretTransfo(siret);
     }
+
     @GetMapping(path="isActive/{siret}", produces = "application/json")
-    public Boolean getUserState(@PathVariable String siret){
+    public Boolean getUserStateBySiret(@PathVariable String siret){
         Boolean result = false;
         User user = userService.getUserBySiretTransfo(siret);
         if(user != null && user.getIsEnabled() != null){

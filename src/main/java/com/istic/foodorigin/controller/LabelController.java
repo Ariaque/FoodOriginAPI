@@ -19,7 +19,7 @@ public class LabelController {
     private LabelService labelService;
 
     @GetMapping(path = "/all", produces = "application/json")
-    public Set<Label> getAllLabel () {
+    public Set<Label> getAllLabels () {
         Iterable<Label> itLab = labelService.getAllLabels();
         List <Label> labels = StreamSupport.stream(itLab.spliterator(), false).collect(Collectors.toList());
         Set<Label> ret = new HashSet<>(labels);

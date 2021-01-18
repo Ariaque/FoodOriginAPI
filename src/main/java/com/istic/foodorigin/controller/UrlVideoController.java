@@ -30,8 +30,8 @@ public class UrlVideoController {
     }
 
     @GetMapping (path = "/{id}", produces = "application/json")
-    public UrlVideo getLabelById(@PathVariable Long id) {
-        UrlVideo url = urlVideoService.getLabelById(id);
+    public UrlVideo getUrlById(@PathVariable Long id) {
+        UrlVideo url = urlVideoService.getUrlById(id);
         return url;
     }
 }

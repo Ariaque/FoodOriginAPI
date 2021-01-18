@@ -20,9 +20,11 @@ public class DenreeAnimaleService {
 
     public DenreeAnimale getDenreeById(Long id) {
         DenreeAnimale ret = null;
-        Optional<DenreeAnimale> denree = denreeAnimaleRepository.findById(id);
-        if (denree.isPresent()) {
-            ret = denree.get();
+        if (id != null) {
+            Optional<DenreeAnimale> denree = denreeAnimaleRepository.findById(id);
+            if (denree.isPresent()) {
+                ret = denree.get();
+            }
         }
         return ret;
     }

@@ -20,24 +20,31 @@ public class InfosTransformateurService {
 
     public InfosTransformateur getInfosById (Long id) {
         InfosTransformateur ret = null;
-        Optional<InfosTransformateur> infos = infosRepository.findById(id);
-        if (infos.isPresent()) {
-            ret = infos.get();
+        if (id != null) {
+            Optional<InfosTransformateur> infos = infosRepository.findById(id);
+            if (infos.isPresent()) {
+                ret = infos.get();
+            }
         }
         return ret;
     }
 
     public InfosTransformateur saveInfos (InfosTransformateur infos) {
-        return infosRepository.save(infos);
+        InfosTransformateur infosT = null;
+        if (infos != null) {
+            infosT = infosRepository.save(infos);
+        }
+        return infosT;
     }
 
     public InfosTransformateur getInfosByTransformateur (Long id) {
         InfosTransformateur ret = null;
-        Optional<Transformateur> transformateur = transformateurRepository.findById(id);
-        if (transformateur.isPresent()) {
-            ret = infosRepository.findByTransformateur(transformateur.get());
+        if (id != null) {
+            Optional<Transformateur> transformateur = transformateurRepository.findById(id);
+            if (transformateur.isPresent()) {
+                ret = infosRepository.findByTransformateur(transformateur.get());
+            }
         }
-
         return ret;
     }
 }
