@@ -66,6 +66,7 @@ public class UserService {
 
     public boolean deleteUser (User user) {
         boolean delete = false;
+        userRepository.existsByUsername(user.getUsername());
         if (user != null && userRepository.existsByUsername(user.getUsername())) {
             userRepository.delete(user);
             delete = true;
