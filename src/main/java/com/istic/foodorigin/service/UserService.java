@@ -34,53 +34,55 @@ public class UserService {
         return users;
     }
 
-    public User findUserByEmail(String email) {
-        User user = null;
-        boolean found = false;
-        Iterable<User> users = userRepository.findAll();
-        Iterator<User> it = users.iterator();
-        while (!found && it.hasNext()) {
-            user = it.next();
-            if(user.getUsername().equals(email)) {
-                found = true;
-            }
-        }
-        return user;
-    }
-
-
     public User saveUser (User user) {
-        return userRepository.save(user);
+        User ret = null;
+        if (user != null) {
+            ret = userRepository.save(user);
+        }
+        return ret;
     }
 
     public User getUserByName (String username) {
         User user = null;
-        Optional<User> ret = userRepository.findByUsername(username);
-        if (ret.isPresent()) {
-            user = ret.get();
+        if (username != null) {
+            Optional<User> ret = userRepository.findByUsername(username);
+            if (ret.isPresent()) {
+                user = ret.get();
+            }
         }
         return user;
     }
 
     public User getUserBySiretTransfo (String siret) {
         User user = null;
-        Optional<User> ret = userRepository.findUserBySiret(siret);
-        if (ret.isPresent()) {
-            user = ret.get();
+        if (siret != null) {
+            Optional<User> ret = userRepository.findUserBySiret(siret);
+            if (ret.isPresent()) {
+                user = ret.get();
+            }
         }
         return user;
+    }
+
+    public boolean deleteUser (User user) {
+        boolean delete = false;
+        if (user != null && userRepository.existsByUsername(user.getUsername())) {
+            userRepository.delete(user);
+            delete = true;
+        }
+        return delete;
     }
 
     public Optional<User> getUserByPasswordResetToken(final String token) {
         return Optional.ofNullable(passwordResetTokenRepository.findByToken(token).getUser());
     }
 
-    public void changeUserPassword(final User user, final String password) {
-        user.setPassword(encoder.encode(password));
-        userRepository.save(user);
-    }
-
-    public void deleteUser (User user) {
-        userRepository.delete(user);
+    public User changeUserPassword(final User user, final String password) {
+        User ret = null;
+        if (password != null && userRepository.existsByUsername(user.getUsername())) {
+            user.setPassword(encoder.encode(password));
+            ret = userRepository.save(user);
+        }
+        return ret;
     }
 }

@@ -20,9 +20,11 @@ public class CertificationService {
 
     public Certification getCertificationById (Long id) {
         Certification ret = null;
-        Optional<Certification> certification = certificationRepository.findById(id);
-        if (certification.isPresent()) {
-            ret = certification.get();
+        if(id != null) {
+            Optional<Certification> certification = certificationRepository.findById(id);
+            if (certification.isPresent()) {
+                ret = certification.get();
+            }
         }
         return ret;
     }

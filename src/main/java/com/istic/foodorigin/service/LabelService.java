@@ -20,9 +20,11 @@ public class LabelService {
 
     public Label getLabelById(Long id) {
         Label ret = null;
-        Optional<Label> label = labelRepository.findById(id);
-        if (label.isPresent()) {
-            ret = label.get();
+        if (id != null) {
+            Optional<Label> label = labelRepository.findById(id);
+            if (label.isPresent()) {
+                ret = label.get();
+            }
         }
         return ret;
     }

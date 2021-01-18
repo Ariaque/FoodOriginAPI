@@ -14,27 +14,37 @@ public class TransformateurService {
     @Autowired
     private TransformateurRepository transformateurRepository;
 
-    public Transformateur getTransformateur(Long id) {
+    public Transformateur getTransformateurById(Long id) {
         Transformateur ret = null;
-        Optional<Transformateur> transformateur = transformateurRepository.findById(id);
-        if (transformateur.isPresent()) {
-            ret = transformateur.get();
+        if (id != null) {
+            Optional<Transformateur> transformateur = transformateurRepository.findById(id);
+            if (transformateur.isPresent()) {
+                ret = transformateur.get();
+            }
         }
         return ret;
     }
 
     public Transformateur getTransformateurBySiret(String siret) {
         Transformateur ret = null;
-        List<Transformateur> transformateurs = transformateurRepository.findBySiret(siret);
-        if(transformateurs.size() > 0){
-            ret = transformateurs.get(0);
+        if (siret != null && siret.length() == 14) {
+            List<Transformateur> transformateurs = transformateurRepository.findBySiret(siret);
+            if(transformateurs.size() > 0){
+                ret = transformateurs.get(0);
+            }
         }
         return ret;
     }
 
     public Transformateur getTransformateurByEstampille(String estampille) {
-        List<Transformateur> transformateur = transformateurRepository.findByNumAgrement(estampille);
-        // sometimes, several lines for one stamp
-        return transformateur.get(0);
+        Transformateur transformateur = null;
+        if (estampille != null) {
+            List<Transformateur> transformateurs = transformateurRepository.findByNumAgrement(estampille);
+            // sometimes, several lines for one stamp
+            if (transformateurs.size() != 0) {
+                transformateur = transformateurs.get(0);
+            }
+        }
+        return transformateur;
     }
 }

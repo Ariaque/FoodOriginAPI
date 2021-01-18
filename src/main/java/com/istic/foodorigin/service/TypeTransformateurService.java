@@ -19,9 +19,11 @@ public class TypeTransformateurService {
 
     public TypeTransformateur getTypeById (Long id) {
         TypeTransformateur ret = null;
-        Optional <TypeTransformateur> type = typeTransformateurRepository.findById(id);
-        if (type.isPresent()) {
-            ret = type.get();
+        if (id != null) {
+            Optional <TypeTransformateur> type = typeTransformateurRepository.findById(id);
+            if (type.isPresent()) {
+                ret = type.get();
+            }
         }
         return ret;
     }

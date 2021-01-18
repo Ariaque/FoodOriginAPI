@@ -18,11 +18,13 @@ public class UrlVideoService {
         return urls;
     }
 
-    public UrlVideo getLabelById(Long id) {
+    public UrlVideo getUrlById(Long id) {
         UrlVideo ret = null;
-        Optional <UrlVideo> url = urlVideoRepository.findById(id);
-        if (url.isPresent()) {
-            ret = url.get();
+        if (id != null) {
+            Optional <UrlVideo> url = urlVideoRepository.findById(id);
+            if (url.isPresent()) {
+                ret = url.get();
+            }
         }
         return ret;
     }

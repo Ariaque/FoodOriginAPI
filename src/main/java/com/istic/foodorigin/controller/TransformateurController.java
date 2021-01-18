@@ -14,7 +14,7 @@ public class TransformateurController {
 
     @GetMapping(path = "/{id}", produces = "application/json")
     public Transformateur getTransformateurById(@PathVariable Long id) {
-        return transformateurService.getTransformateur(id);
+        return transformateurService.getTransformateurById(id);
     }
 
     @GetMapping(path = "/siret/{siret}", produces = "application/json")
