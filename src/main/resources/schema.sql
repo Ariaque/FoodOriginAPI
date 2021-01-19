@@ -34,15 +34,15 @@ CREATE TABLE IF NOT EXISTS foodOrigin_fermePartenaire (
 CREATE TABLE IF NOT EXISTS foodOrigin_typeDenree (
     id SERIAL NOT NULL,
     nom VARCHAR (255) NOT NULL,
-    espece VARCHAR (255) NOT NULL,
-    animal VARCHAR (255) NOT NULL,
+    espece VARCHAR (255),
+    animal VARCHAR (255),
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_origineDenree (
     id SERIAL NOT NULL,
     pays VARCHAR (255) NOT NULL,
-    region VARCHAR (255) NOT NULL,
+    region VARCHAR (255),
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
