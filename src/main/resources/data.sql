@@ -28,5 +28,21 @@ INSERT INTO foodOrigin_typeTransformateur (libelle) VALUES ('Artisan') ON DUPLIC
 --INSERT INTO foodOrigin_role (name) VALUES ('ROLE_ADMIN') ON DUPLICATE KEY UPDATE name = 'ROLE_ADMIN';
 --INSERT INTO foodOrigin_role (name) VALUES ('ROLE_USER') ON DUPLICATE KEY UPDATE name = 'ROLE_USER';
 
---Fille foodOrigin_user table
+--Fill foodOrigin_user table
 ---INSERT INTO foodOrigin_user (username, password, is_activated, fk_role) VALUES ('admin', 'admin', true, 1) ON DUPLICATE KEY UPDATE username = 'admin'; --Encrypt le mot de passe
+
+--Fill foodOrigin_origineDenree table
+INSERT INTO foodOrigin_origineDenree (id, pays, region) VALUES (1, 'Monde', 'Amerique du Nord') ON DUPLICATE KEY UPDATE id = 1;
+INSERT INTO foodOrigin_origineDenree (id, pays, region) VALUES (2, 'Monde', 'Amerique du Sud') ON DUPLICATE KEY UPDATE id = 2;
+INSERT INTO foodOrigin_origineDenree (id, pays, region) VALUES (3, 'Europe', 'Italie') ON DUPLICATE KEY UPDATE id = 3;
+INSERT INTO foodOrigin_origineDenree (id, pays, region) VALUES (4, 'Europe', 'Islande') ON DUPLICATE KEY UPDATE id = 4;
+INSERT INTO foodOrigin_origineDenree (id, pays, region) VALUES (5, 'France', 'Corse') ON DUPLICATE KEY UPDATE id = 5;
+INSERT INTO foodOrigin_origineDenree (id, pays, region) VALUES (6, 'France', 'Grand Est') ON DUPLICATE KEY UPDATE id = 6;
+
+--Fill foodOrigin_typeDenree
+INSERT INTO foodOrigin_typeDenree (id, nom, espece, animal) VALUES (1, 'Viande', 'Bovins', 'Boeuf') ON DUPLICATE KEY UPDATE id = 1;
+INSERT INTO foodOrigin_typeDenree (id, nom, espece, animal) VALUES (2, 'Viande', 'Bovins', 'Veau') ON DUPLICATE KEY UPDATE id = 2;
+INSERT INTO foodOrigin_typeDenree (id, nom, espece, animal) VALUES (3, 'Produit de la mer', 'Poisson', 'Sauvage') ON DUPLICATE KEY UPDATE id = 3;
+INSERT INTO foodOrigin_typeDenree (id, nom, espece, animal) VALUES (4, 'Produit de la mer', 'Poisson', 'Elevage') ON DUPLICATE KEY UPDATE id = 4;
+INSERT INTO foodOrigin_typeDenree (id, nom, espece, animal) VALUES (5, 'Produit de la mer', 'Fruit de mer', 'Crustacé') ON DUPLICATE KEY UPDATE id = 5;
+INSERT INTO foodOrigin_typeDenree (id, nom, espece, animal) VALUES (6, 'Produit de la mer', 'Fruit de mer', 'Mollusque') ON DUPLICATE KEY UPDATE id = 6;

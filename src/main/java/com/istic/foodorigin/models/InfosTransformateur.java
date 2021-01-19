@@ -44,8 +44,8 @@ public class InfosTransformateur {
     @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable (name = "foodOrigin_infoTransformateur_denreeAnimale",
             joinColumns = @JoinColumn(name = "fk_infos"),
-            inverseJoinColumns = @JoinColumn (name = "fk_denreesA"))
-    private Set <DenreeAnimale> denreesA;
+            inverseJoinColumns = @JoinColumn (name = "fk_denrees"))
+    private Set <DenreeAnimale> denrees;
 
 
     public InfosTransformateur () {}
@@ -162,12 +162,12 @@ public class InfosTransformateur {
         this.fermesP = fermesP;
     }
 
-    public Set<DenreeAnimale> getDenreesA() {
-        return denreesA;
+    public Set<DenreeAnimale> getDenrees() {
+        return denrees;
     }
 
-    public void setDenreesA(Set<DenreeAnimale> denreesA) {
-        this.denreesA = denreesA;
+    public void setDenrees(Set<DenreeAnimale> denrees) {
+        this.denrees = denrees;
     }
 
     @Override
@@ -187,7 +187,7 @@ public class InfosTransformateur {
                 ", certifications=" + certifications +
                 ", urls=" + urls +
                 ", fermesP=" + fermesP +
-                ", denreesA=" + denreesA +
+                ", denrees=" + denrees +
                 '}';
     }
 }

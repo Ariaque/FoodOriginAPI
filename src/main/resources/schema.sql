@@ -31,11 +31,30 @@ CREATE TABLE IF NOT EXISTS foodOrigin_fermePartenaire (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS foodOrigin_denreeAnimale (
+CREATE TABLE IF NOT EXISTS foodOrigin_typeDenree (
     id SERIAL NOT NULL,
     nom VARCHAR (255) NOT NULL,
-    origine VARCHAR (255),
+    espece VARCHAR (255) NOT NULL,
+    animal VARCHAR (255) NOT NULL,
     PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS foodOrigin_origineDenree (
+    id SERIAL NOT NULL,
+    pays VARCHAR (255) NOT NULL,
+    region VARCHAR (255) NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS foodOrigin_denreeAnimale (
+    id SERIAL NOT NULL,
+    fk_type BIGINT UNSIGNED NOT NULL,
+    fk_origine BIGINT UNSIGNED NOT NULL,
+    infosTypeDenree VARCHAR (255),
+    infosOrigineDenree VARCHAR (255),
+    PRIMARY KEY (id),
+    FOREIGN KEY (fk_type) REFERENCES foodOrigin_typeDenree(id),
+    FOREIGN KEY (fk_origine) REFERENCES foodOrigin_origineDenree (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS foodOrigin_transformateur (
@@ -131,9 +150,9 @@ CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur_fermePartenaire (
 
 CREATE TABLE IF NOT EXISTS foodOrigin_infoTransformateur_denreeAnimale (
     fk_infos BIGINT UNSIGNED NOT NULL,
-    fk_denreesA BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (fk_infos, fk_denreesA),
+    fk_denrees BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (fk_infos, fk_denrees),
     FOREIGN KEY (fk_infos) REFERENCES foodOrigin_infoTransformateur (id),
-    FOREIGN KEY (fk_denreesA) REFERENCES foodOrigin_denreeAnimale (id)
+    FOREIGN KEY (fk_denrees) REFERENCES foodOrigin_denreeAnimale (id)
 ) ENGINE=InnoDB;
 
