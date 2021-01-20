@@ -1,7 +1,5 @@
 package com.istic.foodorigin.payload.request;
 
-import com.istic.foodorigin.models.Transformateur;
-
 import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.util.Set;
@@ -22,6 +20,10 @@ public class SignupRequest {
     @Size(max = 250)
     @Column(name = "type_transformateur")
     private String typeTransformateur;
+
+    @NotBlank
+    @Size(max = 10)
+    private String numeroTelephone;
 
 
     public String getUsername() {
@@ -54,5 +56,13 @@ public class SignupRequest {
 
     public void setTypeTransformateur(String typeTransformateur) {
         this.typeTransformateur = typeTransformateur;
+    }
+
+    public String getNumeroTelephone() {
+        return numeroTelephone;
+    }
+
+    public void setNumeroTelephone(String numeroTelephone) {
+        this.numeroTelephone = numeroTelephone;
     }
 }

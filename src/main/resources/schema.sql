@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS foodOrigin_user (
     user_id SERIAL NOT NULL,
     username VARCHAR (250) COLLATE utf8_unicode_ci NOT NULL UNIQUE,
     password VARCHAR (250) NOT NULL,
+    numero_telephone VARCHAR (10) NOT NULL,
     fk_transformateur BIGINT UNSIGNED,
     fk_typeT BIGINT UNSIGNED,
     fk_role BIGINT UNSIGNED NOT NULL,
