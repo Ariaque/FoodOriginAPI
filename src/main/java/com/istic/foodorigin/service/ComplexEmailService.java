@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ContactEmailService {
+public class ComplexEmailService {
 
     @Value("${foodorigin.admin.mailAdress}")
     private String adminEmail;
 
-    public SimpleMailMessage constructResetTokenEmail(String mailAdress, String subject, String phoneNumber, String description) {
-        String message = "Adresse email : " + "\r\n" + mailAdress + "Numéro de téléphone : "+ phoneNumber + "\r\n" + "Description : " + description;
+    public SimpleMailMessage constructContactEmail(String mailAdress, String subject, String phoneNumber, String description) {
+        String message = "Adresse email : " + mailAdress + "\r\n" + "Numéro de téléphone : "+ phoneNumber + "\r\n" + "Message : " + description;
         return constructEmail(mailAdress, subject, message);
     }
 
