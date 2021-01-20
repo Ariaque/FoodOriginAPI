@@ -4,16 +4,20 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "foodOrigin_denreeAnimale")
+@Table (name = "foodOrigin_denreeAnimale")
 public class DenreeAnimale {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
-    private String nom;
-    private String origine;
-
-    public DenreeAnimale () {}
+    @OneToOne
+    @JoinColumn (name = "fk_type")
+    private TypeDenree typeDenree;
+    @OneToOne
+    @JoinColumn (name = "fk_origine")
+    private OrigineDenree origineDenree;
+    private String infosTypeDenree;
+    private String infosOrigineDenree;
 
     public Long getId() {
         return id;
@@ -23,28 +27,46 @@ public class DenreeAnimale {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public TypeDenree getTypeDenree() {
+        return typeDenree;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setTypeDenree(TypeDenree typeDenree) {
+        this.typeDenree = typeDenree;
     }
 
-    public String getOrigine() {
-        return origine;
+    public OrigineDenree getOrigineDenree() {
+        return origineDenree;
     }
 
-    public void setOrigine(String origine) {
-        this.origine = origine;
+    public void setOrigineDenree(OrigineDenree origineDenree) {
+        this.origineDenree = origineDenree;
+    }
+
+    public String getInfosTypeDenree() {
+        return infosTypeDenree;
+    }
+
+    public void setInfosTypeDenree(String infosTypeDenree) {
+        this.infosTypeDenree = infosTypeDenree;
+    }
+
+    public String getInfosOrigineDenree() {
+        return infosOrigineDenree;
+    }
+
+    public void setInfosOrigineDenree(String infosOrigineDenree) {
+        this.infosOrigineDenree = infosOrigineDenree;
     }
 
     @Override
     public String toString() {
-        return "DenreeAnimale{" +
+        return "DenreeAnimal{" +
                 "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", origine='" + origine + '\'' +
+                ", typeDenree=" + typeDenree +
+                ", origineDenree=" + origineDenree +
+                ", infosTypeDenree='" + infosTypeDenree + '\'' +
+                ", infosOrigineDenree='" + infosOrigineDenree + '\'' +
                 '}';
     }
 
@@ -53,12 +75,14 @@ public class DenreeAnimale {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DenreeAnimale that = (DenreeAnimale) o;
-        return Objects.equals(nom, that.nom) &&
-                Objects.equals(origine, that.origine);
+        return Objects.equals(typeDenree, that.typeDenree) &&
+                Objects.equals(origineDenree, that.origineDenree) &&
+                Objects.equals(infosTypeDenree, that.infosTypeDenree) &&
+                Objects.equals(infosOrigineDenree, that.infosOrigineDenree);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nom, origine);
+        return Objects.hash(typeDenree, origineDenree, infosTypeDenree, infosOrigineDenree);
     }
 }

@@ -133,6 +133,7 @@ public class AuthController {
         TypeTransformateur type = typeTransformateurRepository.findByLibelle(signUpRequest.getTypeTransformateur());
         user.setTypeTransformateur(type);
         user.setTransformateur(transformateurService.getTransformateurBySiret(siret));
+        user.setNumeroTelephone(signUpRequest.getNumeroTelephone());
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

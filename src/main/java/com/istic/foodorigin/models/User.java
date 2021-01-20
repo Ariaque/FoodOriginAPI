@@ -26,6 +26,11 @@ public class User {
     @Size(max = 250)
     private String password;
 
+    @NotBlank
+    @Column (name = "numero_telephone")
+    @Size (max = 10)
+    private String numeroTelephone;
+
     @ManyToOne
     @JoinColumn (name = "fk_role")
     private Role role;
@@ -104,5 +109,13 @@ public class User {
 
     public void setTypeTransformateur(TypeTransformateur typeTransformateur) {
         this.typeTransformateur = typeTransformateur;
+    }
+
+    public String getNumeroTelephone() {
+        return numeroTelephone;
+    }
+
+    public void setNumeroTelephone(String numeroTelephone) {
+        this.numeroTelephone = numeroTelephone;
     }
 }
