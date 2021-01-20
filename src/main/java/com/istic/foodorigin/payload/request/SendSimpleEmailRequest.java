@@ -3,7 +3,7 @@ package com.istic.foodorigin.payload.request;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class SendEmailRequest {
+public class SendSimpleEmailRequest {
 
     @NotBlank
     @Email

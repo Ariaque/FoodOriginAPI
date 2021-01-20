@@ -5,7 +5,7 @@ import com.istic.foodorigin.models.PasswordResetToken;
 import com.istic.foodorigin.models.User;
 import com.istic.foodorigin.payload.request.ChangePasswordRequest;
 import com.istic.foodorigin.payload.request.SavePasswordRequest;
-import com.istic.foodorigin.payload.request.SendEmailRequest;
+import com.istic.foodorigin.payload.request.SendSimpleEmailRequest;
 import com.istic.foodorigin.payload.response.MessageResponse;
 import com.istic.foodorigin.repository.PasswordResetTokenRepository;
 import com.istic.foodorigin.repository.UserRepository;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,8 +60,8 @@ public class PasswordResetController {
     @RequestMapping(value = "/resetPassword/sendEmail",
             method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public ResponseEntity<?> sendEmail(HttpServletRequest request, @RequestBody SendEmailRequest sendEmailRequest) throws UserNotFoundException {
-        User user = userService.getUserByName(sendEmailRequest.getEmail());
+    public ResponseEntity<?> sendEmail(HttpServletRequest request, @RequestBody SendSimpleEmailRequest sendSimpleEmailRequest) throws UserNotFoundException {
+        User user = userService.getUserByName(sendSimpleEmailRequest.getEmail());
         if (user == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with this email does not exist");
         }
