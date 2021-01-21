@@ -1,6 +1,7 @@
 package com.istic.foodorigin.service;
 
 import com.istic.foodorigin.models.ERole;
+import com.istic.foodorigin.models.PasswordResetToken;
 import com.istic.foodorigin.models.User;
 import com.istic.foodorigin.repository.PasswordResetTokenRepository;
 import com.istic.foodorigin.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -66,10 +68,13 @@ public class UserService {
 
     public boolean deleteUser (User user) {
         boolean delete = false;
-        userRepository.existsByUsername(user.getUsername());
-        if (user != null && userRepository.existsByUsername(user.getUsername())) {
-            userRepository.delete(user);
-            delete = true;
+        if (user != null) {
+            if (userRepository.existsByUsername(user.getUsername())) {
+                List<PasswordResetToken> tokens = passwordResetTokenRepository.findByFkUser(user.getId());
+                passwordResetTokenRepository.deleteAll(tokens);
+                userRepository.delete(user);
+                delete = true;
+            }
         }
         return delete;
     }
