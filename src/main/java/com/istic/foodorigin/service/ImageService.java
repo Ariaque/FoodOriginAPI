@@ -1,6 +1,7 @@
 package com.istic.foodorigin.service;
 
 
+import com.istic.foodorigin.repository.TransformateurRepository;
 import com.istic.foodorigin.repository.UserRepository;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -23,11 +24,11 @@ public class ImageService {
     private String mdp;
 
     @Autowired
-    private UserRepository userRepository;
+    private TransformateurRepository transformateurRepository;
 
     public boolean saveImageOnServer (MultipartFile file, Long idT) {
         boolean ret = false;
-        if (idT != null && userRepository.findById(idT).isPresent() && file != null) {
+        if (idT != null && transformateurRepository.findById(idT).isPresent() && file != null) {
             FTPClient con = null;
             try {
                 con = new FTPClient();
@@ -52,7 +53,7 @@ public class ImageService {
 
     public Set<String> getFolderFiles (Long idT) {
         Set<String> images = new HashSet<>();
-        if (idT != null && userRepository.findById(idT).isPresent()) {
+        if (idT != null && transformateurRepository.findById(idT).isPresent()) {
             FTPClient con = null;
             try {
                 con = new FTPClient();
@@ -81,7 +82,7 @@ public class ImageService {
 
     public boolean removeFile (Long idT, String fileName) {
         boolean ret = false;
-        if (idT != null && userRepository.findById(idT).isPresent() && fileName != null) {
+        if (idT != null && transformateurRepository.findById(idT).isPresent() && fileName != null) {
             FTPClient con = null;
             try {
                 con = new FTPClient();
