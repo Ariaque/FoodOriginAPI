@@ -1,8 +1,8 @@
 package com.istic.foodorigin.testController;
 
-import com.istic.foodorigin.controller.TransformateurController;
 import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.repository.TransformateurRepository;
+import com.istic.foodorigin.service.TransformateurService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,18 +23,18 @@ public class TransformateurControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private TransformateurService transformateurService;
+
     @Autowired
     private TransformateurRepository transformateurRepository;
-
-    @MockBean
-    private TransformateurController transformateurController;
 
     @Test
     public void testGetTansformateurByIdExists () throws Exception {
         Long id = Integer.toUnsignedLong(20);
         Transformateur transformateur = transformateurRepository.findById(id).get();
 
-        given (transformateurController.getTransformateurById(id)).willReturn(transformateur);
+        given (transformateurService.getTransformateurById(id)).willReturn(transformateur);
         mockMvc.perform(get("/transformateur/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -49,18 +49,18 @@ public class TransformateurControllerTests {
     public void testGetTransformateurByIdNotExists () throws Exception {
         Long id = Integer.toUnsignedLong(22000);
 
-        given (transformateurController.getTransformateurById(id)).willReturn(null);
+        given (transformateurService.getTransformateurById(id)).willReturn(null);
         mockMvc.perform(get("/transformateur/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());
     }
 
     @Test
-    public void testGetTansformateurBySiretExists () throws Exception {
-        String siret = "39931561300584";
+    public void testGetTransformateurBySiretExists () throws Exception {
+        String siret = "37784209100029";
         Transformateur transformateur = transformateurRepository.findBySiret(siret).get(0);
 
-        given (transformateurController.getTransformateurBySiret(siret)).willReturn(transformateur);
+        given (transformateurService.getTransformateurBySiret(siret)).willReturn(transformateur);
         mockMvc.perform(get("/transformateur/siret/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -74,7 +74,7 @@ public class TransformateurControllerTests {
     public void testGetTransformateurBySiretNotExists () throws Exception {
         String siret = "399315613";
 
-        given (transformateurController.getTransformateurBySiret(siret)).willReturn(null);
+        given (transformateurService.getTransformateurBySiret(siret)).willReturn(null);
         mockMvc.perform(get("/transformateur/siret/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());
@@ -85,7 +85,7 @@ public class TransformateurControllerTests {
         String estampille = "02.502.002";
         Transformateur transformateur = transformateurRepository.findByNumAgrement(estampille).get(0);
 
-        given (transformateurController.getTransformateurByEstampille(estampille)).willReturn(transformateur);
+        given (transformateurService.getTransformateurByEstampille(estampille)).willReturn(transformateur);
         mockMvc.perform(get("/transformateur")
                 .param("estampille",estampille)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -100,7 +100,7 @@ public class TransformateurControllerTests {
     public void testGetTransformateurByEstampilleNotExists () throws Exception {
         String estampille = "02.502.0048";
 
-        given (transformateurController.getTransformateurByEstampille(estampille)).willReturn(null);
+        given (transformateurService.getTransformateurByEstampille(estampille)).willReturn(null);
         mockMvc.perform(get("/transformateur")
                 .param("estampille", estampille)
                 .contentType(MediaType.APPLICATION_JSON))

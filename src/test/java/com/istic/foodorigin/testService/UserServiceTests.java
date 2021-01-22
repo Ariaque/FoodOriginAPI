@@ -38,20 +38,21 @@ public class UserServiceTests {
     public void testGetAllUsers () {
         Iterable<User> itUser = userService.getAllUsers();
         List<User> found = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
-        assertThat(found.size()).isEqualTo(4);
+        assertThat(found.size()).isEqualTo(10);
     }
 
     @Test
     public void testGetAllRoleUser () {
         Iterable<User> itUser = userService.getAllRoleUser();
         List<User> found = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
-        assertThat(found.size()).isEqualTo(3);
+        assertThat(found.size()).isEqualTo(9);
     }
 
     @Test
     public void testSaveUser () {
         User user = new User();
         String username = "test@test.fr";
+        String numeroTel = "0299920417";
         user.setUsername(username);
         user.setPassword(encoder.encode("test"));
         Role role = roleRepository.findByName(ERole.ROLE_USER).get();
@@ -61,6 +62,7 @@ public class UserServiceTests {
         TypeTransformateur typeT = typeTransformateurService.getTypeById(Integer.toUnsignedLong(2));
         user.setTypeTransformateur(typeT);
         user.setUserActivation(false);
+        user.setNumeroTelephone(numeroTel);
 
         User saveU = userService.saveUser(user);
         assertThat(saveU.getRole().getName()).isEqualTo(role.getName());
@@ -68,6 +70,7 @@ public class UserServiceTests {
         assertThat(encoder.matches("test", saveU.getPassword())).isTrue();
         assertThat(saveU.getTransformateur().getId()).isEqualTo(Integer.toUnsignedLong(200));
         assertThat(saveU.getTypeTransformateur().getLibelle()).isEqualTo(typeT.getLibelle());
+        assertThat(saveU.getNumeroTelephone()).isEqualTo(numeroTel);
     }
 
     @Test
@@ -105,7 +108,7 @@ public class UserServiceTests {
 
     @Test
     public void testUserBySiretTransfoNoUser () {
-        String siret = "50308898100017";
+        String siret = "39239584400021";
         User user = userService.getUserBySiretTransfo(siret);
         assertThat(user).isNull();
     }

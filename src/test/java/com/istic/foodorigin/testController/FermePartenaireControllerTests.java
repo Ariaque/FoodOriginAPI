@@ -1,6 +1,5 @@
 package com.istic.foodorigin.testController;
 
-import com.istic.foodorigin.controller.FermePartenaireController;
 import com.istic.foodorigin.models.FermePartenaire;
 import com.istic.foodorigin.repository.FermePartenaireRepository;
 import com.istic.foodorigin.service.FermePartenaireService;
@@ -32,7 +31,7 @@ public class FermePartenaireControllerTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private FermePartenaireController fermePartenaireController;
+    private FermePartenaireService fermePartenaireService;
 
     @Autowired
     private FermePartenaireRepository fermePRepository;
@@ -43,7 +42,7 @@ public class FermePartenaireControllerTests {
         List<FermePartenaire> fermes = StreamSupport.stream(itFerme.spliterator(), false).collect(Collectors.toList());
         Set<FermePartenaire> ret = new HashSet<>(fermes);
 
-        given (fermePartenaireController.getAll()).willReturn(ret);
+        given (fermePartenaireService.getAllFermes()).willReturn(ret);
         mockMvc.perform(get("/ferme/all")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -56,7 +55,7 @@ public class FermePartenaireControllerTests {
         Long id = Integer.toUnsignedLong(58);
         FermePartenaire ferme = fermePRepository.findById(id).get();
 
-        given (fermePartenaireController.getFermeById(id)).willReturn(ferme);
+        given (fermePartenaireService.getFermeById(id)).willReturn(ferme);
         mockMvc.perform(get("/ferme/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -71,7 +70,7 @@ public class FermePartenaireControllerTests {
     public void testGetFermeByIdNotExists () throws Exception {
         Long id = Integer.toUnsignedLong(15);
 
-        given (fermePartenaireController.getFermeById(id)).willReturn(null);
+        given (fermePartenaireService.getFermeById(id)).willReturn(null);
         mockMvc.perform(get("/ferme/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());

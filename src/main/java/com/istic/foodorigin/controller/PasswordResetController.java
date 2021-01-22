@@ -63,7 +63,7 @@ public class PasswordResetController {
     public ResponseEntity<?> sendEmail(HttpServletRequest request, @RequestBody SendSimpleEmailRequest sendSimpleEmailRequest) throws UserNotFoundException {
         User user = userService.getUserByName(sendSimpleEmailRequest.getEmail());
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with this email does not exist");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("User with this email does not exist");
         }
         String token = UUID.randomUUID().toString();
         passwordResetService.createPasswordResetTokenForUser(user, token);

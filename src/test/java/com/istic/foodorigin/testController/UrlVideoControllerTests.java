@@ -3,6 +3,7 @@ package com.istic.foodorigin.testController;
 import com.istic.foodorigin.controller.UrlVideoController;
 import com.istic.foodorigin.models.UrlVideo;
 import com.istic.foodorigin.repository.UrlVideoRepository;
+import com.istic.foodorigin.service.UrlVideoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UrlVideoControllerTests {
 
     @MockBean
-    private UrlVideoController urlVideoController;
+    private UrlVideoService urlVideoService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,12 +42,13 @@ public class UrlVideoControllerTests {
         Iterable<UrlVideo> itVideos = urlVideoRepository.findAll();
         List<UrlVideo> urlVideos = StreamSupport.stream(itVideos.spliterator(), false).collect(Collectors.toList());
         Set<UrlVideo> urls = new HashSet<>(urlVideos);
+        System.out.println(urls.size());
 
-        given (urlVideoController.getAllUrls()).willReturn(urls);
+        given (urlVideoService.getAllUrls()).willReturn(urls);
         mockMvc.perform(get("/urlVideo/all")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(urlVideos.size())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(urls.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
     }
 
@@ -55,7 +57,7 @@ public class UrlVideoControllerTests {
         Long id = Integer.toUnsignedLong(39);
         UrlVideo urlVideo = urlVideoRepository.findById(id).get();
 
-        given (urlVideoController.getUrlById(id)).willReturn(urlVideo);
+        given (urlVideoService.getUrlById(id)).willReturn(urlVideo);
         mockMvc.perform(get("/urlVideo/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -69,7 +71,7 @@ public class UrlVideoControllerTests {
     public void testGetUrlByIdNotExists () throws Exception {
         Long id = Integer.toUnsignedLong(12);
 
-        given (urlVideoController.getUrlById(id)).willReturn(null);
+        given (urlVideoService.getUrlById(id)).willReturn(null);
         mockMvc.perform(get("/urlVideo/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());

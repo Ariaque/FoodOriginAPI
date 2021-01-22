@@ -44,6 +44,6 @@ public class UrlVideoServiceTests {
     public void testGetAllUrls () {
         Iterable<UrlVideo> itUrl = urlVideoService.getAllUrls();
         List<UrlVideo> found = StreamSupport.stream(itUrl.spliterator(), false).collect(Collectors.toList());
-        assertThat(found.size()).isEqualTo(14);
+        assertThat(found.size()).isEqualTo(11);
     }
 }

@@ -16,7 +16,7 @@ public class TypeTRepositoryTests {
     private TypeTransformateurRepository typeTRepository;
 
     @Test
-    public void testFindByNameArtisan () {
+    public void testFindByLibelleArtisan () {
         //Test avec les types enregistrés à l'initialisation de l'appli
         String type = "Artisan";
         TypeTransformateur type_artisan = typeTRepository.findByLibelle(type);
@@ -26,7 +26,7 @@ public class TypeTRepositoryTests {
     }
 
     @Test
-    public void testFindByNameIndustriel () {
+    public void testFindByLibelleIndustriel () {
         //Test avec les types enregistrés à l'initialisation de l'appli
         String type = "Industriel";
         TypeTransformateur type_industriel = typeTRepository.findByLibelle(type);
@@ -36,7 +36,7 @@ public class TypeTRepositoryTests {
     }
 
     @Test
-    public void testFindByNameNotExist () {
+    public void testFindByLibelleNotExist () {
         //Test avec un type qui n'existe pas
         String type = "Agriculteur";
         TypeTransformateur type_transformateur = typeTRepository.findByLibelle(type);
@@ -45,7 +45,7 @@ public class TypeTRepositoryTests {
     }
 
     @Test
-    public void testFindByNameNull () {
+    public void testFindByLibelleNull () {
         //Test avec un type qui n'existe pas
         TypeTransformateur type_transformateur = typeTRepository.findByLibelle(null);
 

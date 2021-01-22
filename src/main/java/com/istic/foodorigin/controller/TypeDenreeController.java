@@ -25,22 +25,19 @@ public class TypeDenreeController {
 
     @GetMapping(path = "/nom", produces = "application/json")
     public Set<String> getAllNomTypeDenree () {
-        List<String> typesD = typeDenreeService.getAllNom();
-        Set<String> ret = new HashSet<>(typesD);
+        Set<String> ret = typeDenreeService.getAllNom();
         return ret;
     }
 
     @GetMapping(path = "/espece", produces = "application/json")
     public Set<String> getEspeceByNom(@RequestParam("nom") String nom) {
-        List<String> typesD = typeDenreeService.getEspeceByNom(nom);
-        Set<String> ret = new HashSet<>(typesD);
+        Set<String> ret = typeDenreeService.getEspeceByNom(nom);
         return ret;
     }
 
     @GetMapping(path = "/animal", produces = "application/json")
     public Set<String> getAnimalByEspece (@RequestParam("espece") String espece) {
-        List<String> typesD = typeDenreeService.getAnimalByEspece(espece);
-        Set<String> ret = new HashSet<>(typesD);
+        Set<String> ret = typeDenreeService.getAnimalByEspece(espece);
         return ret;
     }
 }

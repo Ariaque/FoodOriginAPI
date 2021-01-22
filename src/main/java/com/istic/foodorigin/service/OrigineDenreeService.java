@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -23,24 +25,26 @@ public class OrigineDenreeService {
         return ret;
     }
 
-    public List<String> getAllPays () {
-        List<String> ret = new ArrayList<>();
+    public Set<String> getAllPays () {
+        List<String> liste = new ArrayList<>();
         Iterable<OrigineDenree> it = origineDenreeRepository.findAll();
         List <OrigineDenree> all = StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());
         for (int i =0; i < all.size(); i++) {
-            ret.add(all.get(i).getPays());
+            liste.add(all.get(i).getPays());
         }
+        Set<String> ret = new HashSet<>(liste);
         return ret;
     }
 
-    public List<String> getRegionByPays (String pays) {
-        List<String> ret = new ArrayList<>();
+    public Set<String> getRegionByPays (String pays) {
+        List<String> liste = new ArrayList<>();
         if (pays != null) {
             List <OrigineDenree> types = origineDenreeRepository.findByPays(pays);
             for (int i =0; i < types.size(); i++) {
-                ret.add(types.get(i).getRegion());
+                liste.add(types.get(i).getRegion());
             }
         }
+        Set<String> ret = new HashSet<>(liste);
         return ret;
     }
 

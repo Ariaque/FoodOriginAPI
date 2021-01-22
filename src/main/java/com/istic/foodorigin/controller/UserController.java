@@ -72,7 +72,7 @@ public class UserController {
     public Boolean getUserStateBySiret(@PathVariable String siret){
         Boolean result = false;
         User user = userService.getUserBySiretTransfo(siret);
-        if(user != null && user.getIsEnabled() != null){
+        if(user != null) {
             result = user.getIsEnabled();
         }
         return result;

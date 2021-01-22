@@ -1,6 +1,5 @@
 package com.istic.foodorigin.testController;
 
-import com.istic.foodorigin.controller.TypeTransformateurController;
 import com.istic.foodorigin.models.TypeTransformateur;
 import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import com.istic.foodorigin.service.TypeTransformateurService;
@@ -30,7 +29,7 @@ public class TypeTransformateurTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private TypeTransformateurController typeTController;
+    private TypeTransformateurService typeTService;
 
     @Autowired
     private TypeTransformateurRepository typeTRepository;
@@ -40,7 +39,7 @@ public class TypeTransformateurTests {
         Iterable<TypeTransformateur> itTypeT = typeTRepository.findAll();
         List<TypeTransformateur> typesT = StreamSupport.stream(itTypeT.spliterator(), false).collect(Collectors.toList());
 
-        given (typeTController.getAll()).willReturn(typesT);
+        given (typeTService.getAllType()).willReturn(typesT);
         mockMvc.perform(get("/typeTransformateur/all")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -53,7 +52,7 @@ public class TypeTransformateurTests {
         Long id = Integer.toUnsignedLong(2);
         TypeTransformateur typeArtisan = typeTRepository.findById(id).get();
 
-        given (typeTController.getTypeTransformateurById(id)).willReturn(typeArtisan);
+        given (typeTService.getTypeById(id)).willReturn(typeArtisan);
         mockMvc.perform(get("/typeTransformateur/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -66,7 +65,7 @@ public class TypeTransformateurTests {
     public void testGetTypeTransformateurByIdNotExists () throws Exception {
         Long id = Integer.toUnsignedLong(52);
 
-        given (typeTController.getTypeTransformateurById(id)).willReturn(null);
+        given (typeTService.getTypeById(id)).willReturn(null);
         mockMvc.perform(get("/typeTransformateur/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());

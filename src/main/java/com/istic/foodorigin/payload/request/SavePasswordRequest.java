@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 public class SavePasswordRequest {
 
     @NotBlank
-    private  String token;
+    private String token;
 
     @NotBlank
     private String newPassword;

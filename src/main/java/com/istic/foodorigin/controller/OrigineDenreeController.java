@@ -25,15 +25,13 @@ public class OrigineDenreeController {
 
     @GetMapping(path = "/pays", produces = "application/json")
     public Set<String> getAllNomPays () {
-        List<String> noms = origineDService.getAllPays();
-        Set<String> ret = new HashSet<>(noms);
+        Set<String> ret = origineDService.getAllPays();
         return ret;
     }
 
     @GetMapping(path = "/regions", produces = "application/json")
     public Set<String> getRegionsByPays (@RequestParam("pays") String pays) {
-        List<String> origines = origineDService.getRegionByPays(pays);
-        Set<String> ret = new HashSet<>(origines);
+        Set<String> ret = origineDService.getRegionByPays(pays);
         return ret;
     }
 

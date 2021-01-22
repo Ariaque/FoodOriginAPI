@@ -1,6 +1,5 @@
 package com.istic.foodorigin.testController;
 
-import com.istic.foodorigin.controller.CertificationController;
 import com.istic.foodorigin.models.Certification;
 import com.istic.foodorigin.repository.CertificationRepository;
 import com.istic.foodorigin.service.CertificationService;
@@ -27,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CertificationControllerTests {
 
     @MockBean
-    private CertificationController certificationController;
+    private CertificationService certificationService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,7 +39,7 @@ public class CertificationControllerTests {
         Iterable<Certification> itCertif = certificationRepository.findAll();
         List<Certification> certifs = StreamSupport.stream(itCertif.spliterator(), false).collect(Collectors.toList());
 
-        given (certificationController.getAll()).willReturn(certifs);
+        given (certificationService.getAllCertifications()).willReturn(certifs);
         mockMvc.perform(get("/certification/all")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -53,7 +52,7 @@ public class CertificationControllerTests {
         Long id = Integer.toUnsignedLong(3);
         Certification c3 = certificationRepository.findById(id).get();
 
-        given (certificationController.getCertifById(id)).willReturn(c3);
+        given (certificationService.getCertificationById(id)).willReturn(c3);
         mockMvc.perform(get("/certification/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -66,7 +65,7 @@ public class CertificationControllerTests {
     public void testGetCertifByIdNotExists () throws Exception {
         Long id = Integer.toUnsignedLong(30);
 
-        given (certificationController.getCertifById(id)).willReturn(null);
+        given (certificationService.getAllCertifications()).willReturn(null);
         mockMvc.perform(get("/certification/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());

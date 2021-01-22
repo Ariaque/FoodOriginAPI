@@ -104,7 +104,7 @@ public class UserRepositoryTests {
     @Test
     public void testFindByRoleUser () {
         List<User> users = userRepository.findByRole(ERole.ROLE_USER);
-        assertThat(users.size()).isEqualTo(2);
+        assertThat(users.size()).isEqualTo(9);
         assertThat(users.get(0).getRole().getName()).isEqualTo(ERole.ROLE_USER);
     }
 

@@ -1,9 +1,11 @@
 package com.istic.foodorigin.service;
 
 
+import com.istic.foodorigin.repository.UserRepository;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,74 +22,83 @@ public class ImageService {
     @Value("${foodOrigin.server.password}")
     private String mdp;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public boolean saveImageOnServer (MultipartFile file, Long idT) {
         boolean ret = false;
-        FTPClient con = null;
-        try {
-            con = new FTPClient();
-            con.connect(this.ftp_address);
-            if (con.login(this.user,this.mdp) && !file.isEmpty()) {
-                con.enterLocalPassiveMode();
-                con.setFileType(FTP.BINARY_FILE_TYPE);
-                con.changeWorkingDirectory("/images");
-                con.makeDirectory(idT.toString());
-                con.changeWorkingDirectory(idT.toString());
-                ret = con.storeFile(file.getOriginalFilename(), file.getInputStream());
-                con.logout();
-                con.disconnect();
+        if (idT != null && userRepository.findById(idT).isPresent() && file != null) {
+            FTPClient con = null;
+            try {
+                con = new FTPClient();
+                con.connect(this.ftp_address);
+                if (con.login(this.user,this.mdp) && !file.isEmpty()) {
+                    con.enterLocalPassiveMode();
+                    con.setFileType(FTP.BINARY_FILE_TYPE);
+                    con.changeWorkingDirectory("/images");
+                    con.makeDirectory(idT.toString());
+                    con.changeWorkingDirectory(idT.toString());
+                    ret = con.storeFile(file.getOriginalFilename(), file.getInputStream());
+                    con.logout();
+                    con.disconnect();
+                }
             }
-        }
-        catch (Exception e) {
-            System.out.println("Erreur " + e);
+            catch (Exception e) {
+                System.out.println("Erreur " + e);
+            }
         }
         return ret;
     }
 
     public Set<String> getFolderFiles (Long idT) {
         Set<String> images = new HashSet<>();
-        FTPClient con = null;
-        try {
-            con = new FTPClient();
-            con.connect(this.ftp_address);
-            if (con.login(this.user,this.mdp)) {
-                con.enterLocalPassiveMode();
-                con.setFileType(FTP.BINARY_FILE_TYPE);
-                con.changeWorkingDirectory("/images");
-                if (con.changeWorkingDirectory(idT.toString())) {
-                    con.changeWorkingDirectory(idT.toString());
-                    FTPFile[] files = con.listFiles();
-                    for (int i = 2; i < files.length; i++) {
-                        images.add(files[i].getName());
+        if (idT != null && userRepository.findById(idT).isPresent()) {
+            FTPClient con = null;
+            try {
+                con = new FTPClient();
+                con.connect(this.ftp_address);
+                if (con.login(this.user,this.mdp)) {
+                    con.enterLocalPassiveMode();
+                    con.setFileType(FTP.BINARY_FILE_TYPE);
+                    con.changeWorkingDirectory("/images");
+                    if (con.changeWorkingDirectory(idT.toString())) {
+                        con.changeWorkingDirectory(idT.toString());
+                        FTPFile[] files = con.listFiles();
+                        for (int i = 2; i < files.length; i++) {
+                            images.add(files[i].getName());
+                        }
                     }
+                    con.logout();
+                    con.disconnect();
                 }
-                con.logout();
-                con.disconnect();
             }
-        }
-        catch (Exception e) {
-            System.out.println("Erreur " + e);
+            catch (Exception e) {
+                System.out.println("Erreur " + e);
+            }
         }
         return images;
     }
 
     public boolean removeFile (Long idT, String fileName) {
         boolean ret = false;
-        FTPClient con = null;
-        try {
-            con = new FTPClient();
-            con.connect(this.ftp_address);
-            if (con.login(this.user,this.mdp)) {
-                con.enterLocalPassiveMode();
-                con.setFileType(FTP.BINARY_FILE_TYPE);
-                con.changeWorkingDirectory("/images");
-                con.changeWorkingDirectory(idT.toString());
-                ret = con.deleteFile(fileName);
-                con.logout();
-                con.disconnect();
+        if (idT != null && userRepository.findById(idT).isPresent() && fileName != null) {
+            FTPClient con = null;
+            try {
+                con = new FTPClient();
+                con.connect(this.ftp_address);
+                if (con.login(this.user,this.mdp)) {
+                    con.enterLocalPassiveMode();
+                    con.setFileType(FTP.BINARY_FILE_TYPE);
+                    con.changeWorkingDirectory("/images");
+                    con.changeWorkingDirectory(idT.toString());
+                    ret = con.deleteFile(fileName);
+                    con.logout();
+                    con.disconnect();
+                }
             }
-        }
-        catch (Exception e) {
-            System.out.println("Erreur " + e);
+            catch (Exception e) {
+                System.out.println("Erreur " + e);
+            }
         }
         return ret;
     }
