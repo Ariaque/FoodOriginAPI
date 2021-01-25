@@ -19,7 +19,7 @@ public class ComplexEmailServiceTests {
         String emailAdress = "test@gmail.com";
         String subject = "Test objet";
         String message = "Test message";
-        String adminMail = "\"emile.georget@outlook.fr\"";
+        String adminMail = "emile.georget@outlook.fr";
 
         SimpleMailMessage mail = complexEmailService.constructEmail(emailAdress, subject, message);
         assertThat (mail.getFrom()).isEqualTo(emailAdress);
@@ -31,7 +31,7 @@ public class ComplexEmailServiceTests {
     @Test
     public void testConstructContactEmail () {
         String emailAdress = "test@free.com";
-        String adminMail = "\"emile.georget@outlook.fr\"";
+        String adminMail = "emile.georget@outlook.fr";
         String subject = "Objet test";
         String message = "Message de contact";
         String numTel = "0258963214";

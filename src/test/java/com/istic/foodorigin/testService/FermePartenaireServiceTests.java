@@ -44,6 +44,6 @@ public class FermePartenaireServiceTests {
     public void testGetAllFermes () {
         Iterable<FermePartenaire> itFerme = fermePartenaireService.getAllFermes();
         List<FermePartenaire> found = StreamSupport.stream(itFerme.spliterator(), false).collect(Collectors.toList());
-        assertThat(found.size()).isEqualTo(7);
+        assertThat(found.size()).isEqualTo(9);
     }
 }

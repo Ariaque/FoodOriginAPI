@@ -19,7 +19,7 @@ public class InfosTransformateurService {
     private TransformateurRepository transformateurRepository;
 
     public InfosTransformateur getInfosById (Long id) {
-        InfosTransformateur ret = null;
+        InfosTransformateur ret = new InfosTransformateur();
         if (id != null) {
             Optional<InfosTransformateur> infos = infosRepository.findById(id);
             if (infos.isPresent()) {

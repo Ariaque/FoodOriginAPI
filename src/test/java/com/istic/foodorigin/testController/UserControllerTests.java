@@ -116,7 +116,7 @@ public class UserControllerTests {
 
     @Test
     public void testDeleteUser () throws Exception{
-        User user = userRepository.findById(Integer.toUnsignedLong(35)).get();
+        User user = userRepository.findById(Integer.toUnsignedLong(39)).get();
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

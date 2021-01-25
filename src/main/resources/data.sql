@@ -25,8 +25,8 @@ INSERT INTO foodOrigin_typeTransformateur (libelle) VALUES ('Industriel') ON DUP
 INSERT INTO foodOrigin_typeTransformateur (libelle) VALUES ('Artisan') ON DUPLICATE KEY UPDATE libelle = 'Artisan';
 
 --Fill foodOrigin_role table
---INSERT INTO foodOrigin_role (name) VALUES ('ROLE_ADMIN') ON DUPLICATE KEY UPDATE name = 'ROLE_ADMIN';
---INSERT INTO foodOrigin_role (name) VALUES ('ROLE_USER') ON DUPLICATE KEY UPDATE name = 'ROLE_USER';
+INSERT INTO foodOrigin_role (role_id, name) VALUES (1, 'ROLE_ADMIN') ON DUPLICATE KEY UPDATE role_id = 1;
+INSERT INTO foodOrigin_role (role_id, name) VALUES (2, 'ROLE_USER') ON DUPLICATE KEY UPDATE role_id = 2;
 
 --Fill foodOrigin_user table
 ---INSERT INTO foodOrigin_user (username, password, is_activated, fk_role) VALUES ('admin', 'admin', true, 1) ON DUPLICATE KEY UPDATE username = 'admin'; --Encrypt le mot de passe

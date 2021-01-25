@@ -71,7 +71,7 @@ public class PasswordResetControllerTests {
     public void testSavePassword () throws Exception{
         SavePasswordRequest req = new SavePasswordRequest();
         req.setNewPassword("test");
-        req.setToken("f0901732-4676-46c9-babf-f3e14ef71569");
+        req.setToken("66fb6350-6da7-498c-9c5e-4921c382f493");
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

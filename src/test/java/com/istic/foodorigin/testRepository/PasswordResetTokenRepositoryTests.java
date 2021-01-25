@@ -21,7 +21,7 @@ public class PasswordResetTokenRepositoryTests {
     public void testFindByFkUserExists () {
         Long id = Integer.toUnsignedLong(28);
         List<PasswordResetToken> ret = passwordResetTokenRepository.findByFkUser(id);
-        assertThat (ret.size()).isEqualTo(2);
+        assertThat (ret.size()).isEqualTo(1);
     }
 
     @Test

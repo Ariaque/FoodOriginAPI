@@ -19,7 +19,6 @@ public class RoleRepositoryTests {
 
     @Test
     public void testFindByNameRoleUser () {
-        //Tests avec les roles enregistrés à l'initialisation de l'appli
         Optional<Role> roleUser = roleRepository.findByName(ERole.ROLE_USER);
         assertThat (roleUser.isPresent()).isTrue();
 
@@ -29,7 +28,6 @@ public class RoleRepositoryTests {
 
     @Test
     public void testFindByNameRoleAdmin () {
-        //Tests avec les roles enregistrés à l'initialisation de l'appli
         Optional<Role> roleUser = roleRepository.findByName(ERole.ROLE_ADMIN);
         assertThat (roleUser.isPresent()).isTrue();
 

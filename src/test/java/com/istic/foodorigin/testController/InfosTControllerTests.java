@@ -66,7 +66,7 @@ public class InfosTControllerTests {
 
     @Test
     public void testGetInfosByIdNotExists () throws Exception {
-        Long id = Integer.toUnsignedLong(1);
+        Long id = Integer.toUnsignedLong(13);
 
         given (infosTService.getInfosById(id)).willReturn(null);
         mockMvc.perform(get("/infoTransformateur/{id}", id)

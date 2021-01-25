@@ -24,7 +24,7 @@ public class ImageServiceTests {
 
     @Test
     public void testSaveOnImageServer () throws IOException {
-        Long id = Integer.toUnsignedLong(0);
+        Long id = Integer.toUnsignedLong(5);
         File image = new File ("D:\\Yaelle\\Mes documents\\M2 MIAGE\\Projet\\FoodOriginAPI\\src\\test\\java\\com\\istic\\foodorigin\\foodorigintransp.png");
         FileInputStream input = new FileInputStream(image);
         MultipartFile file = new MockMultipartFile("fileItem", image.getName(), "image/png", IOUtils.toByteArray(input));
@@ -33,12 +33,21 @@ public class ImageServiceTests {
     }
 
     @Test
-    public void testFolderFilesExist () throws IOException {
+    public void testSaveOnImageServerTransfoNotExists () throws IOException {
         Long id = Integer.toUnsignedLong(0);
+        File image = new File ("D:\\Yaelle\\Mes documents\\M2 MIAGE\\Projet\\FoodOriginAPI\\src\\test\\java\\com\\istic\\foodorigin\\foodorigintransp.png");
+        FileInputStream input = new FileInputStream(image);
+        MultipartFile file = new MockMultipartFile("fileItem", image.getName(), "image/png", IOUtils.toByteArray(input));
+        boolean ret = this.imageService.saveImageOnServer(file, id);
+        assertThat(ret).isFalse();
+    }
+
+    @Test
+    public void testFolderFilesExist () throws IOException {
+        Long id = Integer.toUnsignedLong(1);
         Set<String> files = imageService.getFolderFiles(id);
         ArrayList<String> filesL = new ArrayList<>(files);
-        assertThat(files.size()).isEqualTo(1);
-        assertThat(filesL.get(0)).isEqualTo("foodorigintransp.png");
+        assertThat(files.size()).isEqualTo(3);
     }
 
     @Test
@@ -56,7 +65,7 @@ public class ImageServiceTests {
 
     @Test
     public void testRemoveFileExist () {
-        Long id = Integer.toUnsignedLong(0);
+        Long id = Integer.toUnsignedLong(5);
         String fileName = "foodorigintransp.png";
         boolean isDeleted = this.imageService.removeFile(id, fileName);
         assertThat(isDeleted).isTrue();

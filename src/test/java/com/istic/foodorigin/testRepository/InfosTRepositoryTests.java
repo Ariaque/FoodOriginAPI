@@ -21,7 +21,6 @@ public class InfosTRepositoryTests {
 
     @Test
     public void testFindByTransformateurInfos () {
-        //Transformateur avec des infos
         Transformateur transformateur = transformateurRepository.findById(Integer.toUnsignedLong(1)).get();
         InfosTransformateur infosT = infosTRepository.findByTransformateur(transformateur);
 
@@ -31,7 +30,6 @@ public class InfosTRepositoryTests {
 
     @Test
     public void testFindByTransformateurWithoutInfos () {
-        //Transformateur sans infos
         Transformateur transformateur = transformateurRepository.findById(Integer.toUnsignedLong(50)).get();
         InfosTransformateur infosT = infosTRepository.findByTransformateur(transformateur);
 
