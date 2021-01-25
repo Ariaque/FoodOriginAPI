@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Point of contact allowing client applications
+ * to make requests concerning the contact form.
+ */
 @RestController
 @RequestMapping("/contact")
 public class ContactController {

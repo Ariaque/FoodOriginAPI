@@ -14,6 +14,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * Point of contact allowing client applications
+ * to retrieve information about {@link UrlVideo} from database.
+ */
 @RestController
 @RequestMapping("/urlVideo")
 public class UrlVideoController {
@@ -22,14 +26,14 @@ public class UrlVideoController {
     private UrlVideoService urlVideoService;
 
     @GetMapping(path = "/all", produces = "application/json")
-    public Set<UrlVideo> getAllUrls () {
+    public Set<UrlVideo> getAllUrls() {
         Iterable<UrlVideo> itUrl = urlVideoService.getAllUrls();
         List<UrlVideo> urls = StreamSupport.stream(itUrl.spliterator(), false).collect(Collectors.toList());
         Set<UrlVideo> ret = new HashSet<>(urls);
         return ret;
     }
 
-    @GetMapping (path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/{id}", produces = "application/json")
     public UrlVideo getUrlById(@PathVariable Long id) {
         UrlVideo url = urlVideoService.getUrlById(id);
         return url;

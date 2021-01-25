@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
-
+/**
+ * Class which construct email with an expeditor, a subject and a message.
+ */
 @Service
 public class ComplexEmailService {
 
@@ -12,7 +14,7 @@ public class ComplexEmailService {
     private String adminEmail;
 
     public SimpleMailMessage constructContactEmail(String mailAdress, String subject, String phoneNumber, String description) {
-        String message = "Adresse email : " + mailAdress + "\r\n" + "Numéro de téléphone : "+ phoneNumber + "\r\n" + "Message : " + description;
+        String message = "Adresse email : " + mailAdress + "\r\n" + "Numéro de téléphone : " + phoneNumber + "\r\n" + "Message : " + description;
         return constructEmail(mailAdress, subject, message);
     }
 

@@ -1,10 +1,5 @@
 package com.istic.foodorigin.payload.response;
 
-import com.istic.foodorigin.models.Transformateur;
-
-import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 public class JwtResponse {

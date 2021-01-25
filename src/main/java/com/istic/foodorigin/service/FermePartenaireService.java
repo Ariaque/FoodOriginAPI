@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Class which calls {@link FermePartenaireRepository} and processes information returned.
+ */
 @Service
 public class FermePartenaireService {
     @Autowired
     private FermePartenaireRepository fermePartenaireRepository;
 
-    public Iterable<FermePartenaire> getAllFermes () {
+    public Iterable<FermePartenaire> getAllFermes() {
         Iterable<FermePartenaire> fermes = fermePartenaireRepository.findAll();
         return fermes;
     }

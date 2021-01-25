@@ -5,6 +5,10 @@ import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Point of contact allowing client applications
+ * to retrieve information about {@link Transformateur}.
+ */
 @RestController
 @RequestMapping("/transformateur")
 public class TransformateurController {

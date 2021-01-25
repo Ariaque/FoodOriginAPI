@@ -3,8 +3,11 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Class mapping "foodOrigin_label" table of the database.
+ */
 @Entity
-@Table (name = "foodOrigin_label")
+@Table(name = "foodOrigin_label")
 public class Label {
 
     @Id
@@ -12,7 +15,8 @@ public class Label {
     private Long id;
     private String libelle;
 
-    public Label () {}
+    public Label() {
+    }
 
     public Long getId() {
         return id;

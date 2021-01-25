@@ -1,39 +1,38 @@
 package com.istic.foodorigin.security.services;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.istic.foodorigin.models.Role;
+import com.istic.foodorigin.models.Transformateur;
+import com.istic.foodorigin.models.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.istic.foodorigin.models.Role;
-import com.istic.foodorigin.models.Transformateur;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.istic.foodorigin.models.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private final Long id;
 
-    private String username;
+    private final String username;
 
     @JsonIgnore
     private String password;
 
     private Transformateur transformateur;
 
-    private Boolean isEnabled;
+    private final Boolean isEnabled;
 
     private Long siret;
 
     private String typeTransformateur;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String password, Boolean isEnabled,
                            Collection<? extends GrantedAuthority> authorities) {

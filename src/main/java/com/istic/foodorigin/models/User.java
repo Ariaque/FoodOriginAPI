@@ -6,6 +6,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Class mapping "foodOrigin_user" table of the database.
+ */
 @Entity
 @Table(name = "foodOrigin_user",
         uniqueConstraints = {
@@ -27,19 +30,19 @@ public class User {
     private String password;
 
     @NotBlank
-    @Column (name = "numero_telephone")
-    @Size (max = 10)
+    @Column(name = "numero_telephone")
+    @Size(max = 10)
     private String numeroTelephone;
 
     @ManyToOne
-    @JoinColumn (name = "fk_role")
+    @JoinColumn(name = "fk_role")
     private Role role;
 
     @OneToOne
     @JoinColumn(name = "fk_transformateur")
     private Transformateur transformateur;
 
-    @Column(columnDefinition="tinyint(1) default 0", name="is_activated")
+    @Column(columnDefinition = "tinyint(1) default 0", name = "is_activated")
     @NotNull
     private Boolean isEnabled;
 

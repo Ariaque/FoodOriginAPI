@@ -1,5 +1,6 @@
 package com.istic.foodorigin.controller;
 
+import com.google.gson.Gson;
 import com.istic.foodorigin.exception.UserNotFoundException;
 import com.istic.foodorigin.models.PasswordResetToken;
 import com.istic.foodorigin.models.User;
@@ -13,7 +14,6 @@ import com.istic.foodorigin.security.services.PasswordResetService;
 import com.istic.foodorigin.security.services.ResetEmailService;
 import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
 import com.istic.foodorigin.service.UserService;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +26,10 @@ import javax.validation.Valid;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Point of contact allowing client applications
+ * to make requests concerning password reset.
+ */
 @RestController
 @RequestMapping("/reset")
 public class PasswordResetController {
@@ -77,7 +81,7 @@ public class PasswordResetController {
         Gson gson = new Gson();
         ResponseEntity<String> ret = ResponseEntity.ok(gson.toJson(false));
         this.token = passwordResetService.validatePasswordResetToken(id, token);
-        if(!this.token.isEmpty()) {
+        if (!this.token.isEmpty()) {
             ret = ResponseEntity.ok(gson.toJson(true));
         }
         return ret;
@@ -108,11 +112,10 @@ public class PasswordResetController {
     @ResponseBody
     public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
         User user = userService.getUserByName(changePasswordRequest.getUserName());
-        if(user != null && encoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
+        if (user != null && encoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
             userService.changeUserPassword(user, changePasswordRequest.getNewPassword());
             return ResponseEntity.ok(new MessageResponse("Password has been changed!"));
-        }
-        else {
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Bad old password");
         }
     }

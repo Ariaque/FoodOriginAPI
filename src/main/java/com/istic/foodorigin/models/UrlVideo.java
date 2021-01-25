@@ -3,11 +3,14 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Class mapping "foodOrigin_urlVideo" table of the database.
+ */
 @Entity
-@Table (name = "foodOrigin_urlVideo")
+@Table(name = "foodOrigin_urlVideo")
 public class UrlVideo {
     @Id
-    @GeneratedValue (strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String libelle;
     private String titre;

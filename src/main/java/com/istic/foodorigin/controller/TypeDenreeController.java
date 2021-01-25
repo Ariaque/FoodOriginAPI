@@ -3,28 +3,35 @@ package com.istic.foodorigin.controller;
 import com.istic.foodorigin.models.TypeDenree;
 import com.istic.foodorigin.service.TypeDenreeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Point of contact allowing client applications
+ * to retrieve information about animals products types {@link TypeDenree}.
+ */
 @RestController
-@RequestMapping ("/typeDenree")
+@RequestMapping("/typeDenree")
 public class TypeDenreeController {
 
     @Autowired
     private TypeDenreeService typeDenreeService;
 
     @GetMapping(path = "/all", produces = "application/json")
-    public Set<TypeDenree> getAllTypeDenree () {
+    public Set<TypeDenree> getAllTypeDenree() {
         List<TypeDenree> typesD = typeDenreeService.getAll();
         Set<TypeDenree> ret = new HashSet<>(typesD);
         return ret;
     }
 
     @GetMapping(path = "/nom", produces = "application/json")
-    public Set<String> getAllNomTypeDenree () {
+    public Set<String> getAllNomTypeDenree() {
         Set<String> ret = typeDenreeService.getAllNom();
         return ret;
     }
@@ -36,7 +43,7 @@ public class TypeDenreeController {
     }
 
     @GetMapping(path = "/animal", produces = "application/json")
-    public Set<String> getAnimalByEspece (@RequestParam("espece") String espece) {
+    public Set<String> getAnimalByEspece(@RequestParam("espece") String espece) {
         Set<String> ret = typeDenreeService.getAnimalByEspece(espece);
         return ret;
     }

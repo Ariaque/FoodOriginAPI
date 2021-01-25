@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * Point of contact allowing client applications
+ * to retrieve information about the type of transformator {@link TypeTransformateur}.
+ */
 @RestController
 @RequestMapping("/typeTransformateur")
 public class TypeTransformateurController {
