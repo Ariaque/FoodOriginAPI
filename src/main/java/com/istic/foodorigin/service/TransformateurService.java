@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class which calls {@link TransformateurRepository} and processes information returned.
+ */
 @Service
 public class TransformateurService {
 
@@ -29,7 +32,7 @@ public class TransformateurService {
         Transformateur ret = null;
         if (siret != null && siret.length() == 14) {
             List<Transformateur> transformateurs = transformateurRepository.findBySiret(siret);
-            if(transformateurs.size() > 0){
+            if (transformateurs.size() > 0) {
                 ret = transformateurs.get(0);
             }
         }

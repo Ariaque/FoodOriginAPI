@@ -1,9 +1,11 @@
 package com.istic.foodorigin.security;
 
+import com.istic.foodorigin.security.jwt.AuthEntryPointJwt;
+import com.istic.foodorigin.security.jwt.AuthTokenFilter;
+import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,11 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.istic.foodorigin.security.jwt.AuthEntryPointJwt;
-import com.istic.foodorigin.security.jwt.AuthTokenFilter;
-import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
-import org.springframework.security.web.savedrequest.NullRequestCache;
 
 @Configuration
 @EnableWebSecurity
@@ -61,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/auth/**", "/reset/resetPassword/sendEmail", "/reset/resetPassword/validateToken", "/reset/resetPassword/savePassword", "/reset/resetPassword/changePassword").permitAll()
-                .antMatchers("/test/**","/typeDenree/**", "/origineDenree/**", "/urlVideo/**", "/label/**", "/denree/**", "/ferme/**", "/transformateur/**", "/typeTransformateur/**", "/infoTransformateur/**", "/certification/**","/user/**", "/contact/**").permitAll()
+                .antMatchers("/test/**", "/typeDenree/**", "/origineDenree/**", "/urlVideo/**", "/label/**", "/denree/**", "/ferme/**", "/transformateur/**", "/typeTransformateur/**", "/infoTransformateur/**", "/certification/**", "/user/**", "/contact/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

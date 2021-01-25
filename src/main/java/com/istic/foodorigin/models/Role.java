@@ -3,6 +3,9 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Class mapping "foodOrigin_role" table of the database.
+ */
 @Entity
 @Table(name = "foodOrigin_role")
 public class Role {

@@ -2,16 +2,20 @@ package com.istic.foodorigin.models;
 
 import javax.persistence.*;
 
+/**
+ * Class mapping "foodOrigin_typeTransformateur" table of the database.
+ */
 @Entity
-@Table (name = "foodOrigin_typeTransformateur")
+@Table(name = "foodOrigin_typeTransformateur")
 public class TypeTransformateur {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String libelle;
 
-    public TypeTransformateur() {}
+    public TypeTransformateur() {
+    }
 
     public Long getId() {
         return id;

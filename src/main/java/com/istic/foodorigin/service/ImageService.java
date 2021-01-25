@@ -2,7 +2,6 @@ package com.istic.foodorigin.service;
 
 
 import com.istic.foodorigin.repository.TransformateurRepository;
-import com.istic.foodorigin.repository.UserRepository;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -10,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class which allows to make operations on the remote FTP server.
+ */
 @Service
 public class ImageService {
 
@@ -26,14 +29,14 @@ public class ImageService {
     @Autowired
     private TransformateurRepository transformateurRepository;
 
-    public boolean saveImageOnServer (MultipartFile file, Long idT) {
+    public boolean saveImageOnServer(MultipartFile file, Long idT) {
         boolean ret = false;
         if (idT != null && transformateurRepository.findById(idT).isPresent() && file != null) {
             FTPClient con = null;
             try {
                 con = new FTPClient();
                 con.connect(this.ftp_address);
-                if (con.login(this.user,this.mdp) && !file.isEmpty()) {
+                if (con.login(this.user, this.mdp) && !file.isEmpty()) {
                     con.enterLocalPassiveMode();
                     con.setFileType(FTP.BINARY_FILE_TYPE);
                     con.changeWorkingDirectory("/images");
@@ -43,22 +46,21 @@ public class ImageService {
                     con.logout();
                     con.disconnect();
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Erreur " + e);
             }
         }
         return ret;
     }
 
-    public Set<String> getFolderFiles (Long idT) {
+    public Set<String> getFolderFiles(Long idT) {
         Set<String> images = new HashSet<>();
         if (idT != null && transformateurRepository.findById(idT).isPresent()) {
             FTPClient con = null;
             try {
                 con = new FTPClient();
                 con.connect(this.ftp_address);
-                if (con.login(this.user,this.mdp)) {
+                if (con.login(this.user, this.mdp)) {
                     con.enterLocalPassiveMode();
                     con.setFileType(FTP.BINARY_FILE_TYPE);
                     con.changeWorkingDirectory("/images");
@@ -72,22 +74,21 @@ public class ImageService {
                     con.logout();
                     con.disconnect();
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Erreur " + e);
             }
         }
         return images;
     }
 
-    public boolean removeFile (Long idT, String fileName) {
+    public boolean removeFile(Long idT, String fileName) {
         boolean ret = false;
         if (idT != null && transformateurRepository.findById(idT).isPresent() && fileName != null) {
             FTPClient con = null;
             try {
                 con = new FTPClient();
                 con.connect(this.ftp_address);
-                if (con.login(this.user,this.mdp)) {
+                if (con.login(this.user, this.mdp)) {
                     con.enterLocalPassiveMode();
                     con.setFileType(FTP.BINARY_FILE_TYPE);
                     con.changeWorkingDirectory("/images");
@@ -96,8 +97,7 @@ public class ImageService {
                     con.logout();
                     con.disconnect();
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Erreur " + e);
             }
         }

@@ -1,13 +1,17 @@
 package com.istic.foodorigin.controller;
 
 import com.istic.foodorigin.models.InfosTransformateur;
+import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.service.ImageService;
 import com.istic.foodorigin.service.InfosTransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.Set;
-
+/**
+ * Point of contact allowing client applications
+ * to retrieve information about {@link InfosTransformateur} from database.
+ */
 @RestController
 @RequestMapping("/infoTransformateur")
 public class InfosTransformateurController {

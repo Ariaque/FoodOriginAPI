@@ -3,14 +3,17 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Class mapping "foodOrigin_infoTransformateur" table of the database.
+ */
 @Entity
-@Table (name = "foodOrigin_infoTransformateur")
+@Table(name = "foodOrigin_infoTransformateur")
 public class InfosTransformateur {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-    @JoinColumn (name = "fk_transformateur")
+    @JoinColumn(name = "fk_transformateur")
     private Transformateur transformateur;
     private String description;
     private String nombre_employes;
@@ -21,34 +24,35 @@ public class InfosTransformateur {
     private boolean appartient_groupe;
     private String siret_groupe;
     @ManyToMany
-    @JoinTable (name = "foodOrigin_infoTransformateur_label",
-                joinColumns = @JoinColumn (name = "fk_infos"),
-                inverseJoinColumns = @JoinColumn (name = "fk_label"))
+    @JoinTable(name = "foodOrigin_infoTransformateur_label",
+            joinColumns = @JoinColumn(name = "fk_infos"),
+            inverseJoinColumns = @JoinColumn(name = "fk_label"))
     private Set<Label> labels;
     @ManyToMany
-    @JoinTable (name = "foodOrigin_infoTransformateur_certification",
-                joinColumns = @JoinColumn(name = "fk_infos"),
-                inverseJoinColumns = @JoinColumn (name = "fk_certification"))
-    private Set <Certification> certifications;
-
-    @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable (name = "foodOrigin_infoTransformateur_urlVideo",
+    @JoinTable(name = "foodOrigin_infoTransformateur_certification",
             joinColumns = @JoinColumn(name = "fk_infos"),
-            inverseJoinColumns = @JoinColumn (name = "fk_urls"))
-    private Set <UrlVideo> urls;
-    @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable (name = "foodOrigin_infoTransformateur_fermePartenaire",
+            inverseJoinColumns = @JoinColumn(name = "fk_certification"))
+    private Set<Certification> certifications;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "foodOrigin_infoTransformateur_urlVideo",
             joinColumns = @JoinColumn(name = "fk_infos"),
-            inverseJoinColumns = @JoinColumn (name = "fk_fermesP"))
-    private Set <FermePartenaire> fermesP;
-    @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable (name = "foodOrigin_infoTransformateur_denreeAnimale",
+            inverseJoinColumns = @JoinColumn(name = "fk_urls"))
+    private Set<UrlVideo> urls;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "foodOrigin_infoTransformateur_fermePartenaire",
             joinColumns = @JoinColumn(name = "fk_infos"),
-            inverseJoinColumns = @JoinColumn (name = "fk_denrees"))
-    private Set <DenreeAnimale> denrees;
+            inverseJoinColumns = @JoinColumn(name = "fk_fermesP"))
+    private Set<FermePartenaire> fermesP;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "foodOrigin_infoTransformateur_denreeAnimale",
+            joinColumns = @JoinColumn(name = "fk_infos"),
+            inverseJoinColumns = @JoinColumn(name = "fk_denrees"))
+    private Set<DenreeAnimale> denrees;
 
 
-    public InfosTransformateur () {}
+    public InfosTransformateur() {
+    }
 
     public Long getId() {
         return id;

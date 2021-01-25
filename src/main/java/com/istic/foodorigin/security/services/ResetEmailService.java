@@ -1,8 +1,8 @@
 package com.istic.foodorigin.security.services;
 
 import com.istic.foodorigin.models.User;
-import org.springframework.stereotype.Service;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 

@@ -7,13 +7,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Class which calls {@link LabelRepository} and processes information returned.
+ */
 @Service
 public class LabelService {
 
     @Autowired
     private LabelRepository labelRepository;
 
-    public Iterable<Label> getAllLabels () {
+    public Iterable<Label> getAllLabels() {
         Iterable<Label> labels = labelRepository.findAll();
         return labels;
     }

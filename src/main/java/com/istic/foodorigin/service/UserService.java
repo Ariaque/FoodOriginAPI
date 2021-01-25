@@ -9,34 +9,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
-
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class which calls {@link UserRepository} and processes information returned.
+ */
 @Service
 public class UserService {
 
     @Autowired
+    PasswordEncoder encoder;
+    @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PasswordResetTokenRepository passwordResetTokenRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
 
     public Iterable<User> getAllUsers() {
         Iterable<User> users = userRepository.findAll();
         return users;
     }
 
-    public Iterable<User> getAllRoleUser () {
+    public Iterable<User> getAllRoleUser() {
         Iterable<User> users = userRepository.findByRole(ERole.ROLE_USER);
         return users;
     }
 
-    public User saveUser (User user) {
+    public User saveUser(User user) {
         User ret = null;
         if (user != null) {
             ret = userRepository.save(user);
@@ -44,7 +43,7 @@ public class UserService {
         return ret;
     }
 
-    public User getUserByName (String username) {
+    public User getUserByName(String username) {
         User user = null;
         if (username != null) {
             Optional<User> ret = userRepository.findByUsername(username);
@@ -55,7 +54,7 @@ public class UserService {
         return user;
     }
 
-    public User getUserBySiretTransfo (String siret) {
+    public User getUserBySiretTransfo(String siret) {
         User user = null;
         if (siret != null) {
             Optional<User> ret = userRepository.findUserBySiret(siret);
@@ -66,7 +65,7 @@ public class UserService {
         return user;
     }
 
-    public boolean deleteUser (User user) {
+    public boolean deleteUser(User user) {
         boolean delete = false;
         if (user != null) {
             if (userRepository.existsByUsername(user.getUsername())) {

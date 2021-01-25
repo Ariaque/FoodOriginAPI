@@ -6,8 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
+/**
+ * Class mapping "foodOrigin_origineDenree" table of the database.
+ */
 @Entity
-@Table (name = "foodOrigin_origineDenree")
+@Table(name = "foodOrigin_origineDenree")
 public class OrigineDenree {
     @Id
     @GeneratedValue

@@ -5,8 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Class mapping "foodOrigin_reset_token" table of the database.
+ */
 @Entity
-@Table(name="foodOrigin_reset_token")
+@Table(name = "foodOrigin_reset_token")
 public class PasswordResetToken {
 
 

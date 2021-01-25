@@ -14,6 +14,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * Point of contact allowing client applications
+ * to retrieve information about {@link FermePartenaire} from database.
+ */
 @RestController
 @RequestMapping ("/ferme")
 public class FermePartenaireController {

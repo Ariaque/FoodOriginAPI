@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Class which calls {@link InfosTransformateurRepository} and processes information returned.
+ */
 @Service
 public class InfosTransformateurService {
 
@@ -18,7 +21,7 @@ public class InfosTransformateurService {
     @Autowired
     private TransformateurRepository transformateurRepository;
 
-    public InfosTransformateur getInfosById (Long id) {
+    public InfosTransformateur getInfosById(Long id) {
         InfosTransformateur ret = null;
         if (id != null) {
             Optional<InfosTransformateur> infos = infosRepository.findById(id);
@@ -29,7 +32,7 @@ public class InfosTransformateurService {
         return ret;
     }
 
-    public InfosTransformateur saveInfos (InfosTransformateur infos) {
+    public InfosTransformateur saveInfos(InfosTransformateur infos) {
         InfosTransformateur infosT = null;
         if (infos != null) {
             System.out.println("blabla " + infos.getDenrees());
@@ -38,7 +41,7 @@ public class InfosTransformateurService {
         return infosT;
     }
 
-    public InfosTransformateur getInfosByTransformateur (Long id) {
+    public InfosTransformateur getInfosByTransformateur(Long id) {
         InfosTransformateur ret = null;
         if (id != null) {
             Optional<Transformateur> transformateur = transformateurRepository.findById(id);

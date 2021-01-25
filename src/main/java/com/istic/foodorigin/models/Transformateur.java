@@ -2,11 +2,14 @@ package com.istic.foodorigin.models;
 
 import javax.persistence.*;
 
+/**
+ * Class mapping "foodOrigin_transformateur" table of the database.
+ */
 @Entity
-@Table (name = "foodOrigin_transformateur")
+@Table(name = "foodOrigin_transformateur")
 public class Transformateur {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "num_agrement")
     private String numAgrement;
@@ -21,7 +24,7 @@ public class Transformateur {
     private String latitude;
     private String longitude;
 
-    public Transformateur () {
+    public Transformateur() {
     }
 
     public Long getId() {

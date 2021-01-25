@@ -3,18 +3,21 @@ package com.istic.foodorigin.models;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Class mapping "foodOrigin_denreeAnimale" table of the database.
+ */
 @Entity
-@Table (name = "foodOrigin_denreeAnimale")
+@Table(name = "foodOrigin_denreeAnimale")
 public class DenreeAnimale {
 
     @Id
     @GeneratedValue
     private Long id;
     @OneToOne
-    @JoinColumn (name = "fk_type")
+    @JoinColumn(name = "fk_type")
     private TypeDenree typeDenree;
     @OneToOne
-    @JoinColumn (name = "fk_origine")
+    @JoinColumn(name = "fk_origine")
     private OrigineDenree origineDenree;
     private String infosTypeDenree;
     private String infosOrigineDenree;

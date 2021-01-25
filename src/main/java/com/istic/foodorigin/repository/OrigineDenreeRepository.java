@@ -6,7 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * End point to request the database's table associated to {@link OrigineDenree} entity.
+ */
 @Repository
 public interface OrigineDenreeRepository extends CrudRepository<OrigineDenree, Long> {
-    List<OrigineDenree> findByPays (String pays);
+    List<OrigineDenree> findByPays(String pays);
 }
