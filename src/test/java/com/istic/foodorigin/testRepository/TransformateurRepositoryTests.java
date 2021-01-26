@@ -1,6 +1,7 @@
 package com.istic.foodorigin.testRepository;
 
 import com.istic.foodorigin.models.Transformateur;
+import com.istic.foodorigin.repository.OrigineDenreeRepository;
 import com.istic.foodorigin.repository.TransformateurRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Class that tests {@link TransformateurRepository}
+ */
 @SpringBootTest
 public class TransformateurRepositoryTests {
 

@@ -21,7 +21,7 @@ public class InfosTransformateurService {
     @Autowired
     private TransformateurRepository transformateurRepository;
 
-    public InfosTransformateur getInfosById(Long id) {
+    public InfosTransformateur getInfosById (Long id) {
         InfosTransformateur ret = null;
         if (id != null) {
             Optional<InfosTransformateur> infos = infosRepository.findById(id);
@@ -35,7 +35,6 @@ public class InfosTransformateurService {
     public InfosTransformateur saveInfos(InfosTransformateur infos) {
         InfosTransformateur infosT = null;
         if (infos != null) {
-            System.out.println("blabla " + infos.getDenrees());
             infosT = infosRepository.save(infos);
         }
         return infosT;

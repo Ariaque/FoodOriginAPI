@@ -12,6 +12,9 @@ import java.util.stream.StreamSupport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Class that tests {@link FermePartenaireService}
+ */
 @SpringBootTest
 public class FermePartenaireServiceTests {
 
@@ -44,6 +47,6 @@ public class FermePartenaireServiceTests {
     public void testGetAllFermes () {
         Iterable<FermePartenaire> itFerme = fermePartenaireService.getAllFermes();
         List<FermePartenaire> found = StreamSupport.stream(itFerme.spliterator(), false).collect(Collectors.toList());
-        assertThat(found.size()).isEqualTo(7);
+        assertThat(found.size()).isEqualTo(9);
     }
 }

@@ -2,6 +2,7 @@ package com.istic.foodorigin.testRepository;
 
 import com.istic.foodorigin.models.ERole;
 import com.istic.foodorigin.models.Role;
+import com.istic.foodorigin.repository.OrigineDenreeRepository;
 import com.istic.foodorigin.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Class that tests {@link RoleRepository}
+ */
 @SpringBootTest
 public class RoleRepositoryTests {
 
@@ -19,7 +23,6 @@ public class RoleRepositoryTests {
 
     @Test
     public void testFindByNameRoleUser () {
-        //Tests avec les roles enregistrés à l'initialisation de l'appli
         Optional<Role> roleUser = roleRepository.findByName(ERole.ROLE_USER);
         assertThat (roleUser.isPresent()).isTrue();
 
@@ -29,7 +32,6 @@ public class RoleRepositoryTests {
 
     @Test
     public void testFindByNameRoleAdmin () {
-        //Tests avec les roles enregistrés à l'initialisation de l'appli
         Optional<Role> roleUser = roleRepository.findByName(ERole.ROLE_ADMIN);
         assertThat (roleUser.isPresent()).isTrue();
 

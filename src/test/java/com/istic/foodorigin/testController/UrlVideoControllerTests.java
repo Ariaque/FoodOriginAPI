@@ -24,6 +24,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link UrlVideoController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UrlVideoControllerTests {
@@ -42,7 +45,6 @@ public class UrlVideoControllerTests {
         Iterable<UrlVideo> itVideos = urlVideoRepository.findAll();
         List<UrlVideo> urlVideos = StreamSupport.stream(itVideos.spliterator(), false).collect(Collectors.toList());
         Set<UrlVideo> urls = new HashSet<>(urlVideos);
-        System.out.println(urls.size());
 
         given (urlVideoService.getAllUrls()).willReturn(urls);
         mockMvc.perform(get("/urlVideo/all")

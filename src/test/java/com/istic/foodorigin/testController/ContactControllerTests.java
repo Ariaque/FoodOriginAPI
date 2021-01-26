@@ -3,6 +3,7 @@ package com.istic.foodorigin.testController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.istic.foodorigin.controller.ContactController;
 import com.istic.foodorigin.payload.request.SendComplexEmailRequest;
 import com.istic.foodorigin.service.ComplexEmailService;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link ContactController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ContactControllerTests {

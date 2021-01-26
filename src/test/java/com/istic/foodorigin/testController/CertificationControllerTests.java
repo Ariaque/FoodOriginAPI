@@ -1,5 +1,6 @@
 package com.istic.foodorigin.testController;
 
+import com.istic.foodorigin.controller.CertificationController;
 import com.istic.foodorigin.models.Certification;
 import com.istic.foodorigin.repository.CertificationRepository;
 import com.istic.foodorigin.service.CertificationService;
@@ -21,6 +22,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link CertificationController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CertificationControllerTests {

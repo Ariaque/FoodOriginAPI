@@ -27,12 +27,14 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link UserController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTests {
@@ -116,7 +118,7 @@ public class UserControllerTests {
 
     @Test
     public void testDeleteUser () throws Exception{
-        User user = userRepository.findById(Integer.toUnsignedLong(35)).get();
+        User user = userRepository.findById(Integer.toUnsignedLong(39)).get();
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

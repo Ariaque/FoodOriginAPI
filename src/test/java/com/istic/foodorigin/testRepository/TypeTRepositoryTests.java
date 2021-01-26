@@ -1,6 +1,7 @@
 package com.istic.foodorigin.testRepository;
 
 import com.istic.foodorigin.models.TypeTransformateur;
+import com.istic.foodorigin.repository.OrigineDenreeRepository;
 import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+/**
+ * Class that tests {@link TypeTransformateurRepository}
+ */
 @SpringBootTest
 public class TypeTRepositoryTests {
 
@@ -17,7 +20,6 @@ public class TypeTRepositoryTests {
 
     @Test
     public void testFindByLibelleArtisan () {
-        //Test avec les types enregistrés à l'initialisation de l'appli
         String type = "Artisan";
         TypeTransformateur type_artisan = typeTRepository.findByLibelle(type);
 
@@ -27,7 +29,6 @@ public class TypeTRepositoryTests {
 
     @Test
     public void testFindByLibelleIndustriel () {
-        //Test avec les types enregistrés à l'initialisation de l'appli
         String type = "Industriel";
         TypeTransformateur type_industriel = typeTRepository.findByLibelle(type);
 
@@ -37,7 +38,6 @@ public class TypeTRepositoryTests {
 
     @Test
     public void testFindByLibelleNotExist () {
-        //Test avec un type qui n'existe pas
         String type = "Agriculteur";
         TypeTransformateur type_transformateur = typeTRepository.findByLibelle(type);
 
@@ -46,7 +46,6 @@ public class TypeTRepositoryTests {
 
     @Test
     public void testFindByLibelleNull () {
-        //Test avec un type qui n'existe pas
         TypeTransformateur type_transformateur = typeTRepository.findByLibelle(null);
 
         assertThat(type_transformateur).isNull();

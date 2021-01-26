@@ -1,5 +1,6 @@
 package com.istic.foodorigin.testController;
 
+import com.istic.foodorigin.controller.TypeTransformateurController;
 import com.istic.foodorigin.models.TypeTransformateur;
 import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import com.istic.foodorigin.service.TypeTransformateurService;
@@ -21,6 +22,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link TypeTransformateurController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TypeTransformateurTests {
