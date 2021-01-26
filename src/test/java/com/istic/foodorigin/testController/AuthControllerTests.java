@@ -41,8 +41,8 @@ public class AuthControllerTests {
     @Test
     public void testAuthenticateUser () throws Exception{
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("aqw@gmail.com");
-        loginRequest.setPassword("test");
+        loginRequest.setUsername("jerome.georget@free.fr");
+        loginRequest.setPassword("1234");
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

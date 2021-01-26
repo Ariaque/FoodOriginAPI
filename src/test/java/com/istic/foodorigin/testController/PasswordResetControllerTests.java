@@ -30,7 +30,7 @@ public class PasswordResetControllerTests {
     @Test
     public void testSendEmail () throws Exception{
         SendSimpleEmailRequest mailReq = new SendSimpleEmailRequest();
-        mailReq.setEmail("aqw@gmail.com");
+        mailReq.setEmail("jerome.georget@free.fr");
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -92,9 +92,9 @@ public class PasswordResetControllerTests {
     public void testChangePassword () throws Exception{
 
         ChangePasswordRequest req = new ChangePasswordRequest();
-        req.setOldPassword("test");
-        req.setNewPassword("test1");
-        req.setUserName("aqw@gmail.com");
+        req.setOldPassword("1234");
+        req.setNewPassword("12345");
+        req.setUserName("jerome.georget@free.fr");
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -111,9 +111,9 @@ public class PasswordResetControllerTests {
     public void testChangePasswordOlPasswordNotGood () throws Exception{
 
         ChangePasswordRequest req = new ChangePasswordRequest();
-        req.setOldPassword("admin");
-        req.setNewPassword("test");
-        req.setUserName("aqw@gmail.com");
+        req.setOldPassword("123456");
+        req.setNewPassword("12345");
+        req.setUserName("jerome.georget@free.fr");
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);

@@ -70,4 +70,14 @@ public class UserController {
         }
         return result;
     }
+
+    @GetMapping(path = "activation/{userName}", produces = "application/json")
+    public Boolean getUserStateByUserName(@PathVariable String userName) {
+        Boolean result = false;
+        User user = userService.getUserByName(userName);
+        if (user != null) {
+            result = user.getIsEnabled();
+        }
+        return result;
+    }
 }
