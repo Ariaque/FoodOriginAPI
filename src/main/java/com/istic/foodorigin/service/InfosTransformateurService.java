@@ -22,7 +22,7 @@ public class InfosTransformateurService {
     private TransformateurRepository transformateurRepository;
 
     public InfosTransformateur getInfosById (Long id) {
-        InfosTransformateur ret = new InfosTransformateur();
+        InfosTransformateur ret = null;
         if (id != null) {
             Optional<InfosTransformateur> infos = infosRepository.findById(id);
             if (infos.isPresent()) {

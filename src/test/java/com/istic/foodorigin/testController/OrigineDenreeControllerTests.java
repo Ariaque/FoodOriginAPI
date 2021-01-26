@@ -1,5 +1,6 @@
 package com.istic.foodorigin.testController;
 
+import com.istic.foodorigin.controller.OrigineDenreeController;
 import com.istic.foodorigin.models.OrigineDenree;
 import com.istic.foodorigin.repository.OrigineDenreeRepository;
 import com.istic.foodorigin.service.OrigineDenreeService;
@@ -24,6 +25,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link OrigineDenreeController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class OrigineDenreeControllerTests {

@@ -3,6 +3,7 @@ package com.istic.foodorigin.testController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.istic.foodorigin.controller.PasswordResetController;
 import com.istic.foodorigin.payload.request.ChangePasswordRequest;
 import com.istic.foodorigin.payload.request.SavePasswordRequest;
 import com.istic.foodorigin.payload.request.SendSimpleEmailRequest;
@@ -16,6 +17,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link PasswordResetController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PasswordResetControllerTests {

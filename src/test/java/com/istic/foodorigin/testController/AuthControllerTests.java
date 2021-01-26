@@ -3,8 +3,10 @@ package com.istic.foodorigin.testController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.istic.foodorigin.controller.AuthController;
 import com.istic.foodorigin.payload.request.LoginRequest;
 import com.istic.foodorigin.payload.request.SignupRequest;
+import com.istic.foodorigin.repository.OrigineDenreeRepository;
 import com.istic.foodorigin.repository.RoleRepository;
 import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,9 @@ import java.util.Set;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link AuthController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AuthControllerTests {

@@ -24,6 +24,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link UrlVideoController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UrlVideoControllerTests {

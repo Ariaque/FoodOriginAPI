@@ -96,16 +96,11 @@ public class PasswordResetController {
             Optional<User> user = userService.getUserByPasswordResetToken(savePasswordRequest.getToken());
             user.ifPresent(value -> userService.changeUserPassword(value, savePasswordRequest.getNewPassword()));
             passwordResetTokenRepository.delete(passwordResetToken);
+            return ResponseEntity.ok(new MessageResponse("Password has been reset!"));
         }
-
-        /*String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(userName);
-        User user = userService.findUserByEmail(userName);
-        System.out.println(user.getUsername());
-        user.setPassword(savePasswordRequest.getNewPassword());
-        userRepository.save(user);*/
-
-        return ResponseEntity.ok(new MessageResponse("Password has been reset!"));
+        else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Password has not been reset !");
+        }
     }
 
     @RequestMapping(value = "/resetPassword/changePassword", method = RequestMethod.POST, consumes = "application/json")

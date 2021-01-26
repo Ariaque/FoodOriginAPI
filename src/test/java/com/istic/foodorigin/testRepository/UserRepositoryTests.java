@@ -2,6 +2,7 @@ package com.istic.foodorigin.testRepository;
 
 import com.istic.foodorigin.models.ERole;
 import com.istic.foodorigin.models.User;
+import com.istic.foodorigin.repository.OrigineDenreeRepository;
 import com.istic.foodorigin.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Class that tests {@link UserRepository}
+ */
 @SpringBootTest
 public class UserRepositoryTests {
 

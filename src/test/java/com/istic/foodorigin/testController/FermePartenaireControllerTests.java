@@ -1,5 +1,6 @@
 package com.istic.foodorigin.testController;
 
+import com.istic.foodorigin.controller.FermePartenaireController;
 import com.istic.foodorigin.models.FermePartenaire;
 import com.istic.foodorigin.repository.FermePartenaireRepository;
 import com.istic.foodorigin.service.FermePartenaireService;
@@ -23,6 +24,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link FermePartenaireController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class FermePartenaireControllerTests {

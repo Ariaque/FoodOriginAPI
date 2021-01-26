@@ -16,6 +16,9 @@ import java.util.stream.StreamSupport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Class that tests {@link UserService}
+ */
 @SpringBootTest
 public class UserServiceTests {
 

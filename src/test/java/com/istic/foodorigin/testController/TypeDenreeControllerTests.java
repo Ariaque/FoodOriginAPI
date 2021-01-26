@@ -1,5 +1,6 @@
 package com.istic.foodorigin.testController;
 
+import com.istic.foodorigin.controller.TypeDenreeController;
 import com.istic.foodorigin.models.TypeDenree;
 import com.istic.foodorigin.repository.TypeDenreeRepository;
 import com.istic.foodorigin.service.TypeDenreeService;
@@ -24,6 +25,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class that tests {@link TypeDenreeController}
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TypeDenreeControllerTests {

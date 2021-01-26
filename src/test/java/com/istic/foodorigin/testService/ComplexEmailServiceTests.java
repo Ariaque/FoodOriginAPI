@@ -8,6 +8,9 @@ import org.springframework.mail.SimpleMailMessage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Class that tests {@link ComplexEmailService}
+ */
 @SpringBootTest
 public class ComplexEmailServiceTests {
 
