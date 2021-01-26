@@ -61,6 +61,13 @@ public class PasswordResetController {
     private String token;
 
 
+    /**
+     * Sends an email to the user to allow him to reset his password if forgotten.
+     * @param request {@link HttpServletRequest}
+     * @param sendSimpleEmailRequest {@link SendSimpleEmailRequest}
+     * @return {@link ResponseEntity}
+     * @throws UserNotFoundException Thrown when the user has not been found.
+     */
     @RequestMapping(value = "/resetPassword/sendEmail",
             method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
@@ -70,12 +77,18 @@ public class PasswordResetController {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("User with this email does not exist");
         }
         String token = UUID.randomUUID().toString();
-        passwordResetService.createPasswordResetTokenForUser(user, token);
+        passwordResetService.savePasswordResetTokenForUser(user, token);
         javaMailSender.send(resetEmailService.constructResetTokenEmail("http://localhost:4200/resetPassword",
                 request.getLocale(), token, user));
         return ResponseEntity.ok(new MessageResponse("Email sent to user!"));
     }
 
+    /**
+     * Used to reset the user password (if the token given in parameter is correct) API side.
+     * @param id The user id.
+     * @param token The reset token.
+     * @return {@link ResponseEntity}
+     */
     @RequestMapping(value = "/resetPassword/validateToken", method = RequestMethod.GET)
     public ResponseEntity<String> resetPassword(@RequestParam("id") long id, @RequestParam("token") String token) {
         Gson gson = new Gson();
@@ -88,6 +101,11 @@ public class PasswordResetController {
 
     }
 
+    /**
+     * Saves the changed password.
+     * @param savePasswordRequest {@link SavePasswordRequest}
+     * @return {@link ResponseEntity}
+     */
     @RequestMapping(value = "/resetPassword/savePassword", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public ResponseEntity<?> savePassword(@Valid @RequestBody SavePasswordRequest savePasswordRequest) {
@@ -103,6 +121,11 @@ public class PasswordResetController {
         }
     }
 
+    /**
+     * Change the user's password (not in the case it has been forgotten, but in the case a logged in user wants to change its password).
+     * @param changePasswordRequest {@link ChangePasswordRequest}
+     * @return {@link ResponseEntity}
+     */
     @RequestMapping(value = "/resetPassword/changePassword", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {

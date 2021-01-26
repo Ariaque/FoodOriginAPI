@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * Checks if the login token is correct and not expired.
+ */
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);

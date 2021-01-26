@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
+/**
+ * Manages the building process of the email sent to the user to reset his password whe, forgotten.
+ */
 @Service
 public class ResetEmailService {
 
