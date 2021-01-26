@@ -45,7 +45,6 @@ public class UrlVideoControllerTests {
         Iterable<UrlVideo> itVideos = urlVideoRepository.findAll();
         List<UrlVideo> urlVideos = StreamSupport.stream(itVideos.spliterator(), false).collect(Collectors.toList());
         Set<UrlVideo> urls = new HashSet<>(urlVideos);
-        System.out.println(urls.size());
 
         given (urlVideoService.getAllUrls()).willReturn(urls);
         mockMvc.perform(get("/urlVideo/all")

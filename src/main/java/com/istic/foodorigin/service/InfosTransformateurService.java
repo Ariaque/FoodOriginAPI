@@ -35,7 +35,6 @@ public class InfosTransformateurService {
     public InfosTransformateur saveInfos(InfosTransformateur infos) {
         InfosTransformateur infosT = null;
         if (infos != null) {
-            System.out.println("blabla " + infos.getDenrees());
             infosT = infosRepository.save(infos);
         }
         return infosT;
