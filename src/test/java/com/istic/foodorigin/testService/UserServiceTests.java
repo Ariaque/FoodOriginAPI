@@ -102,20 +102,20 @@ public class UserServiceTests {
     }
 
     @Test
+    public void testGetUserByNameNull() {
+        User found = userService.getUserByName(null);
+        assertThat(found).isNull();
+    }
+
+    @Test
     public void testGetUserInfosByUserName () {
         String name = "test@free.com";
         User user = userRepository.findByUsername(name).get();
         HashMap<String, String> ret = userService.getUserInfosByUserName(name);
-        assertThat(ret.get("id")).isEqualTo(user.getId());
-        assertThat(ret.get("role")).isEqualTo(user.getRole());
+        assertThat(ret.get("id")).isEqualTo(user.getId().toString());
+        assertThat(ret.get("role")).isEqualTo(user.getRole().getName().toString());
         assertThat(ret.get("phoneNumber")).isEqualTo(user.getNumeroTelephone());
         assertThat(ret.get("typeTransformateur")).isEqualTo(user.getTypeTransformateur().getLibelle());
-    }
-
-    @Test
-    public void testGetUserByNameNull() {
-        User found = userService.getUserByName(null);
-        assertThat(found).isNull();
     }
 
     @Test
