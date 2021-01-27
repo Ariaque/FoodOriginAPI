@@ -2,6 +2,7 @@ package com.istic.foodorigin.service;
 
 import com.istic.foodorigin.models.ERole;
 import com.istic.foodorigin.models.PasswordResetToken;
+import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.models.User;
 import com.istic.foodorigin.repository.PasswordResetTokenRepository;
 import com.istic.foodorigin.repository.UserRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +54,30 @@ public class UserService {
             }
         }
         return user;
+    }
+
+    public Transformateur getTransformateurByUserName(String userName) {
+        Transformateur ret = null;
+        if(userName != null) {
+            Optional<User> user = userRepository.findByUsername(userName);
+            ret = user.get().getTransformateur();
+        }
+        return ret;
+    }
+
+    public HashMap<String, String> getUserInfosByUserName(String userName) {
+        HashMap<String, String> infosMap = null;
+        if(userName != null) {
+            Optional<User> user = userRepository.findByUsername(userName);
+            infosMap = new HashMap<>();
+            infosMap.put("id", user.get().getId().toString());
+            infosMap.put("role", user.get().getRole().getName().name());
+            if(user.get().getRole().getName().equals(ERole.ROLE_USER)) {
+                infosMap.put("phoneNumber", user.get().getNumeroTelephone());
+                infosMap.put("typeTransformateur", user.get().getTypeTransformateur().getLibelle());
+            }
+        }
+        return infosMap;
     }
 
     public User getUserBySiretTransfo(String siret) {

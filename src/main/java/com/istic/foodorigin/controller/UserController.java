@@ -1,5 +1,6 @@
 package com.istic.foodorigin.controller;
 
+import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.models.User;
 import com.istic.foodorigin.payload.response.MessageResponse;
 import com.istic.foodorigin.service.UserService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -54,6 +56,16 @@ public class UserController {
     @GetMapping(path = "/{name}", produces = "application/json")
     public User getUserByName(@PathVariable String name) {
         return userService.getUserByName(name);
+    }
+
+    @GetMapping(path = "transformateur/{userName}", produces = "application/json")
+    public Transformateur getTransformateurByUserName(@PathVariable String userName) {
+        return userService.getTransformateurByUserName(userName);
+    }
+
+    @GetMapping(path = "userInfos/{userName}", produces = "application/json")
+    public HashMap<String, String> getUserInfosByUserName(@PathVariable String userName) {
+        return userService.getUserInfosByUserName(userName);
     }
 
     @GetMapping(path = "/transfo/{siret}", produces = "application/json")
