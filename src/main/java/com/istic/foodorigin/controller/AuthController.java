@@ -61,9 +61,6 @@ public class AuthController {
     UserService userService;
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
     TransformateurService transformateurService;
 
     /**

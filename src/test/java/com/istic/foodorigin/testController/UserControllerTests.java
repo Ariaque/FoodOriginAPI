@@ -9,12 +9,10 @@ import com.istic.foodorigin.repository.RoleRepository;
 import com.istic.foodorigin.repository.TransformateurRepository;
 import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import com.istic.foodorigin.repository.UserRepository;
-import com.istic.foodorigin.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,7 +25,6 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,9 +35,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTests {
-
-    @MockBean
-    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
@@ -66,7 +60,6 @@ public class UserControllerTests {
         List<User> user = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
         Set<User> ret = new HashSet<>(user);
 
-        given (userService.getAllUsers()).willReturn(ret);
         mockMvc.perform(get("/user/all")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -81,7 +74,6 @@ public class UserControllerTests {
         List<User> user = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
         Set<User> ret = new HashSet<>(user);
 
-        given (userService.getAllRoleUser()).willReturn(ret);
         mockMvc.perform(get("/user/users")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -102,13 +94,13 @@ public class UserControllerTests {
         TypeTransformateur typeT = typeTransformateurRepository.findById(Integer.toUnsignedLong(2)).get();
         user.setTypeTransformateur(typeT);
         user.setUserActivation(false);
+        user.setNumeroTelephone("0298452369");
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(user);
 
-        given (userService.saveUser(user)).willReturn(user);
         mockMvc.perform(post("/user/save")
                 .content(requestJson)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -118,14 +110,13 @@ public class UserControllerTests {
 
     @Test
     public void testDeleteUser () throws Exception{
-        User user = userRepository.findById(Integer.toUnsignedLong(39)).get();
+        User user = userRepository.findById(Integer.toUnsignedLong(43)).get();
 
         ObjectMapper map = new ObjectMapper();
         map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(user);
 
-        given (userService.deleteUser(user)).willReturn(true);
         mockMvc.perform(post("/user/delete")
                 .content(requestJson)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -154,7 +145,6 @@ public class UserControllerTests {
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(user);
 
-        given (userService.deleteUser(user)).willReturn(false);
         mockMvc.perform(post("/user/delete")
                 .content(requestJson)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -168,7 +158,6 @@ public class UserControllerTests {
         String mail = "emile.georget@outlook.fr";
         User user = userRepository.findByUsername(mail).get();
 
-        given (userService.getUserByName(mail)).willReturn(user);
         mockMvc.perform(get("/user/{name}", mail)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -180,7 +169,6 @@ public class UserControllerTests {
     public void testGetUserByNameNotExists () throws Exception {
         String mail = "emile.georget@gmail.fr";
 
-        given (userService.getUserByName(mail)).willReturn(null);
         mockMvc.perform(get("/user/{name}", mail)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());
@@ -190,7 +178,6 @@ public class UserControllerTests {
     public void testGetUserByNameNoUser () throws Exception {
         String siret = "30121321100040";
 
-        given (userService.getUserBySiretTransfo(siret)).willReturn(null);
         mockMvc.perform(get("/user/transfo/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());
@@ -201,7 +188,6 @@ public class UserControllerTests {
         String siret = "45060988800018";
         User user = userRepository.findUserBySiret(siret).get();
 
-        given (userService.getUserBySiretTransfo(siret)).willReturn(user);
         mockMvc.perform(get("/user/transfo/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -213,7 +199,6 @@ public class UserControllerTests {
     public void testGetUserBySiretUserNotExists () throws Exception {
         String siret = "50879026800017";
 
-        given (userService.getUserBySiretTransfo(siret)).willReturn(null);
         mockMvc.perform(get("/user/transfo/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());
@@ -223,7 +208,6 @@ public class UserControllerTests {
     public void testGetUserBySiretSiretNotExists () throws Exception {
         String siret = "50879026800017157";
 
-        given (userService.getUserBySiretTransfo(siret)).willReturn(null);
         mockMvc.perform(get("/user/transfo/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());
@@ -233,7 +217,6 @@ public class UserControllerTests {
     public void testGetUserStateBySiretActivate () throws Exception {
         String siret = "08678020200031";
 
-        given (userService.getUserBySiretTransfo(siret).getIsEnabled()).willReturn(true);
         mockMvc.perform(get("/user/isActive/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -244,7 +227,6 @@ public class UserControllerTests {
     public void testGetUserStateBySiretNotActivate () throws Exception {
         String siret = "50308898100017";
 
-        given (userService.getUserBySiretTransfo(siret).getIsEnabled()).willReturn(false);
         mockMvc.perform(get("/user/isActive/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk())
@@ -256,7 +238,6 @@ public class UserControllerTests {
     public void testGetUserStateBySiretNotExists () throws Exception {
         String siret = "086780202";
 
-        given (userService.getUserBySiretTransfo(siret)).willReturn(null);
         mockMvc.perform(get("/user/isActive/{siret}", siret)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());
@@ -266,8 +247,36 @@ public class UserControllerTests {
     public void testGetUserStateBySiretNoUser () throws Exception {
         String siret = "95752685801591";
 
-        given (userService.getUserBySiretTransfo(siret)).willReturn(null);
         mockMvc.perform(get("/user/isActive/{siret}", siret)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect (status().isOk());
+    }
+
+    @Test
+    public void testGetUserStateByUsernameActivate () throws Exception {
+        String username = "edgar.lebreton.35@gmail.com";
+
+        mockMvc.perform(get("/user/activation/{userName}", username)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect (status().isOk())
+                .andExpect (MockMvcResultMatchers.jsonPath("$").value(true));
+    }
+
+    @Test
+    public void testGetUserStateByUsernameNotActivate () throws Exception {
+        String username = "test@test.fr";
+
+        mockMvc.perform(get("/user/activation/{userName}", username)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect (status().isOk())
+                .andExpect (MockMvcResultMatchers.jsonPath("$").value(false));
+    }
+
+    @Test
+    public void testGetUserStateByUsernameNoUser () throws Exception {
+        String username = "user";
+
+        mockMvc.perform(get("/user/activation/{userName}", username)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect (status().isOk());
     }

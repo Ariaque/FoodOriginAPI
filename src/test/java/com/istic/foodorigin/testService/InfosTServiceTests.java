@@ -79,8 +79,9 @@ public class InfosTServiceTests {
 
     @Test
     public void testGetInfosByTransformateurNull() {
+        InfosTransformateur infos = new InfosTransformateur();
         InfosTransformateur found = infosTService.getInfosByTransformateur(null);
-        assertThat(found).isNull();
+        assertThat(found.getId()).isEqualTo(infos.getId());
     }
 
 }
