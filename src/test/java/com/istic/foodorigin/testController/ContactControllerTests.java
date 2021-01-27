@@ -26,13 +26,10 @@ public class ContactControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private ComplexEmailService complexEmailService;
-
     @Test
     public void testSendContactEmail () throws Exception {
         String to = "jerome.georget@free.fr";
-        String phone = "0233669988";
+        String phone = "0299472865";
         String objet = "Test objet";
         String mess = "Test message";
 
@@ -56,7 +53,7 @@ public class ContactControllerTests {
     @Test
     public void testSendNotificationEmail () throws Exception {
         String to = "jerome.georget@free.fr";
-        String phone = "0233669988";
+        String phone = "0299472865";
         String objet = "Test objet";
         String mess = "Test message";
 

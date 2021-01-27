@@ -41,7 +41,7 @@ public class InfosTransformateurService {
     }
 
     public InfosTransformateur getInfosByTransformateur(Long id) {
-        InfosTransformateur ret = null;
+        InfosTransformateur ret = new InfosTransformateur();
         if (id != null) {
             Optional<Transformateur> transformateur = transformateurRepository.findById(id);
             if (transformateur.isPresent()) {
