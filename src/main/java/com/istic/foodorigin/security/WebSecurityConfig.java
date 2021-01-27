@@ -57,8 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/auth/**", "/reset/resetPassword/sendEmail", "/reset/resetPassword/validateToken", "/reset/resetPassword/savePassword", "/reset/resetPassword/changePassword").permitAll()
-                .antMatchers("/test/**", "/typeDenree/**", "/origineDenree/**", "/urlVideo/**", "/label/**", "/denree/**", "/ferme/**", "/transformateur/**", "/typeTransformateur/**", "/infoTransformateur/**", "/certification/**", "/user/**", "/contact/**").permitAll()
+                .authorizeRequests().antMatchers("/auth/**", "/reset/resetPassword/sendEmail", "/reset/resetPassword/validateToken", "/reset/resetPassword/savePassword").permitAll()
+                .antMatchers("/typeDenree/**", "/origineDenree/**", "/urlVideo/**", "/label/**", "/denree/**", "/ferme/**", "/transformateur/**", "/typeTransformateur/**", "/infoTransformateur/transformateur/**", "/certification/**", "/contact/**", "/user/activation/**", "/user/isActive/**").permitAll()
+                .antMatchers("/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

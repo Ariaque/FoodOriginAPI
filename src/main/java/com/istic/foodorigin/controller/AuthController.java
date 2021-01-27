@@ -63,6 +63,11 @@ public class AuthController {
     @Autowired
     TransformateurService transformateurService;
 
+    /**
+     * Logs the user into the API
+     * @param loginRequest {@link LoginRequest}
+     * @return {@link ResponseEntity}
+     */
     @PostMapping(value = "/signin", consumes = "application/json")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -83,6 +88,13 @@ public class AuthController {
                 roles));
     }
 
+
+    /**
+     * Creates a user account.
+     * @param signUpRequest {@link SignupRequest}
+     * @param siret The transformer siret (used to associate its account with State's data in base).
+     * @return {@link ResponseEntity}
+     */
     @PostMapping(value = "/signup/{siret}", consumes = "application/json")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, @PathVariable String siret) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {

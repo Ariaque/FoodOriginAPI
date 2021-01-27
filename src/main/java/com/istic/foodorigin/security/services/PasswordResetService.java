@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 
+/**
+ * Manages the reset tokens, used to reset the user password when forgotten.
+ */
 @Service
 public class PasswordResetService {
 
@@ -15,11 +18,23 @@ public class PasswordResetService {
     private PasswordResetTokenRepository passwordResetTokenRepository;
 
 
-    public void createPasswordResetTokenForUser(User user, String token) {
+    /**
+     * Saves a reset token for the user.
+     * @param user User.
+     * @param token Token.
+     */
+    public void savePasswordResetTokenForUser(User user, String token) {
         PasswordResetToken myToken = new PasswordResetToken(token, user);
         passwordResetTokenRepository.save(myToken);
     }
 
+    /**
+     * Checks if the saved reset token for this user corresponds to the token given inside the reset url.
+     * If the reset token is expired, deletes it in the database
+     * @param id User id.
+     * @param token Reset token.
+     * @return Reset token if the token is correct, an empty string in other cases.
+     */
     public String validatePasswordResetToken(long id, String token) {
         Calendar cal = Calendar.getInstance();
         PasswordResetToken passToken = passwordResetTokenRepository.findByToken(token);
