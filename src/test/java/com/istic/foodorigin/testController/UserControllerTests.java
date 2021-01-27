@@ -281,4 +281,42 @@ public class UserControllerTests {
                 .andExpect (status().isOk());
     }
 
+
+    @Test
+    public void testGetTransformateurByUserNameExists () throws Exception {
+        String username = "edgar.lebreton.35@gmail.com";
+
+        mockMvc.perform(get("/user/transformateur/{userName}", username)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect (status().isOk());
+    }
+
+    @Test
+    public void testGetTransformateurByUserNameNotExists () throws Exception {
+        String username = "user";
+
+        mockMvc.perform(get("/user/transformateur/{userName}", username)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect (status().isOk());
+    }
+
+    @Test
+    public void testGetUserInfosByUserNameExists () throws Exception {
+        String username = "edgar.lebreton.35@gmail.com";
+
+        mockMvc.perform(get("/user/userInfos/{userName}", username)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect (status().isOk());
+    }
+
+    @Test
+    public void testGetUserInfosByUserNameExistsNotExists () throws Exception {
+        String username = "user";
+
+        mockMvc.perform(get("/user/transformateur/{userName}", username)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect (status().isOk());
+    }
+
+
 }

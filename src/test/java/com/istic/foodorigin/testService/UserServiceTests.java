@@ -2,6 +2,7 @@ package com.istic.foodorigin.testService;
 
 import com.istic.foodorigin.models.*;
 import com.istic.foodorigin.repository.RoleRepository;
+import com.istic.foodorigin.repository.UserRepository;
 import com.istic.foodorigin.service.TransformateurService;
 import com.istic.foodorigin.service.TypeTransformateurService;
 import com.istic.foodorigin.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -27,6 +29,9 @@ public class UserServiceTests {
 
     @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -83,7 +88,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testUserByNameExists () {
+    public void testGetUserByNameExists () {
         String name = "test@free.com";
         User user = userService.getUserByName(name);
         assertThat(user.getUsername()).isEqualTo(name);
@@ -94,6 +99,17 @@ public class UserServiceTests {
         String name = "admin@test.fr";
         User user = userService.getUserByName(name);
         assertThat(user).isNull();
+    }
+
+    @Test
+    public void testGetUserInfosByUserName () {
+        String name = "test@free.com";
+        User user = userRepository.findByUsername(name).get();
+        HashMap<String, String> ret = userService.getUserInfosByUserName(name);
+        assertThat(ret.get("id")).isEqualTo(user.getId());
+        assertThat(ret.get("role")).isEqualTo(user.getRole());
+        assertThat(ret.get("phoneNumber")).isEqualTo(user.getNumeroTelephone());
+        assertThat(ret.get("typeTransformateur")).isEqualTo(user.getTypeTransformateur().getLibelle());
     }
 
     @Test
