@@ -132,7 +132,7 @@ public class InfosTControllerTests {
     @Test
     public void saveImage () throws Exception{
         Long id = Integer.toUnsignedLong(1);
-        File image = new File ("D:\\Yaelle\\Mes documents\\M2 MIAGE\\Projet\\FoodOriginAPI\\src\\test\\java\\com\\istic\\foodorigin\\foodorigintransp.png");
+        File image = new File ("..\\foodorigintransp.png");
         FileInputStream input = new FileInputStream(image);
         MockMultipartFile file = new MockMultipartFile("fileItem", image.getName(), "image/png", IOUtils.toByteArray(input));
 

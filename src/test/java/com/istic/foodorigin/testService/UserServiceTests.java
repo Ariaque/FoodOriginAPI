@@ -1,6 +1,7 @@
 package com.istic.foodorigin.testService;
 
 import com.istic.foodorigin.models.*;
+import com.istic.foodorigin.repository.PasswordResetTokenRepository;
 import com.istic.foodorigin.repository.RoleRepository;
 import com.istic.foodorigin.repository.UserRepository;
 import com.istic.foodorigin.service.TransformateurService;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -37,6 +39,9 @@ public class UserServiceTests {
     private RoleRepository roleRepository;
 
     @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepository;
+
+    @Autowired
     private TransformateurService transformateurService;
 
     @Autowired
@@ -46,20 +51,20 @@ public class UserServiceTests {
     public void testGetAllUsers () {
         Iterable<User> itUser = userService.getAllUsers();
         List<User> found = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
-        assertThat(found.size()).isEqualTo(10);
+        assertThat(found.size()).isEqualTo(12);
     }
 
     @Test
     public void testGetAllRoleUser () {
         Iterable<User> itUser = userService.getAllRoleUser();
         List<User> found = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
-        assertThat(found.size()).isEqualTo(9);
+        assertThat(found.size()).isEqualTo(12);
     }
 
     @Test
     public void testSaveUser () {
         User user = new User();
-        String username = "test@test.fr";
+        String username = "admin@test.fr";
         String numeroTel = "0299920417";
         user.setUsername(username);
         user.setPassword(encoder.encode("test"));
@@ -96,7 +101,7 @@ public class UserServiceTests {
 
     @Test
     public void testGetUserByNameNotExist() {
-        String name = "admin@test.fr";
+        String name = "admin@admin.fr";
         User user = userService.getUserByName(name);
         assertThat(user).isNull();
     }
@@ -108,7 +113,31 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testGetUserInfosByUserName () {
+    public void testGetTransformateurByUserName () {
+        String username = "hj@gmail.com";
+        Transformateur transformateur = userRepository.findByUsername(username).get().getTransformateur();
+        Transformateur found = userService.getTransformateurByUserName(username);
+        assertThat(found.getId()).isEqualTo(transformateur.getId());
+        assertThat(found.getSiret()).isEqualTo(transformateur.getSiret());
+        assertThat(found.getNum_agrement()).isEqualTo(transformateur.getNum_agrement());
+        assertThat(found.getRaison_sociale()).isEqualTo(transformateur.getRaison_sociale());
+    }
+
+    @Test
+    public void testGetTransformateurByUserNameNotExists () {
+        String username = "hj@free.fr";
+        Transformateur found = userService.getTransformateurByUserName(username);
+        assertThat(found).isNull();
+    }
+
+    @Test
+    public void testGetTransformateurByUserNameNull () {
+        Transformateur found = userService.getTransformateurByUserName(null);
+        assertThat(found).isNull();
+    }
+
+    @Test
+    public void testGetUserInfosByUserNameUser () {
         String name = "test@free.com";
         User user = userRepository.findByUsername(name).get();
         HashMap<String, String> ret = userService.getUserInfosByUserName(name);
@@ -117,6 +146,30 @@ public class UserServiceTests {
         assertThat(ret.get("phoneNumber")).isEqualTo(user.getNumeroTelephone());
         assertThat(ret.get("typeTransformateur")).isEqualTo(user.getTypeTransformateur().getLibelle());
     }
+
+
+    @Test
+    public void testGetUserInfosByUserNameAdmin () {
+        String name = "emile.georget@outlook.fr";
+        User user = userRepository.findByUsername(name).get();
+        HashMap<String, String> ret = userService.getUserInfosByUserName(name);
+        assertThat(ret.get("id")).isEqualTo(user.getId().toString());
+        assertThat(ret.get("role")).isEqualTo(user.getRole().getName().toString());
+    }
+
+    @Test
+    public void testGetUserInfosByUserNameNotExists () {
+        String name = "test@test.com";
+        HashMap<String, String> ret = userService.getUserInfosByUserName(name);
+        assertThat(ret).isEmpty();
+    }
+
+    @Test
+    public void testGetUserInfosByUserNameNull () {
+        HashMap<String, String> ret = userService.getUserInfosByUserName(null);
+        assertThat(ret).isNull();
+    }
+
 
     @Test
     public void testUserBySiretTransfoExists () {
@@ -146,10 +199,33 @@ public class UserServiceTests {
     }
 
     @Test
+    public void deleteUserExists () {
+        String username = "admin@test.fr";
+        User user = userService.getUserByName(username);
+        boolean ret = userService.deleteUser(user);
+        assertThat(ret).isTrue();
+        assertThat(userService.getUserByName(username)).isNull();
+    }
+
+    @Test
+    public void deleteUserNotExists () {
+        User user = new User();
+        user.setId(Integer.toUnsignedLong(110));
+        boolean ret = userService.deleteUser(user);
+        assertThat(ret).isFalse();
+    }
+
+    @Test
+    public void deleteUserNull () {
+        boolean ret = userService.deleteUser(null);
+        assertThat(ret).isFalse();
+    }
+
+    @Test
     public void testChangeUserPassword () {
-        String username = "test@test.fr";
-        User user = userService.getUserByName("test@test.fr");
-        String password = "test12340";
+        String username = "test@free.com";
+        User user = userService.getUserByName(username);
+        String password = "test";
         User ret = userService.changeUserPassword(user, password);
 
         assertThat(ret.getUsername()).isEqualTo(username);
@@ -182,26 +258,12 @@ public class UserServiceTests {
     }
 
     @Test
-    public void deleteUserExists () {
-        String username = "test@test.fr";
-        User user = userService.getUserByName(username);
-        boolean ret = userService.deleteUser(user);
-        assertThat(ret).isTrue();
-        assertThat(userService.getUserByName(username)).isNull();
+    public void testGetUserByPasswordResetToken () {
+        String token = "01570134-f87b-4159-98b6-482be3f6f39a";
+        User user = passwordResetTokenRepository.findByToken(token).getUser();
+        Optional<User> found = userService.getUserByPasswordResetToken(token);
+        assertThat(found.isPresent()).isTrue();
+        assertThat(found.get().getId()).isEqualTo(user.getId());
+        assertThat(found.get().getUsername()).isEqualTo(user.getUsername());
     }
-
-    @Test
-    public void deleteUserNotExists () {
-        User user = new User();
-        user.setId(Integer.toUnsignedLong(110));
-        boolean ret = userService.deleteUser(user);
-        assertThat(ret).isFalse();
-    }
-
-    @Test
-    public void deleteUserNull () {
-        boolean ret = userService.deleteUser(null);
-        assertThat(ret).isFalse();
-    }
-
 }

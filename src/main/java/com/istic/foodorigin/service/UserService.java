@@ -60,7 +60,9 @@ public class UserService {
         Transformateur ret = null;
         if(userName != null) {
             Optional<User> user = userRepository.findByUsername(userName);
-            ret = user.get().getTransformateur();
+            if (user.isPresent()) {
+                ret = user.get().getTransformateur();
+            }
         }
         return ret;
     }
@@ -68,13 +70,16 @@ public class UserService {
     public HashMap<String, String> getUserInfosByUserName(String userName) {
         HashMap<String, String> infosMap = null;
         if(userName != null) {
-            Optional<User> user = userRepository.findByUsername(userName);
+            Optional<User> userO = userRepository.findByUsername(userName);
             infosMap = new HashMap<>();
-            infosMap.put("id", user.get().getId().toString());
-            infosMap.put("role", user.get().getRole().getName().name());
-            if(user.get().getRole().getName().equals(ERole.ROLE_USER)) {
-                infosMap.put("phoneNumber", user.get().getNumeroTelephone());
-                infosMap.put("typeTransformateur", user.get().getTypeTransformateur().getLibelle());
+            if (userO.isPresent()) {
+                User user = userO.get();
+                infosMap.put("id", user.getId().toString());
+                infosMap.put("role", user.getRole().getName().name());
+                if(user.getRole().getName().equals(ERole.ROLE_USER)) {
+                    infosMap.put("phoneNumber", user.getNumeroTelephone());
+                    infosMap.put("typeTransformateur", user.getTypeTransformateur().getLibelle());
+                }
             }
         }
         return infosMap;

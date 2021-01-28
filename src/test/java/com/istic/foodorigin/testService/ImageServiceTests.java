@@ -28,7 +28,7 @@ public class ImageServiceTests {
     @Test
     public void testSaveOnImageServer () throws IOException {
         Long id = Integer.toUnsignedLong(5);
-        File image = new File ("D:\\Yaelle\\Mes documents\\M2 MIAGE\\Projet\\FoodOriginAPI\\src\\test\\java\\com\\istic\\foodorigin\\foodorigintransp.png");
+        File image = new File ("..\\foodorigintransp.png");
         FileInputStream input = new FileInputStream(image);
         MultipartFile file = new MockMultipartFile("fileItem", image.getName(), "image/png", IOUtils.toByteArray(input));
         boolean ret = this.imageService.saveImageOnServer(file, id);
@@ -38,7 +38,7 @@ public class ImageServiceTests {
     @Test
     public void testSaveOnImageServerTransfoNotExists () throws IOException {
         Long id = Integer.toUnsignedLong(0);
-        File image = new File ("D:\\Yaelle\\Mes documents\\M2 MIAGE\\Projet\\FoodOriginAPI\\src\\test\\java\\com\\istic\\foodorigin\\foodorigintransp.png");
+        File image = new File ("..\\foodorigintransp.png");
         FileInputStream input = new FileInputStream(image);
         MultipartFile file = new MockMultipartFile("fileItem", image.getName(), "image/png", IOUtils.toByteArray(input));
         boolean ret = this.imageService.saveImageOnServer(file, id);
