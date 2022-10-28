@@ -3,7 +3,10 @@ package com.istic.foodorigin.controller;
 import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Point of contact allowing client applications
@@ -24,6 +27,11 @@ public class TransformateurController {
     @GetMapping(path = "/siret/{siret}", produces = "application/json")
     public Transformateur getTransformateurBySiret(@PathVariable String siret) {
         return transformateurService.getTransformateurBySiret(siret);
+    }
+
+    @GetMapping(path = "/groupid/{id}", consumes = "application/json")
+    public List<Transformateur> getTransformateurByGroupId(@PathVariable Long id){
+        return transformateurService.getTransformateurByGroupId(id);
     }
 
     @GetMapping(produces = "application/json")

@@ -24,6 +24,18 @@ public class Transformateur {
     private String latitude;
     private String longitude;
 
+    @ManyToOne
+    @JoinColumn(name = "groupe_transformateur_id")
+    private GroupeTransformateur groupeTransformateur;
+
+    public GroupeTransformateur getGroupeTransformateur() {
+        return groupeTransformateur;
+    }
+
+    public void setGroupeTransformateur(GroupeTransformateur groupeTransformateur) {
+        this.groupeTransformateur = groupeTransformateur;
+    }
+
     public Transformateur() {
     }
 

@@ -1,0 +1,57 @@
+foodOrigin:
+    app:
+        jwtExpirationMs: 86400000
+        jwtSecret: foodOrigin
+    server:
+        address: XXX
+        password: XXX
+        user: XXX
+foodorigin:
+    admin:
+        mailAdress: '"XXX@XXX.XX"'
+logging:
+    level:
+        org:
+            hibernate:
+                type:
+                    descriptor:
+                        sql:
+                            BasicBinder: TRACE
+            springframework: DEBUG
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/foodorigin?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        driver-class-name: com.mysql.jdbc.Driver
+        initialization-mode: always
+        password:
+        username: root
+    jpa:
+        generate-ddl: false
+        hibernate:
+            ddl-auto: update
+            naming:
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate: 
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                format_sql: true
+                show_sql: true
+        show-sql: true
+    mail:
+        host: smtp.gmail.com
+        password: XXX
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+                        required: true
+        username: XXX
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 500KB
+            max-request-size: 500KB

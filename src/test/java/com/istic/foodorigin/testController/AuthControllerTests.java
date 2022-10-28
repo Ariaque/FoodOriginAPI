@@ -199,7 +199,6 @@ public class AuthControllerTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Erreur: Ce Siret n'est pas enregistré dans notre base de données !"));
-            ;
     }
 
 

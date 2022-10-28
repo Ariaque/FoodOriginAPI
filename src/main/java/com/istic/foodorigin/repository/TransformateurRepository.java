@@ -16,4 +16,7 @@ public interface TransformateurRepository extends CrudRepository<Transformateur,
     List<Transformateur> findBySiret(String raisonSociale);
 
     List<Transformateur> findByNumAgrement(String estampille);
+
+    @Query("select t from Transformateur t inner join t.groupeTransformateur gt where gt.id = ?1")
+    List<Transformateur> findAllByGroupeTransformateur_Id(Long id);
 }
