@@ -58,7 +58,7 @@ public class GroupeTransformateurController {
     }
 
     @GetMapping(value = "/transformateur/{id}", consumes = "application/json", produces = "application/json")
-    public GroupeTransformateur findByTransformateurId(@PathVariable Long id) {
+    public Optional<Set<GroupeTransformateur>> findByTransformateurId(@PathVariable Long id) {
         return groupeTransformateurService.findByTransformateurId(id);
     }
 

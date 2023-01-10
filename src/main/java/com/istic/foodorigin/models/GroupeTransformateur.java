@@ -21,12 +21,14 @@ public class GroupeTransformateur {
 
     private String description;
 
-    @OneToMany
-    private Set<Transformateur> transformateurs;
-
     public GroupeTransformateur() {
         this.labels = new HashSet<>();
-        this.transformateurs = new HashSet<>();
+    }
+
+    public GroupeTransformateur(Long id, Set<Label> labels, String description, Set<Transformateur> transformateurs) {
+        this.id = id;
+        this.labels = labels;
+        this.description = description;
     }
 
     public Long getId() {
@@ -55,13 +57,5 @@ public class GroupeTransformateur {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<Transformateur> getTransformateurs() {
-        return transformateurs;
-    }
-
-    public void setTransformateurs(Set<Transformateur> transformateurs) {
-        this.transformateurs = transformateurs;
     }
 }

@@ -28,15 +28,8 @@ public class GroupeTransformateurService {
         return retGroupe;
     }
 
-    public GroupeTransformateur findByTransformateurId(Long id) {
-        GroupeTransformateur ret = null;
-        if (id != null) {
-            Optional<GroupeTransformateur> groupeTransformateur = groupeTransformateurRepository.findByTransformateurs_Id(id);
-            if (groupeTransformateur.isPresent()) {
-                ret = groupeTransformateur.get();
-            }
-        }
-        return ret;
+    public Optional<Set<GroupeTransformateur>> findByTransformateurId(Long id) {
+        return (id == null) ? Optional.empty() : groupeTransformateurRepository.findByTransformateurs_Id(id);
     }
 
     public Optional<Set<GroupeTransformateur>> findByLabel(String label) {

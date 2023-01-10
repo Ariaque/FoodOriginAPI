@@ -48,10 +48,15 @@ public class TransformateurController {
         GroupeTransformateur groupeTransformateur = groupeTransformateurService.getGroupeTransformateurById(dto.getForeignId());
         Transformateur transformateur = transformateurService.getTransformateurById(dto.getMainId());
 
-        if (transformateur != null & groupeTransformateur != null) {
-            transformateur.setGroupeTransformateur(groupeTransformateur);
-            transformateurService.update(transformateur);
+        if (transformateur == null) {
+            throw new IllegalArgumentException("No transformateur with the provided id");
         }
+        if (groupeTransformateur == null) {
+            throw new IllegalArgumentException("No Transformateur group with the provided id");
+        }
+        transformateur.setGroupeTransformateur(groupeTransformateur);
+        transformateurService.update(transformateur);
+
         return transformateur;
     }
 
