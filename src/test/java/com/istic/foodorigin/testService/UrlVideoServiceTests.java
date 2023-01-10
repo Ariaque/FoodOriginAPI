@@ -22,7 +22,7 @@ public class UrlVideoServiceTests {
     private UrlVideoService urlVideoService;
 
     @Test
-    public void testUrlByIdExists () {
+    public void testUrlByIdExists() {
         Long id = Integer.toUnsignedLong(39);
         UrlVideo url = urlVideoService.getUrlById(id);
         assertThat(url.getId()).isEqualTo(id);
@@ -44,7 +44,7 @@ public class UrlVideoServiceTests {
     }
 
     @Test
-    public void testGetAllUrls () {
+    public void testGetAllUrls() {
         Iterable<UrlVideo> itUrl = urlVideoService.getAllUrls();
         List<UrlVideo> found = StreamSupport.stream(itUrl.spliterator(), false).collect(Collectors.toList());
         assertThat(found.size()).isEqualTo(11);

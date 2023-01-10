@@ -43,7 +43,7 @@ public class CertificationServiceTests {
     }
 
     @Test
-    public void testGetAllCertifications () {
+    public void testGetAllCertifications() {
         Iterable<Certification> itCertif = certificationService.getAllCertifications();
         List<Certification> found = StreamSupport.stream(itCertif.spliterator(), false).collect(Collectors.toList());
         assertThat(found.size()).isEqualTo(7);

@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * End point to request the database's table associated to {@link Transformateur} entity.
@@ -18,5 +17,7 @@ public interface TransformateurRepository extends CrudRepository<Transformateur,
     List<Transformateur> findByNumAgrement(String estampille);
 
     @Query("select t from Transformateur t inner join t.groupeTransformateur gt where gt.id = ?1")
-    List<Transformateur> findAllByGroupeTransformateur_Id(Long id);
+    List<Transformateur> findAllByGroupeTransformateurId(Long id);
+
+
 }

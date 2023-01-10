@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.istic.foodorigin.controller.AuthController;
 import com.istic.foodorigin.payload.request.LoginRequest;
 import com.istic.foodorigin.payload.request.SignupRequest;
-import com.istic.foodorigin.repository.OrigineDenreeRepository;
 import com.istic.foodorigin.repository.RoleRepository;
 import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import org.junit.jupiter.api.Test;
@@ -19,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,7 +39,7 @@ public class AuthControllerTests {
     private TypeTransformateurRepository typeTRepository;
 
     @Test
-    public void testAuthenticateUser () throws Exception{
+    public void testAuthenticateUser() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("jerome.georget@free.fr");
         loginRequest.setPassword("1234");
@@ -50,13 +50,13 @@ public class AuthControllerTests {
         String requestJson = ow.writeValueAsString(loginRequest);
 
         mockMvc.perform(post("/auth/signin")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testAuthenticateUserNotExists () throws Exception{
+    public void testAuthenticateUserNotExists() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("emile.georget@admin.fr");
         loginRequest.setPassword("admin1");
@@ -67,13 +67,13 @@ public class AuthControllerTests {
         String requestJson = ow.writeValueAsString(loginRequest);
 
         mockMvc.perform(post("/auth/signin")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void testAuthenticateMdpNotGood () throws Exception{
+    public void testAuthenticateMdpNotGood() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("emile.georget@outlook.fr");
         loginRequest.setPassword("test");
@@ -84,13 +84,13 @@ public class AuthControllerTests {
         String requestJson = ow.writeValueAsString(loginRequest);
 
         mockMvc.perform(post("/auth/signin")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void testAuthenticateNotExists () throws Exception{
+    public void testAuthenticateNotExists() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("emile.georget@admin.fr");
         loginRequest.setPassword("admin35");
@@ -101,13 +101,13 @@ public class AuthControllerTests {
         String requestJson = ow.writeValueAsString(loginRequest);
 
         mockMvc.perform(post("/auth/signin")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void testRegisterUser () throws Exception{
+    public void testRegisterUser() throws Exception {
         SignupRequest signupRequest = new SignupRequest();
         String siret = "30021990400327";
         Set<String> roles = new HashSet<String>();
@@ -123,14 +123,14 @@ public class AuthControllerTests {
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(signupRequest);
 
-        mockMvc.perform(post("/auth/signup/{siret}",siret)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/auth/signup/{siret}", siret)
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testRegisterUserAlreadyExists () throws Exception{
+    public void testRegisterUserAlreadyExists() throws Exception {
         SignupRequest signupRequest = new SignupRequest();
         String siret = "30021990400327";
         Set<String> roles = new HashSet<String>();
@@ -146,15 +146,15 @@ public class AuthControllerTests {
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(signupRequest);
 
-        mockMvc.perform(post("/auth/signup/{siret}",siret)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/auth/signup/{siret}", siret)
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Erreur: Ce nom d'utilisateur est déjà pris !"));
     }
 
     @Test
-    public void testRegisterUserSiretAlreadyExists () throws Exception{
+    public void testRegisterUserSiretAlreadyExists() throws Exception {
         SignupRequest signupRequest = new SignupRequest();
         String siret = "08678020200031";
         Set<String> roles = new HashSet<String>();
@@ -170,15 +170,15 @@ public class AuthControllerTests {
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(signupRequest);
 
-        mockMvc.perform(post("/auth/signup/{siret}",siret)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/auth/signup/{siret}", siret)
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Erreur: Un compte existe déjà pour ce Siret!"));
     }
 
     @Test
-    public void testRegisterUserSiretNotExists () throws Exception{
+    public void testRegisterUserSiretNotExists() throws Exception {
         SignupRequest signupRequest = new SignupRequest();
         String siret = "0867802020003112369";
         Set<String> roles = new HashSet<String>();
@@ -194,9 +194,9 @@ public class AuthControllerTests {
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(signupRequest);
 
-        mockMvc.perform(post("/auth/signup/{siret}",siret)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/auth/signup/{siret}", siret)
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Erreur: Ce Siret n'est pas enregistré dans notre base de données !"));
     }

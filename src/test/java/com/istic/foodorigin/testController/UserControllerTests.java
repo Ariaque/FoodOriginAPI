@@ -55,34 +55,34 @@ public class UserControllerTests {
     private TypeTransformateurRepository typeTransformateurRepository;
 
     @Test
-    public void testGetAll () throws Exception {
+    public void testGetAll() throws Exception {
         Iterable<User> itUser = userRepository.findAll();
         List<User> user = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
         Set<User> ret = new HashSet<>(user);
 
         mockMvc.perform(get("/user/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(ret.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
     }
 
 
     @Test
-    public void testGetRoleUser () throws Exception {
+    public void testGetRoleUser() throws Exception {
         Iterable<User> itUser = userRepository.findByRole(ERole.ROLE_USER);
         List<User> user = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
         Set<User> ret = new HashSet<>(user);
 
         mockMvc.perform(get("/user/users")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(ret.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
     }
 
     @Test
-    public void testSaveUser () throws Exception{
+    public void testSaveUser() throws Exception {
         User user = new User();
         String username = "test@test.fr";
         user.setUsername(username);
@@ -102,14 +102,14 @@ public class UserControllerTests {
         String requestJson = ow.writeValueAsString(user);
 
         mockMvc.perform(post("/user/save")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testDeleteUser () throws Exception{
+    public void testDeleteUser() throws Exception {
         User user = userRepository.findById(Integer.toUnsignedLong(48)).get();
 
         ObjectMapper map = new ObjectMapper();
@@ -118,15 +118,15 @@ public class UserControllerTests {
         String requestJson = ow.writeValueAsString(user);
 
         mockMvc.perform(post("/user/delete")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }
 
     @Test
-    public void testDeleteUserNotExists () throws Exception{
+    public void testDeleteUserNotExists() throws Exception {
         User user = new User();
         user.setUsername("test@admin.fr");
         user.setId(Integer.toUnsignedLong(1));
@@ -146,176 +146,176 @@ public class UserControllerTests {
         String requestJson = ow.writeValueAsString(user);
 
         mockMvc.perform(post("/user/delete")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotModified());
 
     }
 
     @Test
-    public void testGetUserByNameExists () throws Exception {
+    public void testGetUserByNameExists() throws Exception {
         String mail = "emile.georget@outlook.fr";
         User user = userRepository.findByUsername(mail).get();
 
         mockMvc.perform(get("/user/{name}", mail)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$.id").value(user.getId()))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.username").value(user.getUsername()));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(user.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value(user.getUsername()));
     }
 
     @Test
-    public void testGetUserByNameNotExists () throws Exception {
+    public void testGetUserByNameNotExists() throws Exception {
         String mail = "emile.georget@gmail.fr";
 
         mockMvc.perform(get("/user/{name}", mail)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetUserByNameNoUser () throws Exception {
+    public void testGetUserByNameNoUser() throws Exception {
         String siret = "30121321100040";
 
         mockMvc.perform(get("/user/transfo/{siret}", siret)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetUserBySiretTransfo () throws Exception {
+    public void testGetUserBySiretTransfo() throws Exception {
         String siret = "45060988800018";
         User user = userRepository.findUserBySiret(siret).get();
 
         mockMvc.perform(get("/user/transfo/{siret}", siret)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$.id").value(user.getId()))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.username").value(user.getUsername()));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(user.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value(user.getUsername()));
     }
 
     @Test
-    public void testGetUserBySiretUserNotExists () throws Exception {
+    public void testGetUserBySiretUserNotExists() throws Exception {
         String siret = "50879026800017";
 
         mockMvc.perform(get("/user/transfo/{siret}", siret)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetUserBySiretSiretNotExists () throws Exception {
+    public void testGetUserBySiretSiretNotExists() throws Exception {
         String siret = "50879026800017157";
 
         mockMvc.perform(get("/user/transfo/{siret}", siret)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetUserStateBySiretActivate () throws Exception {
+    public void testGetUserStateBySiretActivate() throws Exception {
         String siret = "08678020200031";
 
         mockMvc.perform(get("/user/isActive/{siret}", siret)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$").value(true));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(true));
     }
 
     @Test
-    public void testGetUserStateBySiretNotActivate () throws Exception {
+    public void testGetUserStateBySiretNotActivate() throws Exception {
         String siret = "50308898100017";
 
         mockMvc.perform(get("/user/isActive/{siret}", siret)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$").value(false));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(false));
     }
 
 
     @Test
-    public void testGetUserStateBySiretNotExists () throws Exception {
+    public void testGetUserStateBySiretNotExists() throws Exception {
         String siret = "086780202";
 
         mockMvc.perform(get("/user/isActive/{siret}", siret)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetUserStateBySiretNoUser () throws Exception {
+    public void testGetUserStateBySiretNoUser() throws Exception {
         String siret = "95752685801591";
 
         mockMvc.perform(get("/user/isActive/{siret}", siret)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetUserStateByUsernameActivate () throws Exception {
+    public void testGetUserStateByUsernameActivate() throws Exception {
         String username = "edgar.lebreton.35@gmail.com";
 
         mockMvc.perform(get("/user/activation/{userName}", username)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$").value(true));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(true));
     }
 
     @Test
-    public void testGetUserStateByUsernameNotActivate () throws Exception {
+    public void testGetUserStateByUsernameNotActivate() throws Exception {
         String username = "test@test.fr";
 
         mockMvc.perform(get("/user/activation/{userName}", username)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$").value(false));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(false));
     }
 
     @Test
-    public void testGetUserStateByUsernameNoUser () throws Exception {
+    public void testGetUserStateByUsernameNoUser() throws Exception {
         String username = "user";
 
         mockMvc.perform(get("/user/activation/{userName}", username)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
 
     @Test
-    public void testGetTransformateurByUserNameExists () throws Exception {
+    public void testGetTransformateurByUserNameExists() throws Exception {
         String username = "edgar.lebreton.35@gmail.com";
 
         mockMvc.perform(get("/user/transformateur/{userName}", username)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetTransformateurByUserNameNotExists () throws Exception {
+    public void testGetTransformateurByUserNameNotExists() throws Exception {
         String username = "user";
 
         mockMvc.perform(get("/user/transformateur/{userName}", username)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetUserInfosByUserNameExists () throws Exception {
+    public void testGetUserInfosByUserNameExists() throws Exception {
         String username = "edgar.lebreton.35@gmail.com";
 
         mockMvc.perform(get("/user/userInfos/{userName}", username)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetUserInfosByUserNameExistsNotExists () throws Exception {
+    public void testGetUserInfosByUserNameExistsNotExists() throws Exception {
         String username = "user";
 
         mockMvc.perform(get("/user/transformateur/{userName}", username)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
 

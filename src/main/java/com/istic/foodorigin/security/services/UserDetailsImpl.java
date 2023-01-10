@@ -20,19 +20,13 @@ public class UserDetailsImpl implements UserDetails {
     private final Long id;
 
     private final String username;
-
+    private final Boolean isEnabled;
+    private final Collection<? extends GrantedAuthority> authorities;
     @JsonIgnore
     private String password;
-
     private Transformateur transformateur;
-
-    private final Boolean isEnabled;
-
     private Long siret;
-
     private String typeTransformateur;
-
-    private final Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String password, Boolean isEnabled,
                            Collection<? extends GrantedAuthority> authorities) {

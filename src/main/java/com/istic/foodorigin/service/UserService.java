@@ -58,7 +58,7 @@ public class UserService {
 
     public Transformateur getTransformateurByUserName(String userName) {
         Transformateur ret = null;
-        if(userName != null) {
+        if (userName != null) {
             Optional<User> user = userRepository.findByUsername(userName);
             if (user.isPresent()) {
                 ret = user.get().getTransformateur();
@@ -69,14 +69,14 @@ public class UserService {
 
     public HashMap<String, String> getUserInfosByUserName(String userName) {
         HashMap<String, String> infosMap = null;
-        if(userName != null) {
+        if (userName != null) {
             Optional<User> userO = userRepository.findByUsername(userName);
             infosMap = new HashMap<>();
             if (userO.isPresent()) {
                 User user = userO.get();
                 infosMap.put("id", user.getId().toString());
                 infosMap.put("role", user.getRole().getName().name());
-                if(user.getRole().getName().equals(ERole.ROLE_USER)) {
+                if (user.getRole().getName().equals(ERole.ROLE_USER)) {
                     infosMap.put("phoneNumber", user.getNumeroTelephone());
                     infosMap.put("typeTransformateur", user.getTypeTransformateur().getLibelle());
                 }

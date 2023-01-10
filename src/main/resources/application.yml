@@ -18,10 +18,12 @@ logging:
                         sql:
                             BasicBinder: TRACE
             springframework: DEBUG
+server:
+    port: 8081
 spring:
     datasource:
         url: jdbc:mysql://localhost:3306/foodorigin?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-        driver-class-name: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         initialization-mode: always
         password:
         username: root
@@ -33,7 +35,7 @@ spring:
                 implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
                 physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         properties:
-            hibernate: 
+            hibernate:
                 dialect: org.hibernate.dialect.MySQL8Dialect
                 format_sql: true
                 show_sql: true

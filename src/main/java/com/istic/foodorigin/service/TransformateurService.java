@@ -52,6 +52,10 @@ public class TransformateurService {
     }
 
     public List<Transformateur> getTransformateurByGroupId(Long id) {
-        return transformateurRepository.findAllByGroupeTransformateur_Id(id);
+        return transformateurRepository.findAllByGroupeTransformateurId(id);
+    }
+
+    public Transformateur update(Transformateur transformateur) {
+        return (transformateur != null) ? transformateurRepository.save(transformateur) : null;
     }
 }

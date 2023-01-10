@@ -51,7 +51,7 @@ public class TypeTransformateurServiceTests {
     }
 
     @Test
-    public void testGetAllType () {
+    public void testGetAllType() {
         Iterable<TypeTransformateur> itTypeT = typeTService.getAllType();
         List<TypeTransformateur> found = StreamSupport.stream(itTypeT.spliterator(), false).collect(Collectors.toList());
         assertThat(found.size()).isEqualTo(2);

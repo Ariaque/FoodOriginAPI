@@ -1,7 +1,6 @@
 package com.istic.foodorigin.repository;
 
 import com.istic.foodorigin.models.ERole;
-import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

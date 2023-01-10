@@ -28,15 +28,15 @@ public class Transformateur {
     @JoinColumn(name = "groupe_transformateur_id")
     private GroupeTransformateur groupeTransformateur;
 
+    public Transformateur() {
+    }
+
     public GroupeTransformateur getGroupeTransformateur() {
         return groupeTransformateur;
     }
 
     public void setGroupeTransformateur(GroupeTransformateur groupeTransformateur) {
         this.groupeTransformateur = groupeTransformateur;
-    }
-
-    public Transformateur() {
     }
 
     public Long getId() {
@@ -134,4 +134,6 @@ public class Transformateur {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
+
+
 }

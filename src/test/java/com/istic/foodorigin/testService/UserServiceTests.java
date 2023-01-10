@@ -48,21 +48,21 @@ public class UserServiceTests {
     private TypeTransformateurService typeTransformateurService;
 
     @Test
-    public void testGetAllUsers () {
+    public void testGetAllUsers() {
         Iterable<User> itUser = userService.getAllUsers();
         List<User> found = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
         assertThat(found.size()).isEqualTo(12);
     }
 
     @Test
-    public void testGetAllRoleUser () {
+    public void testGetAllRoleUser() {
         Iterable<User> itUser = userService.getAllRoleUser();
         List<User> found = StreamSupport.stream(itUser.spliterator(), false).collect(Collectors.toList());
         assertThat(found.size()).isEqualTo(12);
     }
 
     @Test
-    public void testSaveUser () {
+    public void testSaveUser() {
         User user = new User();
         String username = "admin@test.fr";
         String numeroTel = "0299920417";
@@ -87,13 +87,13 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testSaveUserNull () {
+    public void testSaveUserNull() {
         User user = userService.saveUser(null);
         assertThat(user).isNull();
     }
 
     @Test
-    public void testGetUserByNameExists () {
+    public void testGetUserByNameExists() {
         String name = "test@free.com";
         User user = userService.getUserByName(name);
         assertThat(user.getUsername()).isEqualTo(name);
@@ -113,7 +113,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testGetTransformateurByUserName () {
+    public void testGetTransformateurByUserName() {
         String username = "hj@gmail.com";
         Transformateur transformateur = userRepository.findByUsername(username).get().getTransformateur();
         Transformateur found = userService.getTransformateurByUserName(username);
@@ -124,20 +124,20 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testGetTransformateurByUserNameNotExists () {
+    public void testGetTransformateurByUserNameNotExists() {
         String username = "hj@free.fr";
         Transformateur found = userService.getTransformateurByUserName(username);
         assertThat(found).isNull();
     }
 
     @Test
-    public void testGetTransformateurByUserNameNull () {
+    public void testGetTransformateurByUserNameNull() {
         Transformateur found = userService.getTransformateurByUserName(null);
         assertThat(found).isNull();
     }
 
     @Test
-    public void testGetUserInfosByUserNameUser () {
+    public void testGetUserInfosByUserNameUser() {
         String name = "test@free.com";
         User user = userRepository.findByUsername(name).get();
         HashMap<String, String> ret = userService.getUserInfosByUserName(name);
@@ -149,7 +149,7 @@ public class UserServiceTests {
 
 
     @Test
-    public void testGetUserInfosByUserNameAdmin () {
+    public void testGetUserInfosByUserNameAdmin() {
         String name = "emile.georget@outlook.fr";
         User user = userRepository.findByUsername(name).get();
         HashMap<String, String> ret = userService.getUserInfosByUserName(name);
@@ -158,28 +158,28 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testGetUserInfosByUserNameNotExists () {
+    public void testGetUserInfosByUserNameNotExists() {
         String name = "test@test.com";
         HashMap<String, String> ret = userService.getUserInfosByUserName(name);
         assertThat(ret).isEmpty();
     }
 
     @Test
-    public void testGetUserInfosByUserNameNull () {
+    public void testGetUserInfosByUserNameNull() {
         HashMap<String, String> ret = userService.getUserInfosByUserName(null);
         assertThat(ret).isNull();
     }
 
 
     @Test
-    public void testUserBySiretTransfoExists () {
+    public void testUserBySiretTransfoExists() {
         String siret = "37784209100029";
         User user = userService.getUserBySiretTransfo(siret);
         assertThat(user.getTransformateur().getSiret()).isEqualTo(siret);
     }
 
     @Test
-    public void testUserBySiretTransfoNoUser () {
+    public void testUserBySiretTransfoNoUser() {
         String siret = "39239584400021";
         User user = userService.getUserBySiretTransfo(siret);
         assertThat(user).isNull();
@@ -199,7 +199,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void deleteUserExists () {
+    public void deleteUserExists() {
         String username = "admin@test.fr";
         User user = userService.getUserByName(username);
         boolean ret = userService.deleteUser(user);
@@ -208,7 +208,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void deleteUserNotExists () {
+    public void deleteUserNotExists() {
         User user = new User();
         user.setId(Integer.toUnsignedLong(110));
         boolean ret = userService.deleteUser(user);
@@ -216,24 +216,24 @@ public class UserServiceTests {
     }
 
     @Test
-    public void deleteUserNull () {
+    public void deleteUserNull() {
         boolean ret = userService.deleteUser(null);
         assertThat(ret).isFalse();
     }
 
     @Test
-    public void testChangeUserPassword () {
+    public void testChangeUserPassword() {
         String username = "test@free.com";
         User user = userService.getUserByName(username);
         String password = "test";
         User ret = userService.changeUserPassword(user, password);
 
         assertThat(ret.getUsername()).isEqualTo(username);
-        assertThat(encoder.matches(password,ret.getPassword())).isTrue();
+        assertThat(encoder.matches(password, ret.getPassword())).isTrue();
     }
 
     @Test
-    public void testChangeUserPasswordUserNull () {
+    public void testChangeUserPasswordUserNull() {
         User user = new User();
         user.setId(Integer.toUnsignedLong(55));
         String password = "test1";
@@ -243,7 +243,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testChangeUserPasswordNull () {
+    public void testChangeUserPasswordNull() {
         String username = "test@test.fr";
         User user = userService.getUserByName("test@test.fr");
         User ret = userService.changeUserPassword(user, null);
@@ -252,13 +252,13 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testChangeUserPasswordAllNull () {
+    public void testChangeUserPasswordAllNull() {
         User ret = userService.changeUserPassword(null, null);
         assertThat(ret).isEqualTo(null);
     }
 
     @Test
-    public void testGetUserByPasswordResetToken () {
+    public void testGetUserByPasswordResetToken() {
         String token = "01570134-f87b-4159-98b6-482be3f6f39a";
         User user = passwordResetTokenRepository.findByToken(token).getUser();
         Optional<User> found = userService.getUserByPasswordResetToken(token);

@@ -21,53 +21,53 @@ public class TypeDenreeServiceTests {
     private TypeDenreeService typeDenreeService;
 
     @Test
-    public void testGetAll () {
+    public void testGetAll() {
         List<TypeDenree> denrees = typeDenreeService.getAll();
-        assertThat (denrees.size()).isEqualTo(35);
+        assertThat(denrees.size()).isEqualTo(35);
     }
 
     @Test
-    public void testGetAllNom () {
+    public void testGetAllNom() {
         Set<String> denrees = typeDenreeService.getAllNom();
-        assertThat (denrees.size()).isEqualTo(4);
+        assertThat(denrees.size()).isEqualTo(4);
     }
 
     @Test
-    public void testGetEspeceByNomExists () {
+    public void testGetEspeceByNomExists() {
         String nom = "Viande";
         Set<String> denrees = typeDenreeService.getEspeceByNom(nom);
         assertThat(denrees.size()).isEqualTo(7);
     }
 
     @Test
-    public void testGetEspeceByNomNotExists () {
+    public void testGetEspeceByNomNotExists() {
         String nom = "Légumes";
         Set<String> denrees = typeDenreeService.getEspeceByNom(nom);
         assertThat(denrees.size()).isEqualTo(0);
     }
 
     @Test
-    public void testGetEspeceByNomNull () {
+    public void testGetEspeceByNomNull() {
         Set<String> denrees = typeDenreeService.getEspeceByNom(null);
         assertThat(denrees.size()).isEqualTo(0);
     }
 
     @Test
-    public void testGetAnimalByEspeceExists () {
+    public void testGetAnimalByEspeceExists() {
         String espece = "Autre";
         Set<String> denrees = typeDenreeService.getAnimalByEspece(espece);
         assertThat(denrees.size()).isEqualTo(4);
     }
 
     @Test
-    public void testGetAnimalByEspeceNotExists () {
+    public void testGetAnimalByEspeceNotExists() {
         String espece = "Crabe";
         Set<String> denrees = typeDenreeService.getAnimalByEspece(espece);
         assertThat(denrees.size()).isEqualTo(0);
     }
 
     @Test
-    public void testGetAnimalByEspeceNull () {
+    public void testGetAnimalByEspeceNull() {
         Set<String> denrees = typeDenreeService.getAnimalByEspece(null);
         assertThat(denrees.size()).isEqualTo(0);
     }

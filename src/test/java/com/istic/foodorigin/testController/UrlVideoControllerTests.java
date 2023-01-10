@@ -41,41 +41,41 @@ public class UrlVideoControllerTests {
     private UrlVideoRepository urlVideoRepository;
 
     @Test
-    public void testGetAllUrls () throws Exception {
+    public void testGetAllUrls() throws Exception {
         Iterable<UrlVideo> itVideos = urlVideoRepository.findAll();
         List<UrlVideo> urlVideos = StreamSupport.stream(itVideos.spliterator(), false).collect(Collectors.toList());
         Set<UrlVideo> urls = new HashSet<>(urlVideos);
 
-        given (urlVideoService.getAllUrls()).willReturn(urls);
+        given(urlVideoService.getAllUrls()).willReturn(urls);
         mockMvc.perform(get("/urlVideo/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(urls.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
     }
 
     @Test
-    public void testGetUrlByIdExists () throws Exception {
+    public void testGetUrlByIdExists() throws Exception {
         Long id = Integer.toUnsignedLong(39);
         UrlVideo urlVideo = urlVideoRepository.findById(id).get();
 
-        given (urlVideoService.getUrlById(id)).willReturn(urlVideo);
+        given(urlVideoService.getUrlById(id)).willReturn(urlVideo);
         mockMvc.perform(get("/urlVideo/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$.id").value(id))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.libelle").value(urlVideo.getLibelle()))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.titre").value(urlVideo.getTitre()));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.libelle").value(urlVideo.getLibelle()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.titre").value(urlVideo.getTitre()));
 
     }
 
     @Test
-    public void testGetUrlByIdNotExists () throws Exception {
+    public void testGetUrlByIdNotExists() throws Exception {
         Long id = Integer.toUnsignedLong(12);
 
-        given (urlVideoService.getUrlById(id)).willReturn(null);
+        given(urlVideoService.getUrlById(id)).willReturn(null);
         mockMvc.perform(get("/urlVideo/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.istic.foodorigin.controller.InfosTransformateurController;
-import com.istic.foodorigin.models.*;
+import com.istic.foodorigin.models.InfosTransformateur;
+import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.repository.InfosTransformateurRepository;
 import com.istic.foodorigin.repository.TransformateurRepository;
 import com.istic.foodorigin.service.ImageService;
@@ -19,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashSet;
@@ -52,30 +54,30 @@ public class InfosTControllerTests {
     private TransformateurRepository transformateurRepository;
 
     @Test
-    public void testGetInfosByIdExists () throws Exception {
+    public void testGetInfosByIdExists() throws Exception {
         Long id = Integer.toUnsignedLong(4);
         InfosTransformateur infos = infosTRepository.findById(id).get();
 
-        given (infosTService.getInfosById(id)).willReturn(infos);
+        given(infosTService.getInfosById(id)).willReturn(infos);
         mockMvc.perform(get("/infoTransformateur/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$.id").value(id))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.description").value(infos.getDescription()));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(infos.getDescription()));
     }
 
     @Test
-    public void testGetInfosByIdNotExists () throws Exception {
+    public void testGetInfosByIdNotExists() throws Exception {
         Long id = Integer.toUnsignedLong(13);
 
-        given (infosTService.getInfosById(id)).willReturn(null);
+        given(infosTService.getInfosById(id)).willReturn(null);
         mockMvc.perform(get("/infoTransformateur/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testSaveInfosTrans () throws Exception{
+    public void testSaveInfosTrans() throws Exception {
         InfosTransformateur infos = new InfosTransformateur();
         String description = "Exemple de présentation d'une usine";
         infos.setDescription(description);
@@ -87,120 +89,120 @@ public class InfosTControllerTests {
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(infos);
 
-        given (infosTService.saveInfos(infos)).willReturn(infos);
+        given(infosTService.saveInfos(infos)).willReturn(infos);
         mockMvc.perform(post("/infoTransformateur")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetInfosByTransformateurExists () throws Exception {
+    public void testGetInfosByTransformateurExists() throws Exception {
         Long id = Integer.toUnsignedLong(1);
         Transformateur transformateur = transformateurRepository.findById(id).get();
         InfosTransformateur infos = infosTRepository.findByTransformateur(transformateur);
 
-        given (infosTService.getInfosByTransformateur(id)).willReturn(infos);
+        given(infosTService.getInfosByTransformateur(id)).willReturn(infos);
         mockMvc.perform(get("/infoTransformateur/transformateur/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$.id").value(infos.getId()))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.description").value(infos.getDescription()));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(infos.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(infos.getDescription()));
     }
 
     @Test
-    public void testGetInfosByTransformateurNoInfos () throws Exception {
+    public void testGetInfosByTransformateurNoInfos() throws Exception {
         Long id = Integer.toUnsignedLong(55);
 
-        given (infosTService.getInfosById(id)).willReturn(null);
+        given(infosTService.getInfosById(id)).willReturn(null);
         mockMvc.perform(get("/infoTransformateur/transformateur/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetInfosByTransformateurNotExists () throws Exception {
+    public void testGetInfosByTransformateurNotExists() throws Exception {
         Long id = Integer.toUnsignedLong(25000);
 
-        given (infosTService.getInfosById(id)).willReturn(null);
+        given(infosTService.getInfosById(id)).willReturn(null);
         mockMvc.perform(get("/infoTransformateur/transformateur/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void saveImage () throws Exception{
+    public void saveImage() throws Exception {
         Long id = Integer.toUnsignedLong(1);
-        File image = new File ("..\\foodorigintransp.png");
+        File image = new File("..\\foodorigintransp.png");
         FileInputStream input = new FileInputStream(image);
         MockMultipartFile file = new MockMultipartFile("fileItem", image.getName(), "image/png", IOUtils.toByteArray(input));
 
-        given (imageService.saveImageOnServer(file,id)).willReturn(true);
+        given(imageService.saveImageOnServer(file, id)).willReturn(true);
         mockMvc.perform(multipart("/infoTransformateur/images/{id}", id).file("myFile", file.getBytes()))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetImagesLinkIdExists () throws Exception {
+    public void testGetImagesLinkIdExists() throws Exception {
         Long id = Integer.toUnsignedLong(1);
         Set<String> imagesL = new HashSet<>();
         imagesL.add("index.jpg");
         imagesL.add("index.png");
         imagesL.add("shutterstock_194313791.jpg");
 
-        given (imageService.getFolderFiles(id)).willReturn(imagesL);
+        given(imageService.getFolderFiles(id)).willReturn(imagesL);
         mockMvc.perform(get("/infoTransformateur/images/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(imagesL.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
 
     }
 
     @Test
-    public void testGetImagesLinkIdExistsNoPhoto () throws Exception {
+    public void testGetImagesLinkIdExistsNoPhoto() throws Exception {
         Long id = Integer.toUnsignedLong(33);
         Set<String> imagesL = new HashSet<>();
 
-        given (imageService.getFolderFiles(id)).willReturn(imagesL);
+        given(imageService.getFolderFiles(id)).willReturn(imagesL);
         mockMvc.perform(get("/infoTransformateur/images/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(imagesL.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
     }
 
     @Test
-    public void testGetImagesLinkIdNotExists () throws Exception {
+    public void testGetImagesLinkIdNotExists() throws Exception {
         Long id = Integer.toUnsignedLong(250000);
         Set<String> imagesL = new HashSet<>();
 
-        given (imageService.getFolderFiles(id)).willReturn(imagesL);
+        given(imageService.getFolderFiles(id)).willReturn(imagesL);
         mockMvc.perform(get("/infoTransformateur/images/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(imagesL.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
     }
 
     @Test
-    public void testDeleteImageIdExists () throws Exception {
+    public void testDeleteImageIdExists() throws Exception {
         Long id = Integer.toUnsignedLong(0);
         String file = "foodorigintransp.png";
         String fileName = "foodorigin.projetetudiant.fr/images/0/foodorigintransp.png";
 
-        given (imageService.removeFile(id, file)).willReturn(true);
+        given(imageService.removeFile(id, file)).willReturn(true);
         mockMvc.perform(post("/infoTransformateur/images/delete/{id}", id)
-                .content(fileName)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$").value(true));
+                        .content(fileName)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(true));
 
     }
 
     @Test
-    public void testDeleteImageIdExistsNoPhoto () throws Exception {
+    public void testDeleteImageIdExistsNoPhoto() throws Exception {
         Long id = Integer.toUnsignedLong(1);
         String fileName = "http://foodorigin.projetetudiant.fr/images/5/image.png";
 
@@ -210,16 +212,16 @@ public class InfosTControllerTests {
         String requestJson = ow.writeValueAsString(fileName);
 
 
-        given (imageService.removeFile(id, fileName)).willReturn(false);
+        given(imageService.removeFile(id, fileName)).willReturn(false);
         mockMvc.perform(post("/infoTransformateur/images/delete/{id}", id)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$").value(false));
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(false));
     }
 
     @Test
-    public void testDeletImageIdNotExists () throws Exception {
+    public void testDeletImageIdNotExists() throws Exception {
         Long id = Integer.toUnsignedLong(23000);
         String fileName = "http://foodorigin.projetetudiant.fr/images/5/image.png";
 
@@ -228,12 +230,12 @@ public class InfosTControllerTests {
         ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(fileName);
 
-        given (imageService.removeFile(id, fileName)).willReturn(false);
+        given(imageService.removeFile(id, fileName)).willReturn(false);
         mockMvc.perform(post("/infoTransformateur/images/delete/{id}", id)
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$").value(false));
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").value(false));
     }
 
 }

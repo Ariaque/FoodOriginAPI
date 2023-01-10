@@ -63,7 +63,8 @@ public class PasswordResetController {
 
     /**
      * Sends an email to the user to allow him to reset his password if forgotten.
-     * @param request {@link HttpServletRequest}
+     *
+     * @param request                {@link HttpServletRequest}
      * @param sendSimpleEmailRequest {@link SendSimpleEmailRequest}
      * @return {@link ResponseEntity}
      * @throws UserNotFoundException Thrown when the user has not been found.
@@ -85,7 +86,8 @@ public class PasswordResetController {
 
     /**
      * Used to reset the user password (if the token given in parameter is correct) API side.
-     * @param id The user id.
+     *
+     * @param id    The user id.
      * @param token The reset token.
      * @return {@link ResponseEntity}
      */
@@ -103,6 +105,7 @@ public class PasswordResetController {
 
     /**
      * Saves the changed password.
+     *
      * @param savePasswordRequest {@link SavePasswordRequest}
      * @return {@link ResponseEntity}
      */
@@ -115,14 +118,14 @@ public class PasswordResetController {
             user.ifPresent(value -> userService.changeUserPassword(value, savePasswordRequest.getNewPassword()));
             passwordResetTokenRepository.delete(passwordResetToken);
             return ResponseEntity.ok(new MessageResponse("Password has been reset!"));
-        }
-        else {
+        } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Password has not been reset !");
         }
     }
 
     /**
      * Change the user's password (not in the case it has been forgotten, but in the case a logged in user wants to change its password).
+     *
      * @param changePasswordRequest {@link ChangePasswordRequest}
      * @return {@link ResponseEntity}
      */

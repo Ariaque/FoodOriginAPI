@@ -20,7 +20,8 @@ public class PasswordResetService {
 
     /**
      * Saves a reset token for the user.
-     * @param user User.
+     *
+     * @param user  User.
      * @param token Token.
      */
     public void savePasswordResetTokenForUser(User user, String token) {
@@ -31,7 +32,8 @@ public class PasswordResetService {
     /**
      * Checks if the saved reset token for this user corresponds to the token given inside the reset url.
      * If the reset token is expired, deletes it in the database
-     * @param id User id.
+     *
+     * @param id    User id.
      * @param token Reset token.
      * @return Reset token if the token is correct, an empty string in other cases.
      */

@@ -13,7 +13,6 @@ import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import com.istic.foodorigin.repository.UserRepository;
 import com.istic.foodorigin.security.jwt.JwtUtils;
 import com.istic.foodorigin.security.services.UserDetailsImpl;
-import com.istic.foodorigin.security.services.UserDetailsServiceImpl;
 import com.istic.foodorigin.service.TransformateurService;
 import com.istic.foodorigin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +64,7 @@ public class AuthController {
 
     /**
      * Logs the user into the API
+     *
      * @param loginRequest {@link LoginRequest}
      * @return {@link ResponseEntity}
      */
@@ -91,8 +91,9 @@ public class AuthController {
 
     /**
      * Creates a user account.
+     *
      * @param signUpRequest {@link SignupRequest}
-     * @param siret The transformer siret (used to associate its account with State's data in base).
+     * @param siret         The transformer siret (used to associate its account with State's data in base).
      * @return {@link ResponseEntity}
      */
     @PostMapping(value = "/signup/{siret}", consumes = "application/json")

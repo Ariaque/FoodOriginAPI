@@ -1,9 +1,11 @@
 package com.istic.foodorigin.controller;
 
+import com.istic.foodorigin.dto.OneToOneDto;
+import com.istic.foodorigin.models.GroupeTransformateur;
 import com.istic.foodorigin.models.Transformateur;
+import com.istic.foodorigin.service.GroupeTransformateurService;
 import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,8 @@ public class TransformateurController {
 
     @Autowired
     private TransformateurService transformateurService;
+    @Autowired
+    private GroupeTransformateurService groupeTransformateurService;
 
     @GetMapping(path = "/{id}", produces = "application/json")
     public Transformateur getTransformateurById(@PathVariable Long id) {
@@ -30,7 +34,7 @@ public class TransformateurController {
     }
 
     @GetMapping(path = "/groupid/{id}", consumes = "application/json")
-    public List<Transformateur> getTransformateurByGroupId(@PathVariable Long id){
+    public List<Transformateur> getTransformateurByGroupId(@PathVariable Long id) {
         return transformateurService.getTransformateurByGroupId(id);
     }
 
@@ -38,4 +42,17 @@ public class TransformateurController {
     public Transformateur getTransformateurByEstampille(@RequestParam(value = "estampille") String estampille) {
         return transformateurService.getTransformateurByEstampille(estampille);
     }
+
+    @PutMapping(path = "/addGroup", consumes = "application/json", produces = "application/json")
+    public Transformateur addGroupe(@RequestBody OneToOneDto dto) {
+        GroupeTransformateur groupeTransformateur = groupeTransformateurService.getGroupeTransformateurById(dto.getForeignId());
+        Transformateur transformateur = transformateurService.getTransformateurById(dto.getMainId());
+
+        if (transformateur != null & groupeTransformateur != null) {
+            transformateur.setGroupeTransformateur(groupeTransformateur);
+            transformateurService.update(transformateur);
+        }
+        return transformateur;
+    }
+
 }

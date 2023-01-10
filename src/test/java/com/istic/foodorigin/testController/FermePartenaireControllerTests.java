@@ -41,42 +41,42 @@ public class FermePartenaireControllerTests {
     private FermePartenaireRepository fermePRepository;
 
     @Test
-    public void testGetAll () throws Exception {
+    public void testGetAll() throws Exception {
         Iterable<FermePartenaire> itFerme = fermePRepository.findAll();
         List<FermePartenaire> fermes = StreamSupport.stream(itFerme.spliterator(), false).collect(Collectors.toList());
         Set<FermePartenaire> ret = new HashSet<>(fermes);
 
-        given (fermePartenaireService.getAllFermes()).willReturn(ret);
+        given(fermePartenaireService.getAllFermes()).willReturn(ret);
         mockMvc.perform(get("/ferme/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(fermes.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
     }
 
     @Test
-    public void testGetFermeByIdExists () throws Exception {
+    public void testGetFermeByIdExists() throws Exception {
         Long id = Integer.toUnsignedLong(58);
         FermePartenaire ferme = fermePRepository.findById(id).get();
 
-        given (fermePartenaireService.getFermeById(id)).willReturn(ferme);
+        given(fermePartenaireService.getFermeById(id)).willReturn(ferme);
         mockMvc.perform(get("/ferme/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$.id").value(id))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.nom").value(ferme.getNom()))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.description").value(ferme.getDescription()))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.url").value(ferme.getUrl()));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.nom").value(ferme.getNom()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(ferme.getDescription()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.url").value(ferme.getUrl()));
 
     }
 
     @Test
-    public void testGetFermeByIdNotExists () throws Exception {
+    public void testGetFermeByIdNotExists() throws Exception {
         Long id = Integer.toUnsignedLong(15);
 
-        given (fermePartenaireService.getFermeById(id)).willReturn(null);
+        given(fermePartenaireService.getFermeById(id)).willReturn(null);
         mockMvc.perform(get("/ferme/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

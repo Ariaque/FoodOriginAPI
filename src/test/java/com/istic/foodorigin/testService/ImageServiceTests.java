@@ -26,9 +26,9 @@ public class ImageServiceTests {
     private ImageService imageService;
 
     @Test
-    public void testSaveOnImageServer () throws IOException {
+    public void testSaveOnImageServer() throws IOException {
         Long id = Integer.toUnsignedLong(5);
-        File image = new File ("..\\foodorigintransp.png");
+        File image = new File("..\\foodorigintransp.png");
         FileInputStream input = new FileInputStream(image);
         MultipartFile file = new MockMultipartFile("fileItem", image.getName(), "image/png", IOUtils.toByteArray(input));
         boolean ret = this.imageService.saveImageOnServer(file, id);
@@ -36,9 +36,9 @@ public class ImageServiceTests {
     }
 
     @Test
-    public void testSaveOnImageServerTransfoNotExists () throws IOException {
+    public void testSaveOnImageServerTransfoNotExists() throws IOException {
         Long id = Integer.toUnsignedLong(0);
-        File image = new File ("..\\foodorigintransp.png");
+        File image = new File("..\\foodorigintransp.png");
         FileInputStream input = new FileInputStream(image);
         MultipartFile file = new MockMultipartFile("fileItem", image.getName(), "image/png", IOUtils.toByteArray(input));
         boolean ret = this.imageService.saveImageOnServer(file, id);
@@ -46,7 +46,7 @@ public class ImageServiceTests {
     }
 
     @Test
-    public void testFolderFilesExist () throws IOException {
+    public void testFolderFilesExist() throws IOException {
         Long id = Integer.toUnsignedLong(1);
         Set<String> files = imageService.getFolderFiles(id);
         ArrayList<String> filesL = new ArrayList<>(files);
@@ -54,20 +54,20 @@ public class ImageServiceTests {
     }
 
     @Test
-    public void testFolderFilesNotExists () {
+    public void testFolderFilesNotExists() {
         Long id = Integer.toUnsignedLong(21000);
         Set<String> files = imageService.getFolderFiles(id);
         assertThat(files.size()).isEqualTo(0);
     }
 
     @Test
-    public void testFolderFilesNull () {
+    public void testFolderFilesNull() {
         Set<String> files = imageService.getFolderFiles(null);
         assertThat(files.size()).isEqualTo(0);
     }
 
     @Test
-    public void testRemoveFileExist () {
+    public void testRemoveFileExist() {
         Long id = Integer.toUnsignedLong(5);
         String fileName = "foodorigintransp.png";
         boolean isDeleted = this.imageService.removeFile(id, fileName);
@@ -75,7 +75,7 @@ public class ImageServiceTests {
     }
 
     @Test
-    public void testRemoveFileNotExist () {
+    public void testRemoveFileNotExist() {
         Long id = Integer.toUnsignedLong(0);
         String fileName = "foodorigintransp2.png";
         boolean isDeleted = this.imageService.removeFile(id, fileName);
@@ -83,7 +83,7 @@ public class ImageServiceTests {
     }
 
     @Test
-    public void testRemoveFileIdNotExist () {
+    public void testRemoveFileIdNotExist() {
         Long id = Integer.toUnsignedLong(21000);
         String fileName = "foodorigintransp.png";
         boolean isDeleted = this.imageService.removeFile(id, fileName);
@@ -91,7 +91,7 @@ public class ImageServiceTests {
     }
 
     @Test
-    public void testRemoveFileIdAFileNotExist () {
+    public void testRemoveFileIdAFileNotExist() {
         Long id = Integer.toUnsignedLong(21000);
         String fileName = "foodorigintransp2.png";
         boolean isDeleted = this.imageService.removeFile(id, fileName);

@@ -5,14 +5,13 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.istic.foodorigin.controller.ContactController;
 import com.istic.foodorigin.payload.request.SendComplexEmailRequest;
-import com.istic.foodorigin.service.ComplexEmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,7 +26,7 @@ public class ContactControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    public void testSendContactEmail () throws Exception {
+    public void testSendContactEmail() throws Exception {
         String to = "jerome.georget@free.fr";
         String phone = "0299472865";
         String objet = "Test objet";
@@ -45,13 +44,13 @@ public class ContactControllerTests {
         String requestJson = ow.writeValueAsString(complexEmail);
 
         mockMvc.perform(post("/contact/sendEmail")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testSendNotificationEmail () throws Exception {
+    public void testSendNotificationEmail() throws Exception {
         String to = "jerome.georget@free.fr";
         String phone = "0299472865";
         String objet = "Test objet";
@@ -69,8 +68,8 @@ public class ContactControllerTests {
         String requestJson = ow.writeValueAsString(complexEmail);
 
         mockMvc.perform(post("/contact/notify")
-                .content(requestJson)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }

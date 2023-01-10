@@ -7,6 +7,7 @@ import com.istic.foodorigin.service.TransformateurService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -44,7 +45,7 @@ public class InfosTServiceTests {
     }
 
     @Test
-    public void testSaveInfos () {
+    public void testSaveInfos() {
         Long id = Integer.toUnsignedLong(18);
         InfosTransformateur infos = new InfosTransformateur();
         infos.setNombre_employes("25");
@@ -58,7 +59,7 @@ public class InfosTServiceTests {
     }
 
     @Test
-    public void testSaveInfosNull () {
+    public void testSaveInfosNull() {
         InfosTransformateur ret = this.infosTService.saveInfos(null);
         assertThat(ret).isNull();
     }

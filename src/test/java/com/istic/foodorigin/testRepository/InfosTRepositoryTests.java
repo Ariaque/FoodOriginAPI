@@ -2,7 +2,6 @@ package com.istic.foodorigin.testRepository;
 
 import com.istic.foodorigin.models.InfosTransformateur;
 import com.istic.foodorigin.models.Transformateur;
-import com.istic.foodorigin.repository.CertificationRepository;
 import com.istic.foodorigin.repository.InfosTransformateurRepository;
 import com.istic.foodorigin.repository.TransformateurRepository;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ public class InfosTRepositoryTests {
     private TransformateurRepository transformateurRepository;
 
     @Test
-    public void testFindByTransformateurInfos () {
+    public void testFindByTransformateurInfos() {
         Transformateur transformateur = transformateurRepository.findById(Integer.toUnsignedLong(1)).get();
         InfosTransformateur infosT = infosTRepository.findByTransformateur(transformateur);
 
@@ -34,7 +33,7 @@ public class InfosTRepositoryTests {
     }
 
     @Test
-    public void testFindByTransformateurWithoutInfos () {
+    public void testFindByTransformateurWithoutInfos() {
         Transformateur transformateur = transformateurRepository.findById(Integer.toUnsignedLong(50)).get();
         InfosTransformateur infosT = infosTRepository.findByTransformateur(transformateur);
 
@@ -42,7 +41,7 @@ public class InfosTRepositoryTests {
     }
 
     @Test
-    public void testFindByTransformateurNotExists () {
+    public void testFindByTransformateurNotExists() {
         Transformateur transformateur = new Transformateur();
         transformateur.setId(Integer.toUnsignedLong(21000));
         InfosTransformateur infosT = infosTRepository.findByTransformateur(transformateur);
@@ -51,7 +50,7 @@ public class InfosTRepositoryTests {
     }
 
     @Test
-    public void testFindByTransformateurNull () {
+    public void testFindByTransformateurNull() {
         InfosTransformateur infosT = infosTRepository.findByTransformateur(null);
         assertThat(infosT).isNull();
     }

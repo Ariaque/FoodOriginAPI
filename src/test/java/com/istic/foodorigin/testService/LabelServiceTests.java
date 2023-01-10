@@ -42,7 +42,7 @@ public class LabelServiceTests {
     }
 
     @Test
-    public void testGetAllLabels () {
+    public void testGetAllLabels() {
         Iterable<Label> itLab = labelService.getAllLabels();
         List<Label> found = StreamSupport.stream(itLab.spliterator(), false).collect(Collectors.toList());
         assertThat(found.size()).isEqualTo(9);

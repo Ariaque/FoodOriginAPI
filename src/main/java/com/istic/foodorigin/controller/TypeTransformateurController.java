@@ -23,15 +23,15 @@ public class TypeTransformateurController {
     @Autowired
     private TypeTransformateurService typeTransformateurService;
 
-    @GetMapping (path = "/all", produces = "application/json")
+    @GetMapping(path = "/all", produces = "application/json")
     public List<TypeTransformateur> getAll() {
-        Iterable <TypeTransformateur> itType = typeTransformateurService.getAllType();
+        Iterable<TypeTransformateur> itType = typeTransformateurService.getAllType();
         List<TypeTransformateur> typesTrans = StreamSupport.stream(itType.spliterator(), false).collect(Collectors.toList());
         return typesTrans;
     }
 
-    @GetMapping (path = "/{id}", produces = "application/json")
-    public TypeTransformateur getTypeTransformateurById (@PathVariable Long id) {
+    @GetMapping(path = "/{id}", produces = "application/json")
+    public TypeTransformateur getTypeTransformateurById(@PathVariable Long id) {
         return typeTransformateurService.getTypeById(id);
     }
 

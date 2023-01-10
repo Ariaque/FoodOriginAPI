@@ -1,7 +1,6 @@
 package com.istic.foodorigin.testRepository;
 
 import com.istic.foodorigin.models.TypeTransformateur;
-import com.istic.foodorigin.repository.OrigineDenreeRepository;
 import com.istic.foodorigin.repository.TypeTransformateurRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class TypeTRepositoryTests {
     private TypeTransformateurRepository typeTRepository;
 
     @Test
-    public void testFindByLibelleArtisan () {
+    public void testFindByLibelleArtisan() {
         String type = "Artisan";
         TypeTransformateur type_artisan = typeTRepository.findByLibelle(type);
 
@@ -28,7 +27,7 @@ public class TypeTRepositoryTests {
     }
 
     @Test
-    public void testFindByLibelleIndustriel () {
+    public void testFindByLibelleIndustriel() {
         String type = "Industriel";
         TypeTransformateur type_industriel = typeTRepository.findByLibelle(type);
 
@@ -37,7 +36,7 @@ public class TypeTRepositoryTests {
     }
 
     @Test
-    public void testFindByLibelleNotExist () {
+    public void testFindByLibelleNotExist() {
         String type = "Agriculteur";
         TypeTransformateur type_transformateur = typeTRepository.findByLibelle(type);
 
@@ -45,7 +44,7 @@ public class TypeTRepositoryTests {
     }
 
     @Test
-    public void testFindByLibelleNull () {
+    public void testFindByLibelleNull() {
         TypeTransformateur type_transformateur = typeTRepository.findByLibelle(null);
 
         assertThat(type_transformateur).isNull();

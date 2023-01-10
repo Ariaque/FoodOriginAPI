@@ -42,75 +42,75 @@ public class OrigineDenreeControllerTests {
     private OrigineDenreeService origineDenreeService;
 
     @Test
-    public void testGetAll () throws Exception {
+    public void testGetAll() throws Exception {
         Iterable<OrigineDenree> itOrigine = origineDenreeRepository.findAll();
         List<OrigineDenree> liste = StreamSupport.stream(itOrigine.spliterator(), false).collect(Collectors.toList());
 
-        given (origineDenreeService.getAllOrigineDenree()).willReturn(liste);
+        given(origineDenreeService.getAllOrigineDenree()).willReturn(liste);
         mockMvc.perform(get("/origineDenree/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(liste.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
 
     }
 
     @Test
-    public void testGetAllNomPays () throws Exception {
+    public void testGetAllNomPays() throws Exception {
         Iterable<OrigineDenree> itOrigine = origineDenreeRepository.findAll();
         List<OrigineDenree> liste = StreamSupport.stream(itOrigine.spliterator(), false).collect(Collectors.toList());
         List<String> ret = new ArrayList<>();
-        for (OrigineDenree t: liste) {
+        for (OrigineDenree t : liste) {
             ret.add(t.getPays());
         }
         Set<String> pays = new HashSet<>(ret);
 
-        given (origineDenreeService.getAllPays()).willReturn(pays);
+        given(origineDenreeService.getAllPays()).willReturn(pays);
         mockMvc.perform(get("/origineDenree/pays")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(pays.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
 
     }
 
     @Test
-    public void testGetRegionByPays () throws Exception {
+    public void testGetRegionByPays() throws Exception {
         String pays = "France";
         Iterable<OrigineDenree> itDenrees = origineDenreeRepository.findByPays(pays);
         List<OrigineDenree> liste = StreamSupport.stream(itDenrees.spliterator(), false).collect(Collectors.toList());
         List<String> ret = new ArrayList<>();
-        for (OrigineDenree t: liste) {
+        for (OrigineDenree t : liste) {
             ret.add(t.getPays());
         }
         Set<String> regions = new HashSet<>(ret);
 
-        given (origineDenreeService.getRegionByPays(pays)).willReturn(regions);
+        given(origineDenreeService.getRegionByPays(pays)).willReturn(regions);
         mockMvc.perform(get("/origineDenree/regions")
-                .contentType(MediaType.APPLICATION_JSON)
-                .param("pays", pays))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("pays", pays))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(regions.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
 
     }
 
     @Test
-    public void testGetEspeceByNomNotExists () throws Exception {
+    public void testGetEspeceByNomNotExists() throws Exception {
         String pays = "Brésil";
         Iterable<OrigineDenree> itDenrees = origineDenreeRepository.findByPays(pays);
         List<OrigineDenree> liste = StreamSupport.stream(itDenrees.spliterator(), false).collect(Collectors.toList());
         List<String> ret = new ArrayList<>();
-        for (OrigineDenree t: liste) {
+        for (OrigineDenree t : liste) {
             ret.add(t.getPays());
         }
         Set<String> regions = new HashSet<>(ret);
 
-        given (origineDenreeService.getRegionByPays(pays)).willReturn(regions);
+        given(origineDenreeService.getRegionByPays(pays)).willReturn(regions);
         mockMvc.perform(get("/origineDenree/regions")
-                .contentType(MediaType.APPLICATION_JSON)
-                .param("pays", pays))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("pays", pays))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(regions.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
 

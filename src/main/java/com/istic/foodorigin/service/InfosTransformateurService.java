@@ -21,7 +21,7 @@ public class InfosTransformateurService {
     @Autowired
     private TransformateurRepository transformateurRepository;
 
-    public InfosTransformateur getInfosById (Long id) {
+    public InfosTransformateur getInfosById(Long id) {
         InfosTransformateur ret = null;
         if (id != null) {
             Optional<InfosTransformateur> infos = infosRepository.findById(id);

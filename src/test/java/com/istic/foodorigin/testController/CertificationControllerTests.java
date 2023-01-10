@@ -39,39 +39,39 @@ public class CertificationControllerTests {
     private CertificationRepository certificationRepository;
 
     @Test
-    public void testGetAll () throws Exception {
+    public void testGetAll() throws Exception {
         Iterable<Certification> itCertif = certificationRepository.findAll();
         List<Certification> certifs = StreamSupport.stream(itCertif.spliterator(), false).collect(Collectors.toList());
 
-        given (certificationService.getAllCertifications()).willReturn(certifs);
+        given(certificationService.getAllCertifications()).willReturn(certifs);
         mockMvc.perform(get("/certification/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(certifs.size())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
     }
 
     @Test
-    public void testGetCertifByIdExists () throws Exception {
+    public void testGetCertifByIdExists() throws Exception {
         Long id = Integer.toUnsignedLong(3);
         Certification c3 = certificationRepository.findById(id).get();
 
-        given (certificationService.getCertificationById(id)).willReturn(c3);
+        given(certificationService.getCertificationById(id)).willReturn(c3);
         mockMvc.perform(get("/certification/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk())
-                .andExpect (MockMvcResultMatchers.jsonPath("$.id").value(id))
-                .andExpect (MockMvcResultMatchers.jsonPath("$.libelle").value(c3.getLibelle()));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.libelle").value(c3.getLibelle()));
 
     }
 
     @Test
-    public void testGetCertifByIdNotExists () throws Exception {
+    public void testGetCertifByIdNotExists() throws Exception {
         Long id = Integer.toUnsignedLong(30);
 
-        given (certificationService.getAllCertifications()).willReturn(null);
+        given(certificationService.getAllCertifications()).willReturn(null);
         mockMvc.perform(get("/certification/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect (status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

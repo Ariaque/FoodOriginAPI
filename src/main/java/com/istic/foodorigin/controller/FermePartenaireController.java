@@ -19,21 +19,21 @@ import java.util.stream.StreamSupport;
  * to retrieve information about {@link FermePartenaire} from database.
  */
 @RestController
-@RequestMapping ("/ferme")
+@RequestMapping("/ferme")
 public class FermePartenaireController {
 
     @Autowired
     private FermePartenaireService fermePartenaireService;
 
     @GetMapping(path = "/all", produces = "application/json")
-    public Set<FermePartenaire> getAll () {
+    public Set<FermePartenaire> getAll() {
         Iterable<FermePartenaire> itFerme = fermePartenaireService.getAllFermes();
         List<FermePartenaire> fermes = StreamSupport.stream(itFerme.spliterator(), false).collect(Collectors.toList());
         Set<FermePartenaire> ret = new HashSet<>(fermes);
         return ret;
     }
 
-    @GetMapping (path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/{id}", produces = "application/json")
     public FermePartenaire getFermeById(@PathVariable Long id) {
         FermePartenaire ferme = fermePartenaireService.getFermeById(id);
         return ferme;
