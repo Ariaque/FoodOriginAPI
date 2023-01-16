@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Point of contact allowing client applications
@@ -45,16 +46,16 @@ public class TransformateurController {
 
     @PutMapping(path = "/addGroup", consumes = "application/json", produces = "application/json")
     public Transformateur addGroupe(@RequestBody OneToOneDto dto) {
-        GroupeTransformateur groupeTransformateur = groupeTransformateurService.getGroupeTransformateurById(dto.getForeignId());
+        Optional<GroupeTransformateur> groupeTransformateur = groupeTransformateurService.getGroupeTransformateurById(dto.getForeignId());
         Transformateur transformateur = transformateurService.getTransformateurById(dto.getMainId());
 
         if (transformateur == null) {
             throw new IllegalArgumentException("No transformateur with the provided id");
         }
-        if (groupeTransformateur == null) {
+        if (!groupeTransformateur.isPresent()) {
             throw new IllegalArgumentException("No Transformateur group with the provided id");
         }
-        transformateur.setGroupeTransformateur(groupeTransformateur);
+        transformateur.setGroupeTransformateur(groupeTransformateur.get());
         transformateurService.update(transformateur);
 
         return transformateur;

@@ -1,98 +1,152 @@
-/*
 package com.istic.foodorigin.testController;
 
-import com.istic.foodorigin.controller.GroupeTransformateurController;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.istic.foodorigin.dto.AddGroupeTransformateurDto;
 import com.istic.foodorigin.models.GroupeTransformateur;
+import com.istic.foodorigin.models.Label;
 import com.istic.foodorigin.repository.GroupeTransformateurRepository;
+import com.istic.foodorigin.repository.LabelRepository;
 import com.istic.foodorigin.service.GroupeTransformateurService;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @SpringBootTest
+@EnableWebMvc
 @AutoConfigureMockMvc
 public class GroupeTransformateurControllerTest {
-
-    @InjectMocks
-    private GroupeTransformateurController controller;
-
-    @Autowired
-    private GroupeTransformateurRepository repository;
-
-    @MockBean
-    private GroupeTransformateurService service;
 
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private GroupeTransformateurRepository repository;
+
+    @Autowired
+    private LabelRepository labelRepository;
+
+    @MockBean
+    private GroupeTransformateurService service;
+
     @Test
     public void testGetGroupeTransformateurById() throws Exception {
         Long id = Integer.toUnsignedLong(1);
-        GroupeTransformateur groupeTransformateur = repository.findById(id).get();
+        Optional<GroupeTransformateur> groupeTransformateur = repository.findById(id);
         when(service.getGroupeTransformateurById(id)).thenReturn(groupeTransformateur);
 
-        mockMvc.perform(get("/groupTransformateur/{id}", id))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("groupe1"));
-    }
-
-    @Test
-    public void testGetTansformateurByIdExists() throws Exception {
-        Long id = Integer.toUnsignedLong(20);
-        Transformateur transformateur = transformateurRepository.findById(id).get();
-
-        given(transformateurService.getTransformateurById(id)).willReturn(transformateur);
-        mockMvc.perform(get("/transformateur/{id}", id)
+        mockMvc.perform(get("/groupTransformateur/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.num_agrement").value(transformateur.getNum_agrement()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.siret").value(transformateur.getSiret()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.raison_sociale").value(transformateur.getRaison_sociale()));
-
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.description").value(groupeTransformateur.get().getDescription()));
     }
-    */
-/*
+
     @Test
     public void testGetGroupeTransformateurByInvalidId() throws Exception {
-        when(repository.findById(1L)).thenReturn(Optional.empty());
+        Long id = Integer.toUnsignedLong(10);
+        when(service.getGroupeTransformateurById(id)).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/groupTransformateur/{id}", 1L))
+        mockMvc.perform(get("/groupTransformateur/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void testCreateGroupeTransformateur() throws Exception {
-        GroupeTransformateur groupeTransformateur = new GroupeTransformateur(1L, new HashSet<>(), "groupe1", new HashSet<>());
+        String description = "Add groupe groupeTransformateur test";
+        Set<Long> labelIds = new HashSet<>(Arrays.asList(1L, 3L));
+        Set<Label> labels = new HashSet<>();
+        for (Long id : labelIds) {
+            labels.add(labelRepository.findById(id).get());
+        }
 
-        when(repository.save(groupeTransformateur)).thenReturn(groupeTransformateur);
+        GroupeTransformateur groupeTransformateur = repository.save(new GroupeTransformateur(labels, description));
+        AddGroupeTransformateurDto dto = new AddGroupeTransformateurDto(labelIds, description);
 
-        mockMvc.perform(post("/groupTransformateur")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.description").value("groupe1"));
+        ObjectMapper map = new ObjectMapper();
+        map.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = map.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(dto);
 
-        verify(repository, times(1)).save(groupeTransformateur);
+        when(service.saveGroupe(groupeTransformateur)).thenReturn(groupeTransformateur);
+
+        mockMvc.perform(post("/groupTransformateur/save")
+                        .content(requestJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
+
+    @Test
+    public void testGetAllGroupeTransformateur() throws Exception {
+        List<GroupeTransformateur> groupeTransformateurList = StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
+        when(service.getAllGroupeTransformateurs()).thenReturn(groupeTransformateurList);
+
+        mockMvc.perform(get("/groupTransformateur/all")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(groupeTransformateurList.size()));
+    }
+
+    @Test
+    public void testGetGroupeTransformateurByTranformateurId() throws Exception {
+        Long id = Integer.toUnsignedLong(1);
+        Optional<GroupeTransformateur> groupeTransformateur = repository.findByTransformateurs_Id(id);
+        when(service.findByTransformateurId(id)).thenReturn(groupeTransformateur);
+
+        mockMvc.perform(get("/groupTransformateur/transformateur/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(groupeTransformateur.get().getId()))
+                .andExpect(jsonPath("$.description").value(groupeTransformateur.get().getDescription()));
+    }
+
+    @Test
+    public void testGetGroupeTransformateurByInexistantTranformateurId() throws Exception {
+        Long id = Integer.toUnsignedLong(10);
+        Optional<GroupeTransformateur> groupeTransformateur = repository.findByTransformateurs_Id(id);
+        when(service.findByTransformateurId(id)).thenReturn(groupeTransformateur);
+
+        mockMvc.perform(get("/groupTransformateur/transformateur/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testGetGroupeTransformateurBylabel() throws Exception {
+        String label = "rouge";
+        Optional<Set<GroupeTransformateur>> groupeTransformateurs = repository.findByLabels(label);
+        when(service.findByLabel(label)).thenReturn(groupeTransformateurs);
+
+        mockMvc.perform(get("/groupTransformateur/label/{label}", label)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+//                .andExpect(jsonPath("$.size()").value(groupeTransformateurs.get().size()))
+//                .andReturn();
+    }
+
+    /*@Test
+
+
+
 
     @Test
     public void testUpdateGroupeTransformateur() throws Exception {
@@ -146,7 +200,5 @@ public class GroupeTransformateurControllerTest {
 
         verify(repository, times(1)).findById(1L);
         verify(repository, times(0)).delete(any(GroupeTransformateur.class));
-    }*//*
-
+    }*/
 }
-*/

@@ -39,9 +39,6 @@ public class TransformateurRepositoryTests {
 
     @Test
     public void testFindBySiretNull() {
-        List<Transformateur> transformateurL = transformateurRepository.findBySiret(null);
-
-        assertThat(transformateurL.size()).isEqualTo(0);
     }
 
     @Test

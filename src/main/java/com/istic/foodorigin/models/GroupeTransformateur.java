@@ -13,7 +13,7 @@ public class GroupeTransformateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "foodOrigin_groupeTransformateur_label",
             joinColumns = @JoinColumn(name = "fk_infos"),
             inverseJoinColumns = @JoinColumn(name = "fk_label"))
@@ -25,8 +25,7 @@ public class GroupeTransformateur {
         this.labels = new HashSet<>();
     }
 
-    public GroupeTransformateur(Long id, Set<Label> labels, String description, Set<Transformateur> transformateurs) {
-        this.id = id;
+    public GroupeTransformateur(Set<Label> labels, String description) {
         this.labels = labels;
         this.description = description;
     }

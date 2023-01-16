@@ -28,22 +28,15 @@ public class GroupeTransformateurService {
         return retGroupe;
     }
 
-    public Optional<Set<GroupeTransformateur>> findByTransformateurId(Long id) {
+    public Optional<GroupeTransformateur> findByTransformateurId(Long id) {
         return (id == null) ? Optional.empty() : groupeTransformateurRepository.findByTransformateurs_Id(id);
     }
 
     public Optional<Set<GroupeTransformateur>> findByLabel(String label) {
-        return (label == null || label.isEmpty()) ? Optional.empty() : groupeTransformateurRepository.findByLabels(label);
+        return (label == null || label.isEmpty()) ? Optional.empty() : groupeTransformateurRepository.findByLabels(label.toLowerCase());
     }
 
-    public GroupeTransformateur getGroupeTransformateurById(Long id) {
-        GroupeTransformateur ret = null;
-        if (id != null) {
-            Optional<GroupeTransformateur> groupeTransformateur = groupeTransformateurRepository.findById(id);
-            if (groupeTransformateur.isPresent()) {
-                ret = groupeTransformateur.get();
-            }
-        }
-        return ret;
+    public Optional<GroupeTransformateur> getGroupeTransformateurById(Long id) {
+        return (id == null) ? Optional.empty() : groupeTransformateurRepository.findById(id);
     }
 }
