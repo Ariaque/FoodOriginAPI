@@ -14,5 +14,5 @@ public interface GroupeTransformateurRepository extends CrudRepository<GroupeTra
     Optional<GroupeTransformateur> findByTransformateurs_Id(Long id);
 
     @Query("select g from GroupeTransformateur g inner join g.labels l where l.libelle like %?1%")
-    Optional<Set<GroupeTransformateur>> findByLabels(String label);
+    Optional<Set<GroupeTransformateur>> findByLabel(String label);
 }

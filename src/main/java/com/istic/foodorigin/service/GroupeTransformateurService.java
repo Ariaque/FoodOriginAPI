@@ -33,7 +33,7 @@ public class GroupeTransformateurService {
     }
 
     public Optional<Set<GroupeTransformateur>> findByLabel(String label) {
-        return (label == null || label.isEmpty()) ? Optional.empty() : groupeTransformateurRepository.findByLabels(label.toLowerCase());
+        return (label == null || label.isEmpty()) ? Optional.empty() : groupeTransformateurRepository.findByLabel(label.toLowerCase());
     }
 
     public Optional<GroupeTransformateur> getGroupeTransformateurById(Long id) {

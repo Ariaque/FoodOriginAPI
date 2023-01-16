@@ -1,36 +1,62 @@
-package com.istic.foodorigin.testRepository;
+package com.istic.foodorigin.testService;
 
 import com.istic.foodorigin.models.GroupeTransformateur;
 import com.istic.foodorigin.models.Label;
 import com.istic.foodorigin.models.Transformateur;
-import com.istic.foodorigin.repository.GroupeTransformateurRepository;
-import com.istic.foodorigin.repository.TransformateurRepository;
+import com.istic.foodorigin.service.GroupeTransformateurService;
+import com.istic.foodorigin.service.LabelService;
+import com.istic.foodorigin.service.TransformateurService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class GroupeTransformateurRepositoryTest {
+public class GroupeTransformateurServiceTest {
 
     @Autowired
-    private GroupeTransformateurRepository groupeTransformateurRepository;
+    GroupeTransformateurService groupeTransformateurService;
 
     @Autowired
-    private TransformateurRepository transformateurRepository;
+    private TransformateurService transformateurService;
+    @Autowired
+    private LabelService labelService;
+
+
+    @Test
+    public void testCreateGroupeTransformateur() {
+        String description = "Added by test";
+        Set<Label> labels = StreamSupport.stream(labelService.getAllLabels().spliterator(), false).collect(Collectors.toSet());
+
+        Set<Label> randLabs = new HashSet<>();
+        for (int i = 0; i < (new Random().nextInt(5) + 1); i++) {
+            randLabs.add(labels.stream().skip(new Random().nextInt(labels.size())).findFirst().get());
+        }
+
+        GroupeTransformateur groupeTransformateur = new GroupeTransformateur(randLabs, description);
+
+        GroupeTransformateur result = groupeTransformateurService.saveGroupe(groupeTransformateur);
+
+        assertEquals(result.getDescription(), groupeTransformateur.getDescription());
+        boolean contains = result.getLabels().stream().allMatch(l1 -> randLabs.stream().anyMatch(l2 -> l1.getId().equals(l2.getId())));
+        assertTrue(contains);
+    }
 
     @Test
     public void testFindByTransformateursId() {
         Long id = Integer.toUnsignedLong(1);
-        Transformateur transformateur = transformateurRepository.findById(id).get();
+        Transformateur transformateur = transformateurService.getTransformateurById(id);
 
         // Call the findByTransformateurs_Id method with the Transformateur's id as the parameter
-        Optional<GroupeTransformateur> result = groupeTransformateurRepository.findByTransformateurs_Id(id);
+        Optional<GroupeTransformateur> result = groupeTransformateurService.findByTransformateurId(id);
 
         // Assert that the returned Optional contains the same GroupeTransformateur that was retreived earlier
         assertTrue(result.isPresent());
@@ -41,16 +67,15 @@ public class GroupeTransformateurRepositoryTest {
     public void testFindByTransformateursIdNotExist() {
         Long id = Integer.toUnsignedLong(1000000000);
 
-        Optional<GroupeTransformateur> result = groupeTransformateurRepository.findByTransformateurs_Id(id);
+        Optional<GroupeTransformateur> result = groupeTransformateurService.findByTransformateurId(id);
         // Assert that the returned Optional is empty
         assertFalse(result.isPresent());
     }
 
-
     @Test
     public void testFindByLabels() {
         String lab = "rouge";
-        Optional<Set<GroupeTransformateur>> result = groupeTransformateurRepository.findByLabel(lab);
+        Optional<Set<GroupeTransformateur>> result = groupeTransformateurService.findByLabel(lab);
 
         assertTrue(result.isPresent());
 
@@ -66,7 +91,7 @@ public class GroupeTransformateurRepositoryTest {
     @Test
     public void testFindByLabelsNoMatch() {
         // Call the findByLabels method with a libelle that does not match any of the Label's libelle in the repository
-        Optional<Set<GroupeTransformateur>> result = groupeTransformateurRepository.findByLabel("notExistLabel");
+        Optional<Set<GroupeTransformateur>> result = groupeTransformateurService.findByLabel("notExistLabel");
         // Assert that the returned Optional is empty
         assertFalse(result.isPresent());
     }

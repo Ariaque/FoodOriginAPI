@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.istic.foodorigin.dto.AddGroupeTransformateurDto;
 import com.istic.foodorigin.models.GroupeTransformateur;
 import com.istic.foodorigin.models.Label;
+import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.repository.GroupeTransformateurRepository;
 import com.istic.foodorigin.repository.LabelRepository;
 import com.istic.foodorigin.service.GroupeTransformateurService;
+import com.istic.foodorigin.service.TransformateurService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -45,29 +47,9 @@ public class GroupeTransformateurControllerTest {
 
     @MockBean
     private GroupeTransformateurService service;
+    @Autowired
+    private TransformateurService transformateurService;
 
-    @Test
-    public void testGetGroupeTransformateurById() throws Exception {
-        Long id = Integer.toUnsignedLong(1);
-        Optional<GroupeTransformateur> groupeTransformateur = repository.findById(id);
-        when(service.getGroupeTransformateurById(id)).thenReturn(groupeTransformateur);
-
-        mockMvc.perform(get("/groupTransformateur/{id}", id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.description").value(groupeTransformateur.get().getDescription()));
-    }
-
-    @Test
-    public void testGetGroupeTransformateurByInvalidId() throws Exception {
-        Long id = Integer.toUnsignedLong(10);
-        when(service.getGroupeTransformateurById(id)).thenReturn(Optional.empty());
-
-        mockMvc.perform(get("/groupTransformateur/{id}", id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
 
     @Test
     public void testCreateGroupeTransformateur() throws Exception {
@@ -96,6 +78,29 @@ public class GroupeTransformateurControllerTest {
     }
 
     @Test
+    public void testGetGroupeTransformateurById() throws Exception {
+        Long id = Integer.toUnsignedLong(1);
+        Optional<GroupeTransformateur> groupeTransformateur = repository.findById(id);
+        when(service.getGroupeTransformateurById(id)).thenReturn(groupeTransformateur);
+
+        mockMvc.perform(get("/groupTransformateur/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.description").value(groupeTransformateur.get().getDescription()));
+    }
+
+    @Test
+    public void testGetGroupeTransformateurByInvalidId() throws Exception {
+        Long id = Integer.toUnsignedLong(10);
+        when(service.getGroupeTransformateurById(id)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/groupTransformateur/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testGetAllGroupeTransformateur() throws Exception {
         List<GroupeTransformateur> groupeTransformateurList = StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
         when(service.getAllGroupeTransformateurs()).thenReturn(groupeTransformateurList);
@@ -109,6 +114,11 @@ public class GroupeTransformateurControllerTest {
     @Test
     public void testGetGroupeTransformateurByTranformateurId() throws Exception {
         Long id = Integer.toUnsignedLong(1);
+
+        Transformateur transformateur = transformateurService.getTransformateurById(id);
+        transformateur.setGroupeTransformateur(repository.findById(1L).get());
+        transformateurService.update(transformateur);
+
         Optional<GroupeTransformateur> groupeTransformateur = repository.findByTransformateurs_Id(id);
         when(service.findByTransformateurId(id)).thenReturn(groupeTransformateur);
 
@@ -133,14 +143,25 @@ public class GroupeTransformateurControllerTest {
     @Test
     public void testGetGroupeTransformateurBylabel() throws Exception {
         String label = "rouge";
-        Optional<Set<GroupeTransformateur>> groupeTransformateurs = repository.findByLabels(label);
-        when(service.findByLabel(label)).thenReturn(groupeTransformateurs);
+        Optional<Set<GroupeTransformateur>> gts = repository.findByLabel(label);
+        when(service.findByLabel(label)).thenReturn(gts);
+
+        Set<GroupeTransformateur> groupeTransformateurs = new HashSet<>(gts.get());
 
         mockMvc.perform(get("/groupTransformateur/label/{label}", label)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("$.size()").value(groupeTransformateurs.get().size()))
-//                .andReturn();
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(groupeTransformateurs.size()));
+
+        /*String jsonResponse = result.getResponse().getContentAsString();
+        Set<GroupeTransformateur> groupeTransformateurList = JsonPath.parse(jsonResponse).read("$.[*]");
+
+        //Check if each groupe transformateur contains in its labels the given string
+        boolean contains = groupeTransformateurList.stream()
+                .map(GroupeTransforémateur::getLabels)
+                .flatMap(Set::stream)
+                .anyMatch(l -> l.getLibelle().toLowerCase().contains(label.toLowerCase()));
+        assertTrue(contains);*/
     }
 
     /*@Test

@@ -15,7 +15,7 @@ public class GroupeTransformateur {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "foodOrigin_groupeTransformateur_label",
-            joinColumns = @JoinColumn(name = "fk_infos"),
+            joinColumns = @JoinColumn(name = "fk_group"),
             inverseJoinColumns = @JoinColumn(name = "fk_label"))
     private Set<Label> labels;
 
