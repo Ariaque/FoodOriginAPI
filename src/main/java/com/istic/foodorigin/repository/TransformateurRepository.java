@@ -19,5 +19,4 @@ public interface TransformateurRepository extends CrudRepository<Transformateur,
     @Query("select t from Transformateur t inner join t.groupeTransformateur gt where gt.id = ?1")
     List<Transformateur> findAllByGroupeTransformateurId(Long id);
 
-
 }

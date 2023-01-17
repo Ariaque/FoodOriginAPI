@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Class that tests {@link TransformateurRepository}
@@ -39,6 +40,8 @@ public class TransformateurRepositoryTests {
 
     @Test
     public void testFindBySiretNull() {
+        List<Transformateur> transformateurL = transformateurRepository.findBySiret(null);
+        assertThat(transformateurL.size()).isEqualTo(0);
     }
 
     @Test
@@ -65,4 +68,23 @@ public class TransformateurRepositoryTests {
 
         assertThat(transformateurL.size()).isEqualTo(0);
     }
+
+    @Test
+    public void testFindByGroupExist() {
+        Long groupId = Integer.toUnsignedLong(1);
+        List<Transformateur> transformateurL = transformateurRepository.findAllByGroupeTransformateurId(groupId);
+
+        assertThat(transformateurL.size()).isGreaterThanOrEqualTo(1);
+        boolean contains = transformateurL.stream().allMatch(transformateur -> transformateur.getGroupeTransformateur().getId().equals(groupId));
+        assertTrue(contains);
+    }
+
+    @Test
+    public void testFindByGroupDontExist() {
+        Long groupId = Integer.toUnsignedLong(1000000000);
+        List<Transformateur> transformateurL = transformateurRepository.findAllByGroupeTransformateurId(groupId);
+
+        assertThat(transformateurL.size()).isEqualTo(0);
+    }
+
 }

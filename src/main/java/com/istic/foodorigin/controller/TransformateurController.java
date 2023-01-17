@@ -6,6 +6,8 @@ import com.istic.foodorigin.models.Transformateur;
 import com.istic.foodorigin.service.GroupeTransformateurService;
 import com.istic.foodorigin.service.TransformateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,8 +37,13 @@ public class TransformateurController {
     }
 
     @GetMapping(path = "/groupid/{id}", consumes = "application/json")
-    public List<Transformateur> getTransformateurByGroupId(@PathVariable Long id) {
-        return transformateurService.getTransformateurByGroupId(id);
+    public ResponseEntity<List<Transformateur>> getTransformateurByGroupId(@PathVariable Long id) {
+        List<Transformateur> ret = transformateurService.getTransformateurByGroupId(id);
+        if (ret == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        }
     }
 
     @GetMapping(produces = "application/json")

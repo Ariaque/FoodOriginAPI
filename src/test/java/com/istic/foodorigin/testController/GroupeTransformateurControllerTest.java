@@ -47,6 +47,7 @@ public class GroupeTransformateurControllerTest {
 
     @MockBean
     private GroupeTransformateurService service;
+
     @Autowired
     private TransformateurService transformateurService;
 
