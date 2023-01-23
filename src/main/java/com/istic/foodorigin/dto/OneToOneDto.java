@@ -5,6 +5,7 @@ public class OneToOneDto {
     private Long foreignId;
 
     public OneToOneDto() {
+        super();
     }
 
     public OneToOneDto(Long mainId, Long foreignId) {

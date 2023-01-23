@@ -26,7 +26,7 @@ public class GroupeTransformateurRepositoryTest {
 
     @Test
     public void testFindByTransformateursId() {
-        Long id = Integer.toUnsignedLong(1);
+        Long id = Integer.toUnsignedLong(20);
         Transformateur transformateur = transformateurRepository.findById(id).get();
 
         // Call the findByTransformateurs_Id method with the Transformateur's id as the parameter
@@ -46,6 +46,12 @@ public class GroupeTransformateurRepositoryTest {
         assertFalse(result.isPresent());
     }
 
+    @Test
+    public void testFindByTransformateursIdNull() {
+        Optional<GroupeTransformateur> result = groupeTransformateurRepository.findByTransformateurs_Id(null);
+        // Assert that the returned Optional is empty
+        assertFalse(result.isPresent());
+    }
 
     @Test
     public void testFindByLabels() {
@@ -67,6 +73,14 @@ public class GroupeTransformateurRepositoryTest {
     public void testFindByLabelsNoMatch() {
         // Call the findByLabels method with a libelle that does not match any of the Label's libelle in the repository
         Optional<Set<GroupeTransformateur>> result = groupeTransformateurRepository.findByLabel("notExistLabel");
+        // Assert that the returned Optional is empty
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    public void testFindByLabelsIsNull() {
+        // Call the findByLabels method with a libelle that does not match any of the Label's libelle in the repository
+        Optional<Set<GroupeTransformateur>> result = groupeTransformateurRepository.findByLabel(null);
         // Assert that the returned Optional is empty
         assertFalse(result.isPresent());
     }

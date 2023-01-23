@@ -173,12 +173,6 @@ public class TransformateurControllerTests {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        /*List<Transformateur> list = JsonPath.parse(result.getResponse().getContentAsString()).read("$.*");
-        boolean allMatch = list.stream()
-                .map(t -> t.getGroupeTransformateur().getId())
-                .allMatch(value -> value.equals(groupId));
-        assertTrue(allMatch);*/
-
     }
 
 }

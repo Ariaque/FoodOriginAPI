@@ -95,23 +95,6 @@ public class TransformateurServiceTests {
         assertThat(found).isNull();
     }
 
-    @Test
-    public void testFindByGroupExist() {
-        Long groupId = Integer.toUnsignedLong(1);
-        List<Transformateur> transformateurL = transformateurService.getTransformateurByGroupId(groupId);
-
-        assertThat(transformateurL.size()).isGreaterThanOrEqualTo(1);
-        boolean contains = transformateurL.stream().allMatch(transformateur -> transformateur.getGroupeTransformateur().getId().equals(groupId));
-        assertTrue(contains);
-    }
-
-    @Test
-    public void testFindByGroupDontExist() {
-        Long groupId = Integer.toUnsignedLong(1000000000);
-        List<Transformateur> transformateurL = transformateurService.getTransformateurByGroupId(groupId);
-
-        assertThat(transformateurL.size()).isEqualTo(0);
-    }
 
     @Test
     public void testUpdateTransformateur() {
@@ -132,6 +115,31 @@ public class TransformateurServiceTests {
         //Assert that the selected transformateur have a group now
         assertNotNull(transformateur.getGroupeTransformateur());
         assertEquals(updated.getGroupeTransformateur().getId(), groupeTransformateur.getId());
+    }
+
+    @Test
+    public void testFindByGroupExist() {
+        Long groupId = Integer.toUnsignedLong(1);
+        List<Transformateur> transformateurL = transformateurService.getTransformateurByGroupId(groupId);
+
+        assertThat(transformateurL.size()).isGreaterThanOrEqualTo(1);
+        boolean contains = transformateurL.stream().allMatch(transformateur -> transformateur.getGroupeTransformateur().getId().equals(groupId));
+        assertTrue(contains);
+    }
+
+    @Test
+    public void testFindByGroupDontExist() {
+        Long groupId = Integer.toUnsignedLong(1000000000);
+        List<Transformateur> transformateurL = transformateurService.getTransformateurByGroupId(groupId);
+
+        assertThat(transformateurL.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void testFindByGroupIsNull() {
+        List<Transformateur> transformateurL = transformateurService.getTransformateurByGroupId(null);
+
+        assertThat(transformateurL.size()).isEqualTo(0);
     }
 
 }

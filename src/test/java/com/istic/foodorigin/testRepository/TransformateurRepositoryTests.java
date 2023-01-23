@@ -87,4 +87,10 @@ public class TransformateurRepositoryTests {
         assertThat(transformateurL.size()).isEqualTo(0);
     }
 
+    @Test
+    public void testFindByGroupNull() {
+        List<Transformateur> transformateurL = transformateurRepository.findAllByGroupeTransformateurId(null);
+        assertThat(transformateurL.size()).isEqualTo(0);
+    }
+
 }

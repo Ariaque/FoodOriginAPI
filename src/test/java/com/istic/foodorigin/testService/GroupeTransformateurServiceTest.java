@@ -53,10 +53,11 @@ public class GroupeTransformateurServiceTest {
     @Test
     public void testFindByTransformateursId() {
         Long id = Integer.toUnsignedLong(1);
-        Transformateur transformateur = transformateurService.getTransformateurById(id);
+        Long transformateurId = Integer.toUnsignedLong(20);
+        Transformateur transformateur = transformateurService.getTransformateurById(transformateurId);
 
         // Call the findByTransformateurs_Id method with the Transformateur's id as the parameter
-        Optional<GroupeTransformateur> result = groupeTransformateurService.findByTransformateurId(id);
+        Optional<GroupeTransformateur> result = groupeTransformateurService.findByTransformateurId(transformateurId);
 
         // Assert that the returned Optional contains the same GroupeTransformateur that was retreived earlier
         assertTrue(result.isPresent());
@@ -68,6 +69,13 @@ public class GroupeTransformateurServiceTest {
         Long id = Integer.toUnsignedLong(1000000000);
 
         Optional<GroupeTransformateur> result = groupeTransformateurService.findByTransformateurId(id);
+        // Assert that the returned Optional is empty
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    public void testFindByTransformateursIdIsNull() {
+        Optional<GroupeTransformateur> result = groupeTransformateurService.findByTransformateurId(null);
         // Assert that the returned Optional is empty
         assertFalse(result.isPresent());
     }
@@ -92,6 +100,39 @@ public class GroupeTransformateurServiceTest {
     public void testFindByLabelsNoMatch() {
         // Call the findByLabels method with a libelle that does not match any of the Label's libelle in the repository
         Optional<Set<GroupeTransformateur>> result = groupeTransformateurService.findByLabel("notExistLabel");
+        // Assert that the returned Optional is empty
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    public void testFindByLabelsIsNull() {
+        // Call the findByLabels method with a libelle that does not match any of the Label's libelle in the repository
+        Optional<Set<GroupeTransformateur>> result = groupeTransformateurService.findByLabel(null);
+        // Assert that the returned Optional is empty
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    public void testFindById() {
+        Long id = Integer.toUnsignedLong(1);
+        Optional<GroupeTransformateur> result = groupeTransformateurService.getGroupeTransformateurById(id);
+        // Assert that the returned Optional is not empty
+        assertTrue(result.isPresent());
+        // Assert that the returned element has the correct Id
+        assertEquals(result.get().getId(), id);
+    }
+
+    @Test
+    public void testFindByIdNotExist() {
+        Long id = Integer.toUnsignedLong(1000000000);
+        Optional<GroupeTransformateur> result = groupeTransformateurService.getGroupeTransformateurById(id);
+        // Assert that the returned Optional is empty
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    public void testFindByIdIsnull() {
+        Optional<GroupeTransformateur> result = groupeTransformateurService.getGroupeTransformateurById(null);
         // Assert that the returned Optional is empty
         assertFalse(result.isPresent());
     }
